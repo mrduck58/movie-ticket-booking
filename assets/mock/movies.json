@@ -1,0 +1,56 @@
+[
+  {
+    "id": "m001",
+    "title": "Dune: Part Two",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
+    "rating": 8.6,
+    "durationMin": 166,
+    "genres": ["Sci-Fi", "Adventure"],
+    "releaseDate": "2024-03-01"
+  },
+  {
+    "id": "m002",
+    "title": "Oppenheimer",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+    "rating": 8.1,
+    "durationMin": 180,
+    "genres": ["Drama", "History"],
+    "releaseDate": "2023-07-21"
+  },
+  {
+    "id": "m003",
+    "title": "Oppenheimer",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+    "rating": 8.1,
+    "durationMin": 180,
+    "genres": ["Drama", "History"],
+    "releaseDate": "2023-07-21"
+  },
+  {
+    "id": "m004",
+    "title": "Oppenheimer",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+    "rating": 8.1,
+    "durationMin": 180,
+    "genres": ["Drama", "History"],
+    "releaseDate": "2023-07-21"
+  },
+  {
+    "id": "m005",
+    "title": "Oppenheimer",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+    "rating": 8.1,
+    "durationMin": 180,
+    "genres": ["Drama", "History"],
+    "releaseDate": "2023-07-21"
+  },
+  {
+    "id": "m006",
+    "title": "Oppenheimer",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+    "rating": 8.1,
+    "durationMin": 180,
+    "genres": ["Drama", "History"],
+    "releaseDate": "2023-07-21"
+  }
+]
