@@ -1,0 +1,43 @@
+[
+  {
+    "id": "st001",
+    "movieId": "m001",
+    "cinemaId": "c001",
+    "date": "2026-03-02",
+    "format": "Standard",
+    "auditorium": "Auditorium 3",
+    "price": 12.0,
+    "times": ["10:00", "12:30", "15:00", "17:30", "20:00", "22:30"]
+  },
+  {
+    "id": "st002",
+    "movieId": "m001",
+    "cinemaId": "c001",
+    "date": "2026-03-02",
+    "format": "IMAX",
+    "auditorium": "Auditorium 4",
+    "price": 17.0,
+    "times": ["11:00", "13:30", "16:00", "18:30", "21:00"]
+  },
+
+  {
+    "id": "st003",
+    "movieId": "m001",
+    "cinemaId": "c001",
+    "date": "2026-03-03",
+    "format": "Standard",
+    "auditorium": "Auditorium 3",
+    "price": 12.0,
+    "times": ["10:00", "12:30", "15:00", "17:30", "20:00"]
+  },
+  {
+    "id": "st004",
+    "movieId": "m001",
+    "cinemaId": "c001",
+    "date": "2026-03-03",
+    "format": "IMAX",
+    "auditorium": "Auditorium 4",
+    "price": 17.0,
+    "times": ["11:00", "13:30", "16:00", "18:30"]
+  }
+]
