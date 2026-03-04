@@ -26,3 +26,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/mock/movies.json
+    - assets/mock/watchlist.json
+    - assets/mock/payment_methods.json
+    - assets/payment/
+    - assets/mock/notifications.json
+    - assets/mock/account.json
+

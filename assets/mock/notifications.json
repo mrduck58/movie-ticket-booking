@@ -1,0 +1,31 @@
+{
+  "notifications": [
+    {
+      "id": "n1",
+      "leadingType": "circleIcon",
+      "icon": "check_rounded",
+      "title": "New Update Available!",
+      "subtitle": "Update VPHAN Booking! and get a better cinematic experience!",
+      "time": "2026-03-04T09:40:00Z",
+      "isUnread": true
+    },
+    {
+      "id": "n2",
+      "leadingType": "poster",
+      "posterUrl": "https://picsum.photos/seed/jjk1/200/200",
+      "title": "Jujutsu Kaisen is now playing in your favorite cinema!",
+      "time": "2026-03-04T08:40:00Z",
+      "isUnread": true,
+      "showChevron": true
+    },
+    {
+      "id": "n3",
+      "leadingType": "circleIcon",
+      "icon": "shield_outlined",
+      "title": "Enable 2-Factor Authentication",
+      "subtitle": "Use 2-factor authentication for multiple layers of security.",
+      "time": "2026-03-03T14:45:00Z",
+      "isUnread": true
+    }
+  ]
+}
