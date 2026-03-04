@@ -16,6 +16,7 @@ dependencies:
   equatable: ^2.0.8
   intl: ^0.20.2
   cached_network_image: ^3.4.1
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/mock/movies.json
+    - assets/images/icons/  
+    - assets/mock/accounts.json
     - assets/mock/cinemas.json
     - assets/mock/showtimes.json
     - assets/mock/seats.json
