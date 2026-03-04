@@ -32,6 +32,7 @@ flutter:
     - assets/payment/
     - assets/mock/notifications.json
     - assets/mock/account.json
+
     - assets/images/icons/  
     - assets/mock/accounts.json
     - assets/mock/cinemas.json
