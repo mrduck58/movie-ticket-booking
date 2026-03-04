@@ -1,0 +1,10 @@
+{
+  "selectedId": "pm_master_4679",
+  "methods": [
+    { "id": "pm_paypal", "type": "paypal", "title": "PayPal" },
+    { "id": "pm_gpay", "type": "googlePay", "title": "Google Pay" },
+    { "id": "pm_apple", "type": "applePay", "title": "Apple Pay" },
+    { "id": "pm_master_4679", "type": "mastercard", "title": "•••• •••• •••• 4679" },
+    { "id": "pm_visa_5567", "type": "visa", "title": "•••• •••• •••• 5567" }
+  ]
+}
