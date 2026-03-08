@@ -1,0 +1,65 @@
+{
+  "watchlist": [
+    {
+      "id": "wl1",
+      "title": "Jujutsu Kaisen",
+      "imageUrl": "https://picsum.photos/seed/wl1/600/900"
+    },
+    {
+      "id": "wl2",
+      "title": "Demon Slayer",
+      "imageUrl": "https://picsum.photos/seed/wl2/600/900"
+    },
+     {
+      "id": "wl1",
+      "title": "Jujutsu Kaisen",
+      "imageUrl": "https://picsum.photos/seed/wl1/600/900"
+    },
+    {
+      "id": "wl2",
+      "title": "Demon Slayer",
+      "imageUrl": "https://picsum.photos/seed/wl2/600/900"
+    }
+  ],
+  "watched": [
+    {
+      "id": "wt1",
+      "title": "Jujutsu Kaisen",
+      "imageUrl": "https://picsum.photos/seed/wt1/600/900",
+      "duration": "134 minutes",
+      "director": "Nia DaCosta",
+      "ageRating": "R13+",
+      "genres": [
+        "Action",
+        "Fantasy",
+        "Adventure"
+      ]
+    },
+     {
+      "id": "wt1",
+      "title": "Jujutsu Kaisen",
+      "imageUrl": "https://picsum.photos/seed/wt1/600/900",
+      "duration": "134 minutes",
+      "director": "Nia DaCosta",
+      "ageRating": "R13+",
+      "genres": [
+        "Action",
+        "Fantasy",
+        "Adventure"
+      ]
+    },
+     {
+      "id": "wt1",
+      "title": "Jujutsu Kaisen",
+      "imageUrl": "https://picsum.photos/seed/wt1/600/900",
+      "duration": "134 minutes",
+      "director": "Nia DaCosta",
+      "ageRating": "R13+",
+      "genres": [
+        "Action",
+        "Fantasy",
+        "Adventure"
+      ]
+    }
+  ]
+}

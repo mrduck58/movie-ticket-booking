@@ -1,0 +1,10 @@
+[
+  { "id": "c001", "name": "AMC Empire 25", "isFavorite": true },
+  { "id": "c002", "name": "Regal E-Walk 4DX & RPX", "isFavorite": false },
+  { "id": "c003", "name": "Angelika Film Center", "isFavorite": true },
+  { "id": "c004", "name": "Nitehawk Cinema", "isFavorite": false },
+  { "id": "c005", "name": "Alamo Drafthouse", "isFavorite": false },
+  { "id": "c006", "name": "IFC Center", "isFavorite": false },
+  { "id": "c007", "name": "Metrograph", "isFavorite": true },
+  { "id": "c008", "name": "Landmark at 57 West", "isFavorite": false }
+]
