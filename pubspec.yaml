@@ -19,7 +19,11 @@ dependencies:
   cached_network_image: ^3.4.1
   youtube_player_iframe: ^5.1.2
   shared_preferences: ^2.2.2
-  
+  image_picker: ^1.0.7
+  provider: ^6.1.2
+  path_provider: ^2.1.3
+  timeago: ^3.6.0
+
 
 dev_dependencies:
   flutter_test:
@@ -29,23 +33,29 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/mock/movies.json
-    - assets/mock/watchlist.json
-    - assets/mock/payment_methods.json
-    - assets/payment/
-    - assets/mock/notifications.json
-    - assets/mock/account.json
+    - assets/mock/
+    # - assets/mock/movies.json
+    # - assets/mock/watchlist.json
+    # - assets/mock/payment_methods.json
+    # - assets/mock/notifications.json
+    # - assets/mock/account.json
+
+    
+    # - assets/mock/accounts.json
+    # - assets/mock/cinemas.json
+    # - assets/mock/showtimes.json
+    # - assets/mock/seats.json
+    # - assets/mock/combos.json
+    # - assets/mock/payments.json
+    # - assets/mock/movie.jpg
 
     - assets/images/icons/  
+    - assets/images/avatars/  
     - assets/images/maps/map_mock.jpg
+    - assets/payment/
 
-    - assets/mock/accounts.json
-    - assets/mock/cinemas.json
-    - assets/mock/showtimes.json
-    - assets/mock/seats.json
-    - assets/mock/combos.json
-    - assets/mock/payments.json
-    - assets/mock/movie.jpg
+
+    
 
   fonts:
     - family: Montserrat
