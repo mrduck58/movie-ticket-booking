@@ -1,22 +1,21 @@
-class ComboModel {
-  final String id;
-  final String name;
-  final int priceVnd;
-  final String imageUrl;
+import '../../../../domain/entities/combo.dart';
 
+class ComboModel extends Combo {
   const ComboModel({
-    required this.id,
-    required this.name,
-    required this.priceVnd,
-    required this.imageUrl,
+    required super.id,
+    required super.name,
+    required super.description,
+    required super.price,
+    required super.image,
   });
 
   factory ComboModel.fromJson(Map<String, dynamic> json) {
     return ComboModel(
       id: json['id'] as String,
       name: json['name'] as String,
-      priceVnd: (json['priceVnd'] as num).toInt(),
-      imageUrl: json['imageUrl'] as String,
+      description: json['description'] as String,
+      price: (json['price'] as num).toInt(),
+      image: json['image'] as String,
     );
   }
 }

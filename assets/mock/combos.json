@@ -2,13 +2,15 @@
   {
     "id": "cb01",
     "name": "Food Combo 1",
-    "priceVnd": 99000,
-    "imageUrl": "https://via.placeholder.com/80x80.png?text=Combo+1"
+    "description": "Includes popcorn, soda, and a candy bar.",
+    "price": 99000,
+    "image": "https://via.placeholder.com/80x80.png?text=Combo+1"
   },
   {
     "id": "cb02",
     "name": "Food Combo 2",
-    "priceVnd": 79000,
-    "imageUrl": "https://via.placeholder.com/80x80.png?text=Combo+2"
+    "description": "Includes nachos, soda, and a cookie.",
+    "price": 79000,
+    "image": "https://via.placeholder.com/80x80.png?text=Combo+2"
   }
 ]
