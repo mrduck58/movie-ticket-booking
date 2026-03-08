@@ -1,32 +1,30 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/datasources/showtime_mock_datasource.dart';
-import '../../data/models/showtime_model.dart';
-import '../../data/repositories/showtime_repository.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
-final showtimeDataSourceProvider = Provider((ref) => ShowtimeMockDataSource());
+import '../../../../domain/entities/showtime.dart';
+import '../../../../domain/repositories/showtime_repository.dart';
+import '../../data/datasources/showtime_mock_datasource.dart';
+import '../../data/repositories/showtime_repository_impl.dart';
+
+final showtimeDatasourceProvider = Provider<ShowtimeMockDatasource>((ref) {
+  return ShowtimeMockDatasourceImpl();
+});
 
 final showtimeRepositoryProvider = Provider<ShowtimeRepository>((ref) {
-  return ShowtimeRepositoryImpl(ref.watch(showtimeDataSourceProvider));
+  final ds = ref.watch(showtimeDatasourceProvider);
+  return ShowtimeRepositoryImpl(ds);
 });
 
-final allShowtimesProvider = FutureProvider<List<ShowtimeModel>>((ref) async {
-  return ref.watch(showtimeRepositoryProvider).getShowtimes();
+final showtimesProvider = FutureProvider.family<List<Showtime>, String>((
+  ref,
+  cinemaId,
+) {
+  final repo = ref.watch(showtimeRepositoryProvider);
+  return repo.getShowtimes(cinemaId);
 });
 
-class SelectedDateIndex extends Notifier<int> {
-  @override
-  int build() => 0;
-  void set(int value) => state = value;
-}
-final selectedDateIndexProvider =
-    NotifierProvider<SelectedDateIndex, int>(SelectedDateIndex.new);
+final selectedShowtimeProvider = StateProvider<String?>((ref) => null);
 
-/// key = "${format}|${time}" 
-class SelectedTimeKey extends Notifier<String?> {
-  @override
-  String? build() => null;
-  void select(String key) => state = key;
-  void clear() => state = null;
-}
-final selectedTimeKeyProvider =
-    NotifierProvider<SelectedTimeKey, String?>(SelectedTimeKey.new);
+final selectedDateProvider = StateProvider<DateTime>((ref) {
+  return DateTime.now();
+});

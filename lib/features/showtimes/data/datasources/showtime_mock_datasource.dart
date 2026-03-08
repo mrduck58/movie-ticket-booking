@@ -1,13 +1,21 @@
 import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart';
+
 import '../models/showtime_model.dart';
 
-class ShowtimeMockDataSource {
-  Future<List<ShowtimeModel>> fetchShowtimes() async {
+abstract class ShowtimeMockDatasource {
+  Future<List<ShowtimeModel>> getShowtimes(String cinemaId);
+}
+
+class ShowtimeMockDatasourceImpl implements ShowtimeMockDatasource {
+  @override
+  Future<List<ShowtimeModel>> getShowtimes(String cinemaId) async {
     final raw = await rootBundle.loadString('assets/mock/showtimes.json');
-    final decoded = jsonDecode(raw) as List;
-    return decoded
-        .map((e) => ShowtimeModel.fromJson(e as Map<String, dynamic>))
+    final list = jsonDecode(raw) as List;
+
+    return list
+        .map((e) => ShowtimeModel.fromJson(e))
+        .where((e) => e.cinemaId == cinemaId)
         .toList();
   }
 }
