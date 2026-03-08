@@ -34,11 +34,15 @@ flutter:
     - assets/mock/account.json
 
     - assets/images/icons/  
+    - assets/images/maps/map_mock.jpg
+
     - assets/mock/accounts.json
     - assets/mock/cinemas.json
     - assets/mock/showtimes.json
     - assets/mock/seats.json
     - assets/mock/combos.json
+    - assets/mock/payments.json
+    - assets/mock/movie.jpg
 
   fonts:
     - family: Montserrat

@@ -1,43 +1,25 @@
 [
   {
-    "id": "st001",
-    "movieId": "m001",
-    "cinemaId": "c001",
-    "date": "2026-03-02",
+    "id": "standard_1",
+    "cinema_id": "amc_empire_25",
     "format": "Standard",
     "auditorium": "Auditorium 3",
-    "price": 12.0,
-    "times": ["10:00", "12:30", "15:00", "17:30", "20:00", "22:30"]
+    "price": 12,
+    "times": ["10:00","12:30","15:00","17:30","20:00","22:30"]
   },
   {
-    "id": "st002",
-    "movieId": "m001",
-    "cinemaId": "c001",
-    "date": "2026-03-02",
+    "id": "imax_1",
+    "cinema_id": "amc_empire_25",
     "format": "IMAX",
     "auditorium": "Auditorium 4",
-    "price": 17.0,
-    "times": ["11:00", "13:30", "16:00", "18:30", "21:00"]
-  },
-
-  {
-    "id": "st003",
-    "movieId": "m001",
-    "cinemaId": "c001",
-    "date": "2026-03-03",
-    "format": "Standard",
-    "auditorium": "Auditorium 3",
-    "price": 12.0,
-    "times": ["10:00", "12:30", "15:00", "17:30", "20:00"]
-  },
-  {
-    "id": "st004",
-    "movieId": "m001",
-    "cinemaId": "c001",
-    "date": "2026-03-03",
-    "format": "IMAX",
-    "auditorium": "Auditorium 4",
-    "price": 17.0,
-    "times": ["11:00", "13:30", "16:00", "18:30"]
+    "price": 17,
+    "times": ["11:00","14:00","18:00","21:30"]
+  },{
+    "id": "dolby_cinema",
+    "cinema_id": "amc_empire_25",
+    "format": "Dolby Cinema",
+    "auditorium": "Auditorium 5",
+    "price": 22,
+    "times": ["13:00","15:30","18:30"]
   }
 ]

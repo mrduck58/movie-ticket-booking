@@ -4,4 +4,4 @@ extension StringX on String {
 
   bool get isPhone =>
       RegExp(r'^[0-9]{9,11}$').hasMatch(this);
-}s
+}
