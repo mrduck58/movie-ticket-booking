@@ -1,3 +1,4 @@
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
@@ -17,13 +18,14 @@ class BookingDraft {
   });
 
   BookingDraft copyWith({
+    String? movieId,
     String? cinemaId,
     String? showtime,
     List<String>? seats,
     String? paymentMethod,
   }) {
     return BookingDraft(
-      movieId: movieId,
+      movieId: movieId ?? this.movieId,
       cinemaId: cinemaId ?? this.cinemaId,
       showtime: showtime ?? this.showtime,
       seats: seats ?? this.seats,
@@ -34,3 +36,4 @@ class BookingDraft {
 
 final bookingDraftProvider =
     StateProvider<BookingDraft?>((ref) => null);
+

@@ -1,105 +1,89 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_ticket_booking/features/home/presentation/providers/home_providers.dart';
-
-import '../../../checkout/providers/booking_draft_provider.dart';
+import 'package:movie_ticket_booking/features/checkout/providers/booking_draft_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  int _bannerIndex = 0;
+  int bannerIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final movieAsync = ref.watch(movieProvider);
 
-    // TODO: implement build
     return Scaffold(
-      //appBar: AppBar(title: Text("Home")),
+      bottomNavigationBar: const _HomeBottomNav(),
       body: SafeArea(
         child: movieAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (e, _) => Center(child: Text('Error: $e')),
+          error: (e, _) => Center(child: Text("Error: $e")),
           data: (movies) {
-            final banners = movies.take(5).toList();
-             return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            final banners = movies.take(10).toList();
+
+            final nowPlaying = movies
+                .where((m) => m.releaseDate.isBefore(DateTime.now()))
+                .toList();
+
+            final comingSoon = movies
+                .where((m) => m.releaseDate.isAfter(DateTime.now()))
+                .toList();
+
+            return ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
+                const SizedBox(height: 10),
+
                 const _TopLocationBar(),
-                const SizedBox(height: 14),
+
+                const SizedBox(height: 16),
 
                 _BannerCarousel(
-                  items: banners.map((m) => m.posterUrl).toList(),
-                  onIndexChanged: (i) => setState(() => _bannerIndex = i),
-                ),
-                const SizedBox(height: 8),
-                _DotsIndicator(count: banners.length, index: _bannerIndex),
-
-                const SizedBox(height: 18),
-                _SectionHeader(
-                  title: 'Now Playing',
-                  onViewAll: () {
-                    // sau này: context.go('/movies/now-playing');
+                  items: banners.map((e) => e.posterUrl).toList(),
+                  onIndexChanged: (i) {
+                    setState(() {
+                      bannerIndex = i;
+                    });
                   },
                 ),
-                const SizedBox(height: 10),
 
-                SizedBox(
-                  height: 240,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: movies.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 12),
-                    itemBuilder: (context, index) {
-                      final m = movies[index];
-                      return _MovieCard(
-                        title: m.title,
-                        imageUrl: m.posterUrl,
-                        onTap: () {
-                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
-                          context.go('/movie/${m.id}');
-                        },
-                        onBookNow: () {
-                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
-                          context.go('/showtimes/${m.id}');
-                        },
-                      );
-                    },
-                  ),
-                ),
+                const SizedBox(height: 8),
 
-                const SizedBox(height: 18),
+                _DotsIndicator(count: banners.length, index: bannerIndex),
+
+                const SizedBox(height: 20),
+
                 _SectionHeader(
-                  title: 'Now Playing',
-                  onViewAll: () {},
+                  title: "Now Playing",
+                  onViewAll: () {
+                    context.push('/now-playing');
+                  },
                 ),
+
                 const SizedBox(height: 10),
 
-                // Section thứ 2 giống ảnh (bạn có thể đổi sang Coming Soon)
                 SizedBox(
-                  height: 240,
+                  height: 270,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    itemCount: movies.length,
+                    itemCount: nowPlaying.length,
                     separatorBuilder: (_, __) => const SizedBox(width: 12),
                     itemBuilder: (context, index) {
-                      final m = movies[index];
+                      final m = nowPlaying[index];
+
                       return _MovieCard(
                         title: m.title,
                         imageUrl: m.posterUrl,
                         onTap: () {
-                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
                           context.go('/movie/${m.id}');
                         },
                         onBookNow: () {
-                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
                           context.go('/showtimes/${m.id}');
                         },
                       );
@@ -108,6 +92,46 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
 
                 const SizedBox(height: 20),
+
+                _SectionHeader(
+                  title: "Coming Soon",
+                  onViewAll: () {
+                    context.push('/coming-soon');
+                  },
+                ),
+
+                const SizedBox(height: 10),
+
+                SizedBox(
+                  height: 270,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: comingSoon.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final m = comingSoon[index];
+
+                      return _MovieCard(
+                        title: m.title,
+                        imageUrl: m.posterUrl,
+                        onTap: () {
+                          ref.read(bookingDraftProvider.notifier).state =
+                              BookingDraft(movieId: m.id);
+
+                          context.push('/movie/${m.id}');
+                        },
+                        onBookNow: () {
+                          ref.read(bookingDraftProvider.notifier).state =
+                              BookingDraft(movieId: m.id);
+
+                          context.push('/movie/${m.id}');
+                        },
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 30),
               ],
             );
           },
@@ -122,19 +146,19 @@ class _TopLocationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const accent = Color(0xFFFF4D67); // đỏ hồng như design
+    const accent = Color(0xFFFF4D67);
 
     return Row(
       children: [
-        // avatar circle
         Container(
           width: 44,
           height: 44,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFFE9E9E9),
+            color: Color(0xFFEAEAEA),
           ),
         ),
+
         const SizedBox(width: 12),
 
         Expanded(
@@ -142,30 +166,36 @@ class _TopLocationBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Your location',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                    ),
+                "Your location",
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: Colors.black54),
               ),
+
               const SizedBox(height: 2),
+
               Row(
                 children: [
                   Text(
-                    'Hoa Lac',
+                    "Hoa Lac",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+
                   const SizedBox(width: 6),
-                  const Icon(Icons.location_on_outlined, size: 18, color: accent),
+
+                  const Icon(
+                    Icons.location_on_outlined,
+                    color: accent,
+                    size: 18,
+                  ),
                 ],
               ),
             ],
           ),
         ),
 
-        // bell + dot
         Stack(
           clipBehavior: Clip.none,
           children: [
@@ -178,12 +208,13 @@ class _TopLocationBar extends StatelessWidget {
               ),
               child: const Icon(Icons.notifications_none),
             ),
+
             Positioned(
               right: 10,
               top: 10,
               child: Container(
-                width: 9,
-                height: 9,
+                width: 8,
+                height: 8,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: accent,
@@ -201,30 +232,19 @@ class _BannerCarousel extends StatelessWidget {
   final List<String> items;
   final ValueChanged<int> onIndexChanged;
 
-  const _BannerCarousel({
-    required this.items,
-    required this.onIndexChanged,
-  });
+  const _BannerCarousel({required this.items, required this.onIndexChanged});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 165,
+      height: 170,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         child: PageView.builder(
           itemCount: items.length,
           onPageChanged: onIndexChanged,
           itemBuilder: (context, index) {
-            final url = items[index];
-            return Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(url),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
+            return Image.network(items[index], fit: BoxFit.cover);
           },
         ),
       ),
@@ -240,19 +260,19 @@ class _DotsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const active = Color(0xFFFF4D67);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(count, (i) {
-        final isActive = i == index;
+        final active = i == index;
+
         return AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
+          duration: const Duration(milliseconds: 200),
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          width: isActive ? 10 : 7,
+          width: active ? 10 : 7,
           height: 7,
           decoration: BoxDecoration(
-            color: isActive ? active : Colors.black26,
-            borderRadius: BorderRadius.circular(99),
+            color: active ? const Color(0xFFFF4D67) : Colors.black26,
+            borderRadius: BorderRadius.circular(100),
           ),
         );
       }),
@@ -274,19 +294,21 @@ class _SectionHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
+
         const Spacer(),
+
         InkWell(
           onTap: onViewAll,
           child: Text(
-            'View all >',
+            "View all >",
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: accent,
-                  fontWeight: FontWeight.w600,
-                ),
+              color: accent,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
@@ -313,7 +335,6 @@ class _MovieCard extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
       child: SizedBox(
         width: 150,
         child: Column(
@@ -323,35 +344,33 @@ class _MovieCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               child: AspectRatio(
                 aspectRatio: 3 / 4,
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.network(imageUrl, fit: BoxFit.cover),
               ),
             ),
-            const SizedBox(height: 10),
+
+            const SizedBox(height: 8),
+
             Text(
               title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+
+            const SizedBox(height: 8),
+
             SizedBox(
               height: 34,
               child: OutlinedButton(
+                onPressed: onBookNow,
                 style: OutlinedButton.styleFrom(
+                  foregroundColor: accent,
                   side: const BorderSide(color: accent),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  foregroundColor: accent,
                 ),
-                onPressed: onBookNow,
-                child: const Text('Book Now'),
+                child: const Text("Book Now"),
               ),
             ),
           ],
@@ -361,31 +380,53 @@ class _MovieCard extends StatelessWidget {
   }
 }
 
-class _HomeBottomNav extends StatelessWidget {
-  final int currentIndex;
-  const _HomeBottomNav({required this.currentIndex});
+class _HomeBottomNav extends StatefulWidget {
+  const _HomeBottomNav();
+
+  @override
+  State<_HomeBottomNav> createState() => _HomeBottomNavState();
+}
+
+class _HomeBottomNavState extends State<_HomeBottomNav> {
+  int index = 0;
+
+  void onTap(int i) {
+    setState(() {
+      index = i;
+    });
+
+    debugPrint("Bottom navigation clicked: $i");
+  }
 
   @override
   Widget build(BuildContext context) {
     const accent = Color(0xFFFF4D67);
 
     return BottomNavigationBar(
-      currentIndex: currentIndex,
+      currentIndex: index,
+      onTap: onTap,
       type: BottomNavigationBarType.fixed,
       selectedItemColor: accent,
-      unselectedItemColor: Colors.black38,
-      selectedFontSize: 12,
-      unselectedFontSize: 12,
-      onTap: (i) {
-        // Sau này bạn map route theo index:
-        // 0 Home, 1 Cinemas, 2 My Tickets, 3 Search, 4 Account
-      },
+      unselectedItemColor: Colors.grey,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.apps_outlined), label: 'Cinemas'),
-        BottomNavigationBarItem(icon: Icon(Icons.confirmation_number_outlined), label: 'My Tickets'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Account'),
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
+
+        BottomNavigationBarItem(
+          icon: Icon(Icons.grid_view_outlined),
+          label: "Cinemas",
+        ),
+
+        BottomNavigationBarItem(
+          icon: Icon(Icons.confirmation_number_outlined),
+          label: "My Tickets",
+        ),
+
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline),
+          label: "Account",
+        ),
       ],
     );
   }
