@@ -1,15 +1,14 @@
 import '../datasources/movie_mock_datasource.dart';
 import '../models/movie_model.dart';
 
-abstract class MovieRepository {
-  Future<List<MovieModel>> getMovies();
-}
+class MovieRepository {
 
-class MovieRepositoryImpl implements MovieRepository {
-  final MovieMockDataSource datasource;
+  final MovieMockDatasource datasource;
 
-  MovieRepositoryImpl(this.datasource);
+  MovieRepository(this.datasource);
 
-  @override
-  Future<List<MovieModel>> getMovies() => datasource.fetchMovies();
+  Future<List<MovieModel>> getMovies() {
+    return datasource.getMovies();
+  }
+
 }
