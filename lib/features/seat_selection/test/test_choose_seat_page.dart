@@ -7,7 +7,7 @@ void main() {
     const ProviderScope(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SeatSelectionPage(showtimeId: 'st001',),
+        home: SeatSelectionPage(cinemaId: 'amc_empire_25',movieId: 'm001', showtimeId: 'standard_1',),
       ),
     ),
   );
