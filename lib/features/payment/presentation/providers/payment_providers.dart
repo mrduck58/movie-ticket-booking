@@ -1,39 +1,32 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
-enum PaymentType { paypal, googlePay, applePay, card }
+import '../../../../domain/entities/payment_method.dart';
+import '../../../../domain/repositories/payment_repository.dart';
 
-class PaymentMethodItem {
-  final String id;
-  final PaymentType type;
-  final String title;
-  final String? masked;
-  final bool isCard;
+import '../../data/datasources/payment_mock_datasource.dart';
+import '../../data/repositories/payment_repository_impl.dart';
 
-  const PaymentMethodItem({
-    required this.id,
-    required this.type,
-    required this.title,
-    this.masked,
-    this.isCard = false,
-  });
-}
-
-final paymentMethodsProvider = Provider<List<PaymentMethodItem>>((ref) {
-  return const [
-    PaymentMethodItem(id: 'pp', type: PaymentType.paypal, title: 'PayPal'),
-    PaymentMethodItem(id: 'gp', type: PaymentType.googlePay, title: 'Google Pay'),
-    PaymentMethodItem(id: 'ap', type: PaymentType.applePay, title: 'Apple Pay'),
-    PaymentMethodItem(id: 'mc_4679', type: PaymentType.card, title: 'Mastercard', masked: '•••• •••• •••• 4679', isCard: true),
-    PaymentMethodItem(id: 'visa_5567', type: PaymentType.card, title: 'VISA', masked: '•••• •••• •••• 5567', isCard: true),
-  ];
+final paymentDatasourceProvider =
+    Provider<PaymentMockDatasource>((ref) {
+  return PaymentMockDatasourceImpl();
 });
 
-class SelectedPaymentId extends Notifier<String?> {
-  @override
-  String? build() => 'mc_4679';
+final paymentRepositoryProvider =
+    Provider<PaymentRepository>((ref) {
 
-  void select(String id) => state = id;
-}
+  final ds = ref.watch(paymentDatasourceProvider);
 
-final selectedPaymentIdProvider =
-    NotifierProvider<SelectedPaymentId, String?>(SelectedPaymentId.new);
+  return PaymentRepositoryImpl(ds);
+});
+
+final paymentMethodsProvider =
+    FutureProvider<List<PaymentMethod>>((ref) {
+
+  final repo = ref.watch(paymentRepositoryProvider);
+
+  return repo.getPaymentMethods();
+});
+
+final selectedPaymentProvider =
+    StateProvider<PaymentMethod?>((ref) => null);
