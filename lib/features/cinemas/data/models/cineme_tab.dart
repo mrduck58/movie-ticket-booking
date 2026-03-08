@@ -1,0 +1,1 @@
+enum CinemaTab { all, favorites }

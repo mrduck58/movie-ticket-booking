@@ -7,7 +7,7 @@ void main() {
     const ProviderScope(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ChooseCinemaPage(movieId: 'm001'),
+        home: ChooseCinemaPage(movieId: 'm001',),
       ),
     ),
   );
