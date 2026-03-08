@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_ticket_booking/features/home/presentation/providers/home_providers.dart';
 
-import '../../../checkout/presentation/providers/booking_draft_provider.dart';
+import '../../../checkout/providers/booking_draft_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -63,11 +63,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                         title: m.title,
                         imageUrl: m.posterUrl,
                         onTap: () {
-                          ref.read(bookingDraftProvider.notifier).setMovie(m.id);
+                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
                           context.go('/movie/${m.id}');
                         },
                         onBookNow: () {
-                          ref.read(bookingDraftProvider.notifier).setMovie(m.id);
+                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
                           context.go('/showtimes/${m.id}');
                         },
                       );
@@ -95,11 +95,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                         title: m.title,
                         imageUrl: m.posterUrl,
                         onTap: () {
-                          ref.read(bookingDraftProvider.notifier).setMovie(m.id);
+                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
                           context.go('/movie/${m.id}');
                         },
                         onBookNow: () {
-                          ref.read(bookingDraftProvider.notifier).setMovie(m.id);
+                          //ref.read(bookingDraftProvider.notifier).setMovie(m.id);
                           context.go('/showtimes/${m.id}');
                         },
                       );
