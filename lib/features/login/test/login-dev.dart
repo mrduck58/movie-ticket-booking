@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:movie_ticket_booking/features/login/presentation/pages/login_screen.dart';
-import 'package:provider/provider.dart';
-import '../data/datasources/login_local_datasources.dart';
-import '../data/repository/login_repository.dart';
-import '../presentation/provider/login_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../presentation/pages/intro_2.dart';
+
+import '../presentation/pages/login_screen.dart';
+import '../presentation/provider/login_provider.dart';
+import '../data/repositories/login_repository_impl.dart';
+import '../domain/repositories/login_repository.dart';
+import '../data/datasources/login_mock_datasources.dart';
 
 void main() {
-  runApp(
-    ProviderScope(   
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => LoginProvider(
-              LoginRepository(
-                LoginLocalDatasources(),
-              ),
-            ),
-          ),
-        ],
-        child: const MyApp(),
-      ),
-    ),
-  );
+  runApp(const LoginDevApp());
 }
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+class LoginDevApp extends StatelessWidget {
+  const LoginDevApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+    final datasource = LoginMockDatasource();
+    final repository = LoginRepositoryImpl(datasource);
+
+    return ProviderScope(
+      overrides: [
+        loginProvider.overrideWith((ref) {
+          final datasource = LoginMockDatasource();
+          final repository = LoginRepositoryImpl(datasource);
+          return LoginProvider(repository);
+        }),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Intro2(),
+      ),
     );
   }
 }
