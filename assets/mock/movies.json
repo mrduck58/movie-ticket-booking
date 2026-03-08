@@ -1,56 +1,138 @@
 [
-  {
-    "id": "m001",
-    "title": "Dune: Part Two",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
-    "rating": 8.6,
-    "durationMin": 166,
-    "genres": ["Sci-Fi", "Adventure"],
-    "releaseDate": "2024-03-01"
-  },
-  {
-    "id": "m002",
-    "title": "Oppenheimer",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
-    "rating": 8.1,
-    "durationMin": 180,
-    "genres": ["Drama", "History"],
-    "releaseDate": "2023-07-21"
-  },
-  {
-    "id": "m003",
-    "title": "Oppenheimer",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
-    "rating": 8.1,
-    "durationMin": 180,
-    "genres": ["Drama", "History"],
-    "releaseDate": "2023-07-21"
-  },
-  {
-    "id": "m004",
-    "title": "Oppenheimer",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
-    "rating": 8.1,
-    "durationMin": 180,
-    "genres": ["Drama", "History"],
-    "releaseDate": "2023-07-21"
-  },
-  {
-    "id": "m005",
-    "title": "Oppenheimer",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
-    "rating": 8.1,
-    "durationMin": 180,
-    "genres": ["Drama", "History"],
-    "releaseDate": "2023-07-21"
-  },
-  {
-    "id": "m006",
-    "title": "Oppenheimer",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
-    "rating": 8.1,
-    "durationMin": 180,
-    "genres": ["Drama", "History"],
-    "releaseDate": "2023-07-21"
-  }
+{
+"id":"m001",
+"title":"Dune: Part Two",
+"posterUrl":"https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
+"rating":8.6,
+"durationMin":166,
+"genres":["Sci-Fi","Adventure"],
+"releaseDate":"2024-03-01",
+"trailer":"https://www.youtube.com/watch?v=Way9Dexny3w",
+"cast":[
+{"name":"Timothee Chalamet","imageUrl":"https://image.tmdb.org/t/p/w200/BE2sdjpgsa2rNTFa66f7upkaOP.jpg"},
+{"name":"Zendaya","imageUrl":"https://image.tmdb.org/t/p/w200/so3UuYx9u2f7kYyTg5YJdE1nY8D.jpg"},
+{"name":"Austin Butler","imageUrl":"https://image.tmdb.org/t/p/w200/pk9R56ZlqXy0vYh5tqVi6zkRgZN.jpg"}
+]
+},
+
+{
+"id":"m002",
+"title":"Oppenheimer",
+"posterUrl":"https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+"rating":8.1,
+"durationMin":180,
+"genres":["Drama","History"],
+"releaseDate":"2023-07-21",
+"trailer":"https://www.youtube.com/watch?v=uYPbbksJxIg",
+"cast":[
+{"name":"Cillian Murphy","imageUrl":"https://image.tmdb.org/t/p/w200/2lKs67r8EoxY2p8eZ3H9X0qk8wA.jpg"},
+{"name":"Emily Blunt","imageUrl":"https://image.tmdb.org/t/p/w200/4SYTH5FdB0dAORV98Nwg3llgVnY.jpg"},
+{"name":"Robert Downey Jr.","imageUrl":"https://image.tmdb.org/t/p/w200/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg"}
+]
+},
+
+{
+"id":"m003",
+"title":"Avatar 2",
+"posterUrl":"https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+"rating":8.4,
+"durationMin":192,
+"genres":["Action","Adventure"],
+"releaseDate":"2023-12-20",
+"trailer":"https://www.youtube.com/watch?v=d9MyW72ELq0",
+"cast":[
+{"name":"Sam Worthington","imageUrl":"https://image.tmdb.org/t/p/w200/blKKsHlJIL9PmUQZB8f3YmMBW5Y.jpg"},
+{"name":"Zoe Saldana","imageUrl":"https://image.tmdb.org/t/p/w200/iOVbUH20il632nj2v01NCtYYeSg.jpg"}
+]
+},
+
+{
+"id":"m004",
+"title":"John Wick 4",
+"posterUrl":"https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+"rating":8.2,
+"durationMin":169,
+"genres":["Action"],
+"releaseDate":"2023-03-24",
+"trailer":"https://www.youtube.com/watch?v=qEVUtrk8_B4",
+"cast":[
+{"name":"Keanu Reeves","imageUrl":"https://image.tmdb.org/t/p/w200/rRdru6REr9i3WIHv2mntpcgxnoY.jpg"},
+{"name":"Donnie Yen","imageUrl":"https://image.tmdb.org/t/p/w200/4vNQx9UoE4yZkF7z3n6PvJEa3TB.jpg"}
+]
+},
+
+{
+"id":"m010",
+"title":"Fantastic Four",
+"posterUrl":"https://image.tmdb.org/t/p/w500/qWQSnedj0LCUjWNp9fLcMtfgadp.jpg",
+"rating":8.5,
+"durationMin":140,
+"genres":["Marvel"],
+"releaseDate":"2026-07-25",
+"trailer":"https://www.youtube.com/watch?v=eY3Y5n0XJjo",
+"cast":[
+{"name":"Pedro Pascal","imageUrl":"https://image.tmdb.org/t/p/w200/4JQOZ0tA6u40qCMgfHdCqkfNNpJ.jpg"},
+{"name":"Vanessa Kirby","imageUrl":"https://image.tmdb.org/t/p/w200/3JMF5nnT2Z6bGkY9n1kWeNseyX2.jpg"}
+]
+},
+
+{
+"id":"m011",
+"title":"Superman Legacy",
+"posterUrl":"https://image.tmdb.org/t/p/w500/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg",
+"rating":8.6,
+"durationMin":145,
+"genres":["DC"],
+"releaseDate":"2026-09-10",
+"trailer":"https://www.youtube.com/watch?v=T6DJcgm3wNY",
+"cast":[
+{"name":"David Corenswet","imageUrl":"https://image.tmdb.org/t/p/w200/6n7S5yH8nD1eWkL0z2LxyzKDn5X.jpg"},
+{"name":"Rachel Brosnahan","imageUrl":"https://image.tmdb.org/t/p/w200/jyD4W5Trw7P3cu6UytzszbmWzxj.jpg"}
+]
+},
+
+{
+"id":"m012",
+"title":"Deadpool 3",
+"posterUrl":"https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+"rating":8.8,
+"durationMin":130,
+"genres":["Marvel"],
+"releaseDate":"2026-05-10",
+"trailer":"https://www.youtube.com/watch?v=73_1biulkYk",
+"cast":[
+{"name":"Ryan Reynolds","imageUrl":"https://image.tmdb.org/t/p/w200/7YJD5DqgYh6gMPkTFogyXv3gZHJ.jpg"},
+{"name":"Hugh Jackman","imageUrl":"https://image.tmdb.org/t/p/w200/9vF9YJq4h2qXDpUe1koXSPoaqe7.jpg"}
+]
+},
+
+{
+"id":"m013",
+"title":"Mission Impossible 8",
+"posterUrl":"https://image.tmdb.org/t/p/w500/NNxYkU70HPurnNCSiCjYAmacwm.jpg",
+"rating":8.3,
+"durationMin":160,
+"genres":["Action"],
+"releaseDate":"2026-06-28",
+"trailer":"https://www.youtube.com/watch?v=avz06PDqDbM",
+"cast":[
+{"name":"Tom Cruise","imageUrl":"https://image.tmdb.org/t/p/w200/3oWEuo0e8Nx8JvkqYCDec2iMY6K.jpg"},
+{"name":"Rebecca Ferguson","imageUrl":"https://image.tmdb.org/t/p/w200/9tRr1X8Z1AHzrc4c3OJbGdv8ImZ.jpg"}
+]
+},
+
+{
+"id":"m014",
+"title":"Kung Fu Panda 4",
+"posterUrl":"https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg",
+"rating":7.9,
+"durationMin":94,
+"genres":["Animation"],
+"releaseDate":"2026-03-20",
+"trailer":"https://www.youtube.com/watch?v=_inKs4eeHiI",
+"cast":[
+{"name":"Jack Black","imageUrl":"https://image.tmdb.org/t/p/w200/rtCx0fiYxJVhzXXdwZE2XRTfIKE.jpg"},
+{"name":"Awkwafina","imageUrl":"https://image.tmdb.org/t/p/w200/jy5Hh9UpAJZciV06P88eaJEqn3E.jpg"}
+]
+}
 ]
