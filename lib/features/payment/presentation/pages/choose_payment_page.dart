@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_ticket_booking/core/utils/formatters/money_formatter.dart';
 
 import '../../../checkout/providers/booking_draft_provider.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -8,6 +9,7 @@ import '../../../../core/theme/app_spacing.dart';
 
 import '../providers/payment_providers.dart';
 import '../widgets/payment_item.dart';
+import '../widgets/payment_success_dialog.dart';
 
 class ChoosePaymentPage extends ConsumerWidget {
   const ChoosePaymentPage({super.key});
@@ -18,7 +20,7 @@ class ChoosePaymentPage extends ConsumerWidget {
     final selected = ref.watch(selectedPaymentProvider);
 
     final draft = ref.watch(bookingDraftProvider);
-    final price = (draft?.seats.length ?? 0) * 12;
+    final price = draft.totalPrice ?? 0;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -32,7 +34,7 @@ class ChoosePaymentPage extends ConsumerWidget {
             centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-              onPressed: () {},
+              onPressed: () => context.pop(),
             ),
             title: const Text(
               "Choose Payment Method",
@@ -121,10 +123,14 @@ class ChoosePaymentPage extends ConsumerWidget {
                     onPressed: selected == null
                         ? null
                         : () {
-                            //context.go('/ticket-success');
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (_) => const PaymentSuccessDialog(),
+                            );
                           },
                     child: Text(
-                      "Confirm Payment - \$${price.toStringAsFixed(2)}",
+                      'Confirm Payment - ${MoneyFormatter.vnd(price)}',
                       style: TextStyle(color: AppColors.onPrimary),
                     ),
                   ),
