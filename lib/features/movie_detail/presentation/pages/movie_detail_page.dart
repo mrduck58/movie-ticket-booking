@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../home/presentation/providers/home_providers.dart';
 
+import '../../../checkout/providers/booking_draft_provider.dart';
+
 class MovieDetailPage extends ConsumerWidget {
   final String movieId;
 
@@ -136,7 +138,8 @@ class MovieDetailPage extends ConsumerWidget {
                             ),
                           ),
                           onPressed: () {
-                            context.push('/showtimes/${movie.id}');
+                            ref.read(bookingDraftProvider.notifier).setMovie(movie.toEntity());
+                            context.push('/choose-cinema/${movie.id}');
                           },
                           child: const Text(
                             "Book Now",

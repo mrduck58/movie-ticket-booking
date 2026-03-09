@@ -8,6 +8,9 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../domain/entities/cinema.dart';
 import '../providers/cinema_providers.dart';
 import '../../data/models/cineme_tab.dart';
+import '../../../../features/checkout/providers/booking_draft_provider.dart';
+import '../../../../features/home/presentation/providers/home_providers.dart';
+
 import '../widgets/cinema_tab.dart';
 import '../widgets/cinema_tile.dart';
 import '../widgets/location_row.dart';
@@ -28,6 +31,7 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
   Widget build(BuildContext context) {
     final cinemasAsync = ref.watch(cinemasProvider);
     final favoriteIds = ref.watch(favoriteCinemasProvider);
+    final moviesAsync = ref.watch(movieProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -41,7 +45,7 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
             centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-              onPressed: () {},
+              onPressed: () => context.pop(),
             ),
             title: const Text(
               "Choose Cinema",
@@ -67,18 +71,30 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
             children: [
               const LocationRow(),
 
-              const Divider(height: 2, indent: AppSpacing.pagePadding, endIndent: AppSpacing.pagePadding,),
+              const Divider(
+                height: 2,
+                indent: AppSpacing.pagePadding,
+                endIndent: AppSpacing.pagePadding,
+              ),
 
-              const SizedBox(height: 16,),
+              const SizedBox(height: 16),
 
               CinemaTabs(tab: tab, onChanged: (t) => setState(() => tab = t)),
 
-              const Divider(height: 2, indent: AppSpacing.pagePadding, endIndent: AppSpacing.pagePadding),
+              const Divider(
+                height: 2,
+                indent: AppSpacing.pagePadding,
+                endIndent: AppSpacing.pagePadding,
+              ),
 
               Expanded(
                 child: ListView.separated(
                   itemCount: list.length,
-                  separatorBuilder: (_, __) => const Divider(height: 2, indent: AppSpacing.pagePadding, endIndent: AppSpacing.pagePadding),
+                  separatorBuilder: (_, __) => const Divider(
+                    height: 2,
+                    indent: AppSpacing.pagePadding,
+                    endIndent: AppSpacing.pagePadding,
+                  ),
                   itemBuilder: (context, index) {
                     final cinema = list[index];
                     final isFav = favoriteIds.contains(cinema.id);
@@ -92,7 +108,21 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
                             .toggle(cinema.id);
                       },
                       onTap: () {
-                        context.go('/showtimes/${widget.movieId}/${cinema.id}');
+                        final movies = moviesAsync.value;
+                        if (movies != null) {
+                          final movie = movies.firstWhere(
+                            (m) => m.id == widget.movieId,
+                            orElse: () => movies.first,
+                          );
+                          final booking = ref.read(bookingDraftProvider.notifier);
+
+                          booking.setMovie(movie.toEntity());
+                          booking.setCinema(cinema);
+
+                          context.push(
+                            '/showtimes/${widget.movieId}/${cinema.id}',
+                          );
+                        }
                       },
                     );
                   },
