@@ -1,146 +1,138 @@
 import 'package:flutter/material.dart';
-import 'complete_profile.dart';
-class MovieInterestScreen extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../home/presentation/pages/home_page.dart';
+import '../provider/movie_interest_provider.dart';
+
+class MovieInterestScreen extends ConsumerWidget {
   const MovieInterestScreen({super.key});
 
   @override
-  State<MovieInterestScreen> createState() =>
-      _MovieInterestScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final interests = ref.watch(movieInterestProvider);
 
-class _MovieInterestScreenState
-    extends State<MovieInterestScreen> {
+    const accent = Color(0xFFFF4D67);
 
-  final List<String> genres = [
-    "Action",
-    "Adventure",
-    "Comedy",
-    "Drama",
-    "Romance",
-    "Fantasy",
-    "Science Fiction",
-    "Thriller",
-    "War",
-    "Family",
-    "Spy",
-    "Travel",
-  ];
-
-  final Set<String> selectedGenres = {};
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      backgroundColor: const Color(0xfff4f4f4),
 
-              /// Back
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const CompleteProfileScreen(),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => context.pop(),
+        ),
+        centerTitle: true,
+        title: const Text(
+          "Movie Interest",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+
+        child: Column(
+          children: [
+            /// GENRE GRID
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.only(top: 10),
+                itemCount: interests.length,
+
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 14,
+                  crossAxisSpacing: 14,
+                  childAspectRatio: 3.5,
                 ),
 
-
-              const Center(
-                child: Text(
-                  "Movie Interest",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              /// Genre Chips
-              Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: genres.map((genre) {
-                  final isSelected =
-                      selectedGenres.contains(genre);
+                itemBuilder: (context, index) {
+                  final genre = interests[index];
 
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        if (isSelected) {
-                          selectedGenres.remove(genre);
-                        } else {
-                          selectedGenres.add(genre);
-                        }
-                      });
+                      ref
+                          .read(movieInterestProvider.notifier)
+                          .toggleGenre(index);
                     },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 10),
+
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+
+                      alignment: Alignment.center,
+
                       decoration: BoxDecoration(
-                        color: isSelected
-                            ? const Color(0xFFFF5A5F)
-                            : Colors.transparent,
-                        borderRadius:
-                            BorderRadius.circular(25),
+                        color: genre.isSelected ? accent : Colors.white,
+
+                        borderRadius: BorderRadius.circular(30),
+
                         border: Border.all(
-                          color: isSelected
-                              ? const Color(0xFFFF5A5F)
-                              : Colors.grey,
+                          color: genre.isSelected
+                              ? accent
+                              : Colors.grey.shade400,
                         ),
+
+                        boxShadow: [
+                          if (genre.isSelected)
+                            const BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 6,
+                              offset: Offset(0, 3),
+                            ),
+                        ],
                       ),
+
                       child: Text(
-                        genre,
+                        genre.name,
                         style: TextStyle(
-                          color: isSelected
-                              ? Colors.white
-                              : Colors.black,
+                          color: genre.isSelected ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   );
-                }).toList(),
+                },
               ),
+            ),
 
-              const Spacer(),
+            const SizedBox(height: 10),
 
-              /// Save Button
-              SizedBox(
+            /// SAVE BUTTON
+            SafeArea(
+              child: SizedBox(
                 width: double.infinity,
                 height: 55,
+
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(0xFFFF5A5F),
+                    backgroundColor: accent,
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+
                   onPressed: () {
-                    // Sau này chuyển sang Home
+                    final selected = ref
+                        .read(movieInterestProvider.notifier)
+                        .selectedGenres;
+
+                    debugPrint("Selected genres: $selected");
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const HomePage()),
+                    );
                   },
-                  child: const Text(
-                    "Save",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
+
+                  child: const Text("Save", style: TextStyle(fontSize: 16)),
                 ),
               ),
+            ),
 
-              const SizedBox(height: 20),
-            ],
-          ),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );
