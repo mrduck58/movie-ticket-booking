@@ -8,7 +8,7 @@ class AppColors {
   //background / surface
   static const Color background= Colors.white;
   //static const Color onBackground = Colors.white;
-  static const Color surface = Color.fromRGBO(222, 222, 209, 1);
+  static const Color surface = Color(0xFFEEEEEE);
   //static const Color onSurface = Colors.white;
 
   // default
@@ -16,7 +16,7 @@ class AppColors {
   static const Color black = Colors.black;
 
   //border
-  static const Color border = Color(0x1F000000); 
+  static const Color border = Color(0xFFE0E0E0); 
   static const Color divider = Color(0xFF6B6B6B); 
 
   // Neutrals

@@ -1,16 +1,16 @@
 [
   {
-    "id": "cb01",
-    "name": "Food Combo 1",
-    "description": "Includes popcorn, soda, and a candy bar.",
+    "id": "combo1",
+    "name": "Jumbo Popcorn",
+    "description": "Indulge in the ultimate movie experience with our Movie Magic Popcorn!",
     "price": 99000,
-    "image": "https://via.placeholder.com/80x80.png?text=Combo+1"
+    "image": "assets/images/combo/popcorn_combo.jpg"
   },
   {
-    "id": "cb02",
-    "name": "Food Combo 2",
-    "description": "Includes nachos, soda, and a cookie.",
+    "id": "combo2",
+    "name": "Popcorn & Pepsi",
+    "description": "A perfect snack combo for your cinema night.",
     "price": 79000,
-    "image": "https://via.placeholder.com/80x80.png?text=Combo+2"
+    "image": "assets/images/combo/popcorn_combo.jpg"
   }
 ]
