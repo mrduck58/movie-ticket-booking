@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:movie_ticket_booking/features/showtimes/data/models/selected_showtime.dart';
 
 import '../../../../domain/entities/showtime.dart';
 import '../../../../domain/repositories/showtime_repository.dart';
@@ -23,7 +24,7 @@ final showtimesProvider = FutureProvider.family<List<Showtime>, String>((
   return repo.getShowtimes(cinemaId);
 });
 
-final selectedShowtimeProvider = StateProvider<String?>((ref) => null);
+final selectedShowtimeProvider = StateProvider<SelectedShowtime?>((ref) => null);
 
 final selectedDateProvider = StateProvider<DateTime>((ref) {
   return DateTime.now();

@@ -1,0 +1,19 @@
+[
+  {
+    "code": "WELCOME20",
+    "title": "Welcome voucher",
+    "discount": 20000
+  },
+
+  {
+    "code": "STUDENT30",
+    "title": "Student discount",
+    "discount": 30000
+  },
+
+  {
+    "code": "MOVIE50",
+    "title": "Movie lover",
+    "discount": 50000
+  }
+]

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:movie_ticket_booking/features/showtimes/presentation/widgets/date_picker.dart';
 
 import '../../../checkout/providers/booking_draft_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/utils/formatters/date_formatter.dart';
 
 import '../providers/showtime_providers.dart';
 import '../widgets/showtime_section.dart';
+import '../../data/models/selected_showtime.dart';
 
 class ChooseShowtimePage extends ConsumerWidget {
   final String cinemaId;
@@ -34,12 +37,10 @@ class ChooseShowtimePage extends ConsumerWidget {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () {
-            //Navigator.pop(context);
-          },
+          onPressed: () => context.pop(),
         ),
         title: const Text(
-          "Choose Cinema",
+          "Choose Date and Time",
           style: TextStyle(
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w700,
@@ -125,14 +126,21 @@ class ChooseShowtimePage extends ConsumerWidget {
           onPressed: selectedTime == null
               ? null
               : () {
-                  ref.read(bookingDraftProvider.notifier).state = ref
-                      .read(bookingDraftProvider)!
-                      .copyWith(cinemaId: cinemaId, showtime: selectedTime);
-                  context.go(
-                    '/seat-selection/$movieId/$cinemaId/$selectedTime',
+                  final selectedDate = ref.read(selectedDateProvider);
+                  final formattedDate = DateFormatter.date(selectedDate);
+
+                  ref
+                      .read(bookingDraftProvider.notifier)
+                      .setShowtime(
+                        selectedTime.showtime,
+                        date: formattedDate,
+                        auditorium: selectedTime.showtime.auditorium,
+                      );
+
+                  context.push(
+                    '/seat-selection/$movieId/$cinemaId/${selectedTime.showtime.id}',
                   );
                 },
-
           child: const Text(
             "Continue",
             style: TextStyle(color: AppColors.white),

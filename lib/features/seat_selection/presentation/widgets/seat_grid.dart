@@ -37,15 +37,16 @@ class SeatGrid extends ConsumerWidget {
                 seat: seat,
                 selected: selected,
                 onTap: () {
-                  final current = [...selectedSeats];
+                  final notifier = ref.read(selectedSeatsProvider.notifier);
+                  final current = ref.read(selectedSeatsProvider);
 
-                  if (selected) {
-                    current.remove(seat);
+                  if (current.contains(seat)) {
+                    notifier.state = current
+                        .where((s) => s.id != seat.id)
+                        .toList();
                   } else {
-                    current.add(seat);
+                    notifier.state = [...current, seat];
                   }
-
-                  ref.read(selectedSeatsProvider.notifier).state = current;
                 },
               );
             },

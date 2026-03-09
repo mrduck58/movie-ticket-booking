@@ -4,7 +4,7 @@
     "cinema_id": "amc_empire_25",
     "format": "Standard",
     "auditorium": "Auditorium 3",
-    "price": 12,
+    "price": 12000,
     "times": ["10:00","12:30","15:00","17:30","20:00","22:30"]
   },
   {
@@ -12,14 +12,223 @@
     "cinema_id": "amc_empire_25",
     "format": "IMAX",
     "auditorium": "Auditorium 4",
-    "price": 17,
+    "price": 17000,
     "times": ["11:00","14:00","18:00","21:30"]
-  },{
+  },
+  {
     "id": "dolby_cinema",
     "cinema_id": "amc_empire_25",
     "format": "Dolby Cinema",
     "auditorium": "Auditorium 5",
-    "price": 22,
+    "price": 22000,
     "times": ["13:00","15:30","18:30"]
+  },
+  {
+    "id": "4dx_1",
+    "cinema_id": "regal_ewalk",
+    "format": "4DX",
+    "auditorium": "Auditorium 1",
+    "price": 20000,
+    "times": ["10:30","13:30","16:30","19:30"]
+  },
+  {
+    "id": "rpx_1",
+    "cinema_id": "regal_ewalk",
+    "format": "RPX",
+    "auditorium": "Auditorium 2",
+    "price": 15000,
+    "times": ["11:00","14:00","17:00","20:00","22:00"]
+  },
+  {
+    "id": "standard_2",
+    "cinema_id": "regal_ewalk",
+    "format": "Standard",
+    "auditorium": "Auditorium 3",
+    "price": 10000,
+    "times": ["09:00","12:00","15:00","18:00","21:00"]
+  },
+  {
+    "id": "art_house_1",
+    "cinema_id": "angelika",
+    "format": "Art House",
+    "auditorium": "Auditorium 1",
+    "price": 14000,
+    "times": ["12:00","15:00","18:00","21:00"]
+  },
+  {
+    "id": "standard_3",
+    "cinema_id": "angelika",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 12000,
+    "times": ["10:00","13:00","16:00","19:00","22:00"]
+  },
+  {
+    "id": "premium_1",
+    "cinema_id": "nitehawk",
+    "format": "Premium",
+    "auditorium": "Auditorium 1",
+    "price": 16000,
+    "times": ["11:30","14:30","17:30","20:30"]
+  },
+  {
+    "id": "standard_4",
+    "cinema_id": "nitehawk",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 11000,
+    "times": ["10:00","13:00","16:00","19:00","22:00"]
+  },
+  {
+    "id": "drafthouse_1",
+    "cinema_id": "alamo",
+    "format": "Drafthouse",
+    "auditorium": "Auditorium 1",
+    "price": 18000,
+    "times": ["12:00","15:00","18:00","21:00"]
+  },
+  {
+    "id": "standard_5",
+    "cinema_id": "alamo",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 13000,
+    "times": ["10:30","13:30","16:30","19:30","22:30"]
+  },
+  {
+    "id": "imax_2",
+    "cinema_id": "ifc_center",
+    "format": "IMAX",
+    "auditorium": "Auditorium 1",
+    "price": 19000,
+    "times": ["11:00","14:00","17:00","20:00"]
+  },
+  {
+    "id": "standard_6",
+    "cinema_id": "ifc_center",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 12000,
+    "times": ["10:00","13:00","16:00","19:00","22:00"]
+  },
+  {
+    "id": "art_house_2",
+    "cinema_id": "metrograph",
+    "format": "Art House",
+    "auditorium": "Auditorium 1",
+    "price": 15000,
+    "times": ["12:30","15:30","18:30","21:30"]
+  },
+  {
+    "id": "standard_7",
+    "cinema_id": "metrograph",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 13000,
+    "times": ["11:00","14:00","17:00","20:00","23:00"]
+  },
+  {
+    "id": "premium_2",
+    "cinema_id": "landmark",
+    "format": "Premium",
+    "auditorium": "Auditorium 1",
+    "price": 17000,
+    "times": ["13:00","16:00","19:00","22:00"]
+  },
+  {
+    "id": "standard_8",
+    "cinema_id": "landmark",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 11000,
+    "times": ["10:30","13:30","16:30","19:30","22:30"]
+  },
+  {
+    "id": "4dx_2",
+    "cinema_id": "cineplex_oakville",
+    "format": "4DX",
+    "auditorium": "Auditorium 1",
+    "price": 21000,
+    "times": ["11:00","14:00","17:00","20:00"]
+  },
+  {
+    "id": "imax_3",
+    "cinema_id": "cineplex_oakville",
+    "format": "IMAX",
+    "auditorium": "Auditorium 2",
+    "price": 18000,
+    "times": ["10:00","13:00","16:00","19:00","22:00"]
+  },
+  {
+    "id": "standard_9",
+    "cinema_id": "cineplex_oakville",
+    "format": "Standard",
+    "auditorium": "Auditorium 3",
+    "price": 12000,
+    "times": ["09:30","12:30","15:30","18:30","21:30"]
+  },
+  {
+    "id": "dolby_2",
+    "cinema_id": "scotiabank_theatre",
+    "format": "Dolby Cinema",
+    "auditorium": "Auditorium 1",
+    "price": 23000,
+    "times": ["12:00","15:00","18:00","21:00"]
+  },
+  {
+    "id": "rpx_2",
+    "cinema_id": "scotiabank_theatre",
+    "format": "RPX",
+    "auditorium": "Auditorium 2",
+    "price": 16000,
+    "times": ["10:30","13:30","16:30","19:30","22:30"]
+  },
+  {
+    "id": "standard_10",
+    "cinema_id": "scotiabank_theatre",
+    "format": "Standard",
+    "auditorium": "Auditorium 3",
+    "price": 13000,
+    "times": ["11:00","14:00","17:00","20:00","23:00"]
+  },
+  {
+    "id": "4dx_3",
+    "cinema_id": "silvercity_yonge",
+    "format": "4DX",
+    "auditorium": "Auditorium 1",
+    "price": 20000,
+    "times": ["12:30","15:30","18:30","21:30"]
+  },
+  {
+    "id": "imax_4",
+    "cinema_id": "silvercity_yonge",
+    "format": "IMAX",
+    "auditorium": "Auditorium 2",
+    "price": 19000,
+    "times": ["11:00","14:00","17:00","20:00","23:00"]
+  },
+  {
+    "id": "standard_11",
+    "cinema_id": "silvercity_yonge",
+    "format": "Standard",
+    "auditorium": "Auditorium 3",
+    "price": 12000,
+    "times": ["10:00","13:00","16:00","19:00","22:00"]
+  },
+  {
+    "id": "premium_3",
+    "cinema_id": "famous_players",
+    "format": "Premium",
+    "auditorium": "Auditorium 1",
+    "price": 17000,
+    "times": ["11:30","14:30","17:30","20:30"]
+  },
+  {
+    "id": "standard_12",
+    "cinema_id": "famous_players",
+    "format": "Standard",
+    "auditorium": "Auditorium 2",
+    "price": 11000,
+    "times": ["10:00","13:00","16:00","19:00","22:00"]
   }
 ]

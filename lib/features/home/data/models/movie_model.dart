@@ -1,3 +1,5 @@
+import 'package:movie_ticket_booking/features/watchlist/domain/entities/movie.dart';
+
 class MovieModel {
   final String id;
   final String title;
@@ -34,6 +36,18 @@ class MovieModel {
       cast: (json["cast"] as List)
           .map((e) => CastModel.fromJson(e))
           .toList(),
+    );
+  }
+
+  Movie toEntity() {
+    return Movie(
+      id: id,
+      title: title,
+      imageUrl: posterUrl,
+      duration: '${durationMin} min',
+      genres: genres,
+      rating: rating,
+      posterUrl: posterUrl,
     );
   }
 }
