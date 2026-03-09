@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_ticket_booking/core/theme/app_colors.dart';
+import 'package:movie_ticket_booking/core/utils/formatters/money_formatter.dart';
+import 'package:movie_ticket_booking/features/showtimes/data/models/selected_showtime.dart';
 import '../../../../domain/entities/showtime.dart';
 import '../providers/showtime_providers.dart';
 
@@ -22,27 +24,25 @@ class ShowtimeSection extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "${showtime.format}",
+                  showtime.format,
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
                   ),
                 ),
+
                 const SizedBox(width: 15),
+
                 Text(
-                  "(\$${showtime.price})",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                  ),
+                  '(${MoneyFormatter.vnd(showtime.price)})',
+                  style: const TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ],
             ),
 
-            Text(showtime.auditorium, style: TextStyle(fontSize: 14)),
+            Text(showtime.auditorium),
           ],
         ),
 
@@ -52,30 +52,33 @@ class ShowtimeSection extends ConsumerWidget {
           spacing: 10,
           runSpacing: 10,
           children: showtime.times.map((time) {
-            final isSelected = selected == time;
+            final isSelected =
+                selected?.showtime == showtime && selected?.time == time;
 
             return GestureDetector(
               onTap: () {
-                ref.read(selectedShowtimeProvider.notifier).state = time;
+                ref.read(selectedShowtimeProvider.notifier).state =
+                    SelectedShowtime(showtime: showtime, time: time);
               },
+
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
-                  vertical: 10,
+                  vertical: 8,
                 ),
+
                 decoration: BoxDecoration(
                   color: isSelected ? AppColors.primary : Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: isSelected
-                        ? AppColors.primary
-                        : Colors.grey.shade300,
-                  ),
+
+                  borderRadius: BorderRadius.circular(8),
+
+                  border: Border.all(color: AppColors.primary),
                 ),
+
                 child: Text(
                   time,
                   style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
+                    color: isSelected ? Colors.white : AppColors.primary,
                   ),
                 ),
               ),
