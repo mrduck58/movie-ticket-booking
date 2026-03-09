@@ -6,6 +6,8 @@ class Movie {
   final String? director;
   final String? ageRating;
   final List<String>? genres;
+  final double? rating;
+  final String? posterUrl;
 
   const Movie({
     required this.id,
@@ -15,5 +17,7 @@ class Movie {
     this.director,
     this.ageRating,
     this.genres,
+    this.rating,
+    this.posterUrl,
   });
 }

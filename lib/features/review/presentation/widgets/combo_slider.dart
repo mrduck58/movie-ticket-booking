@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/constants/app_constant.dart';
 import '../providers/combo_provider.dart';
 
 class ComboSlider extends ConsumerWidget {
@@ -73,7 +74,7 @@ class ComboSlider extends ConsumerWidget {
                           const SizedBox(width: 6),
 
                           Text(
-                            '${combo.price} VND',
+                            '${combo.price} ${AppConstants.currencySymbol}',
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
