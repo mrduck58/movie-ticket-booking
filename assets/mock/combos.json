@@ -1,14 +1,16 @@
 [
   {
-    "id": "cb01",
-    "name": "Food Combo 1",
-    "priceVnd": 99000,
-    "imageUrl": "https://via.placeholder.com/80x80.png?text=Combo+1"
+    "id": "combo1",
+    "name": "Jumbo Popcorn",
+    "description": "Indulge in the ultimate movie experience with our Movie Magic Popcorn!",
+    "price": 99000,
+    "image": "assets/images/combo/popcorn_combo.jpg"
   },
   {
-    "id": "cb02",
-    "name": "Food Combo 2",
-    "priceVnd": 79000,
-    "imageUrl": "https://via.placeholder.com/80x80.png?text=Combo+2"
+    "id": "combo2",
+    "name": "Popcorn & Pepsi",
+    "description": "A perfect snack combo for your cinema night.",
+    "price": 79000,
+    "image": "assets/images/combo/popcorn_combo.jpg"
   }
 ]

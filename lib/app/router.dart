@@ -15,7 +15,7 @@ import '../features/showtimes/presentation/pages/choose_showtime_page.dart';
 import '../features/review/presentation/pages/review_summary_page.dart';
 import '../features/payment/presentation/pages/choose_payment_page.dart';
 import '../features/seat_selection/presentation/pages/seat_selection_page.dart';
-
+import '../features/review/presentation/pages/booking_detail_page.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
 
@@ -73,6 +73,10 @@ class AppRouter {
             builder: (context, state) => const NotificationScreen(),
           ),
 
+          GoRoute(
+            path: '/booking-detail',
+            builder: (context, state) => const BookingDetailPage(),
+          ),
         ],
       ),
 

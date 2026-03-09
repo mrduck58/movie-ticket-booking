@@ -97,7 +97,7 @@
 "posterUrl":"https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
 "rating":8.8,
 "durationMin":130,
-"genres":["Marvel"],
+"genres":["Action", "Comedy", "Sci-Fi", "Superhero", "Fantasy", "Adventure"],
 "releaseDate":"2026-05-10",
 "trailer":"https://www.youtube.com/watch?v=73_1biulkYk",
 "cast":[

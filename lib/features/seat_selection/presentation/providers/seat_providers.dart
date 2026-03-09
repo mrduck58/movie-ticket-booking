@@ -29,4 +29,22 @@ final seatsProvider =
 });
 
 final selectedSeatsProvider =
-    StateProvider<List<Seat>>((ref) => []);
+    StateNotifierProvider<SeatSelectionNotifier, List<Seat>>(
+  (ref) => SeatSelectionNotifier(),
+);
+
+class SeatSelectionNotifier extends StateNotifier<List<Seat>> {
+  SeatSelectionNotifier() : super([]);
+
+  void toggleSeat(Seat seat) {
+    if (state.any((s) => s.id == seat.id)) {
+      state = state.where((s) => s.id != seat.id).toList();
+    } else {
+      state = [...state, seat];
+    }
+  }
+
+  void clear() {
+    state = [];
+  }
+}

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_booking/core/theme/app_colors.dart';
+import 'package:movie_ticket_booking/core/constants/app_constant.dart';
+import 'package:movie_ticket_booking/core/utils/formatters/money_formatter.dart';
 
 class PriceDetailsSection extends StatelessWidget {
   final int ticketPrice;
@@ -19,7 +21,6 @@ class PriceDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final ticketTotal = ticketPrice * ticketCount;
 
     return Container(
@@ -27,7 +28,7 @@ class PriceDetailsSection extends StatelessWidget {
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.border),
         color: AppColors.surface,
       ),
 
@@ -35,45 +36,33 @@ class PriceDetailsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-
           const Text(
             "Price Details",
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 16,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
           ),
 
           const SizedBox(height: 6),
-          
+
           const Divider(),
 
           const SizedBox(height: 6),
 
-          _row("Standard (x$ticketCount)", "$ticketTotal VND"),
+          _row("Standard (x$ticketCount)", MoneyFormatter.vnd(ticketTotal)),
 
           if (comboPrice > 0)
-            _row("Food Combo", "$comboPrice VND"),
+            _row("Food Combo", MoneyFormatter.vnd(comboPrice)),
 
-          _row("Voucher", "-$voucher VND"),
+          _row("Voucher", "-${MoneyFormatter.vnd(voucher)}"),
 
           const Divider(),
 
-          _row(
-            "Actual Pay",
-            "$total VND",
-            highlight: true,
-          )
+          _row("Actual Pay", MoneyFormatter.vnd(total), highlight: true),
         ],
       ),
     );
   }
 
-  Widget _row(
-    String label,
-    String value, {
-    bool highlight = false,
-  }) {
+  Widget _row(String label, String value, {bool highlight = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
 
@@ -81,14 +70,19 @@ class PriceDetailsSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
         children: [
-          Text(label),
+          Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.textSecondary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
 
           Text(
             value,
             style: TextStyle(
               color: highlight ? Colors.red : null,
-              fontWeight:
-                  highlight ? FontWeight.w700 : null,
+              fontWeight: highlight ? FontWeight.w700 : FontWeight.w600,
             ),
           ),
         ],

@@ -5,6 +5,7 @@ import 'package:movie_ticket_booking/core/theme/app_spacing.dart';
 
 import '../../../checkout/providers/booking_draft_provider.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/formatters/money_formatter.dart';
 
 import '../providers/seat_providers.dart';
 import '../widgets/seat_grid.dart';
@@ -27,6 +28,7 @@ class SeatSelectionPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final seatsAsync = ref.watch(seatsProvider);
     final selectedSeats = ref.watch(selectedSeatsProvider);
+    final draft = ref.watch(bookingDraftProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -40,7 +42,7 @@ class SeatSelectionPage extends ConsumerWidget {
             centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-              onPressed: () {},
+              onPressed: () => context.pop(),
             ),
             title: const Text(
               "Choose Seat(s)",
@@ -60,7 +62,8 @@ class SeatSelectionPage extends ConsumerWidget {
         error: (e, _) => Center(child: Text(e.toString())),
 
         data: (seats) {
-          final price = selectedSeats.length * 12;
+          double ticketPrice = draft.showtime?.price ?? 0;
+          final price = selectedSeats.length * ticketPrice;
 
           return Column(
             children: [
@@ -113,7 +116,7 @@ class SeatSelectionPage extends ConsumerWidget {
                                 const SizedBox(height: 8),
 
                                 Text(
-                                  "\$${price.toStringAsFixed(2)}",
+                                  MoneyFormatter.vnd(price),
                                   style: const TextStyle(
                                     fontSize: 28,
                                     fontWeight: FontWeight.bold,
@@ -182,25 +185,13 @@ class SeatSelectionPage extends ConsumerWidget {
                         onPressed: selectedSeats.isEmpty
                             ? null
                             : () {
-                                ref
-                                    .read(bookingDraftProvider.notifier)
-                                    .state = ref
-                                    .read(bookingDraftProvider)!
-                                    .copyWith(
-                                      seats: selectedSeats
-                                          .map((e) => "${e.row}${e.number}")
-                                          .toList(),
-                                    );
-
-                                context.go(
-                                  '/review',
-                                  extra: {
-                                    "movieId": movieId,
-                                    "cinemaId": cinemaId,
-                                    "showtimeId": showtimeId,
-                                    "seats": selectedSeats,
-                                  },
+                                final booking = ref.read(
+                                  bookingDraftProvider.notifier,
                                 );
+
+                                booking.setSeats(selectedSeats);
+
+                                context.push('/review');
                               },
                         child: const Text(
                           "Continue",

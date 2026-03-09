@@ -38,5 +38,25 @@
     "id": "landmark",
     "name": "Landmark at 57 West",
     "is_favorite": false
+  },
+  {
+    "id": "cineplex_oakville",
+    "name": "Cineplex Odeon Oakville",
+    "is_favorite": true
+  },
+  {
+    "id": "scotiabank_theatre",
+    "name": "Scotiabank Theatre Toronto",
+    "is_favorite": false
+  },
+  {
+    "id": "silvercity_yonge",
+    "name": "SilverCity Yonge & Eglinton",
+    "is_favorite": true
+  },
+  {
+    "id": "famous_players",
+    "name": "Famous Players Canada Square",
+    "is_favorite": false
   }
 ]

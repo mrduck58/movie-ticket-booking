@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_ticket_booking/features/checkout/providers/booking_draft.dart';
 import 'package:movie_ticket_booking/features/home/presentation/providers/home_providers.dart';
 import 'package:movie_ticket_booking/features/checkout/providers/booking_draft_provider.dart';
 
@@ -122,13 +123,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                         imageUrl: m.posterUrl,
                         onTap: () {
                           ref.read(bookingDraftProvider.notifier).state =
-                              BookingDraft(movieId: m.id);
+                              BookingDraft(movie: m.toEntity());
 
                           context.push('/movie/${m.id}');
                         },
                         onBookNow: () {
                           ref.read(bookingDraftProvider.notifier).state =
-                              BookingDraft(movieId: m.id);
+                              BookingDraft(movie: m.toEntity());
 
                           context.push('/movie/${m.id}');
                         },

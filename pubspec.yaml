@@ -53,6 +53,7 @@ flutter:
     - assets/images/avatars/  
     - assets/images/maps/map_mock.jpg
     - assets/payment/
+    - assets/images/combo/
 
 
     
