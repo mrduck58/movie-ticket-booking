@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "name": "Nguyễn Quốc Hiệp",
+      "avatar": "https://picsum.photos/40",
+      "created_at": "2026-03-08T08:15:00",
+      "content": "Phim hay nhiều twist, hài duyên và đánh đấm ra trò.",
+      "image": "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4",
+      "likes": 12
+    },
+    {
+      "id": 2,
+      "name": "Minh Anh",
+      "avatar": "https://picsum.photos/40",
+      "created_at": "2026-03-08T10:30:00",
+      "content": "Mới coi xong mà vẫn còn nổi da gà. Đoạn cuối đúng kiểu plot twist 🔥",
+      "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+      "likes": 8
+    },
+    {
+      "id": 3,
+      "name": "Lê Hoàng",
+      "avatar": "https://picsum.photos/40",
+      "created_at": "2026-03-08T11:10:00",
+      "content": "Ai coi phim này chưa? Đáng xem không?",
+      "image": "https://images.unsplash.com/photo-1505685296765-3a2736de412f",
+      "likes": 3
+    }
+  ]
+}

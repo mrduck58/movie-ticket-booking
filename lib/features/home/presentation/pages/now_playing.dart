@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../providers/home_providers.dart';
 import '../../data/models/movie_model.dart';
+import 'package:movie_ticket_booking/features/checkout/providers/booking_draft_provider.dart';
 
 class NowPlayingPage extends ConsumerWidget {
   const NowPlayingPage({super.key});
@@ -39,6 +40,7 @@ class NowPlayingPage extends ConsumerWidget {
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
+
             child: GridView.builder(
               itemCount: nowPlaying.length,
 
@@ -62,13 +64,13 @@ class NowPlayingPage extends ConsumerWidget {
   }
 }
 
-class _MovieCard extends StatelessWidget {
+class _MovieCard extends ConsumerWidget {
   final MovieModel movie;
 
   const _MovieCard({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const accent = Color(0xFFFF4D67);
 
     return Column(
@@ -78,8 +80,9 @@ class _MovieCard extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () {
-              context.go('/movie/${movie.id}');
+              context.push('/movie/${movie.id}');
             },
+
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
@@ -103,14 +106,16 @@ class _MovieCard extends StatelessWidget {
 
         OutlinedButton(
           onPressed: () {
-            context.go('/movie/${movie.id}');
+            context.push('/movie/${movie.id}');
           },
+
           style: OutlinedButton.styleFrom(
             side: const BorderSide(color: accent),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
+
           child: const Text(
             "Book Now",
             style: TextStyle(color: accent, fontSize: 12),

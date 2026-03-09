@@ -15,6 +15,8 @@ import '../features/showtimes/presentation/pages/choose_showtime_page.dart';
 import '../features/review/presentation/pages/review_summary_page.dart';
 import '../features/payment/presentation/pages/choose_payment_page.dart';
 import '../features/seat_selection/presentation/pages/seat_selection_page.dart';
+import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
+import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -25,6 +27,34 @@ class AppRouter {
         builder: (context, state, child) {
           return MainLayout(child: child);
         },
+      GoRoute(
+        path: '/movie/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return MovieDetailPage(movieId: id);
+        },
+      ),
+      GoRoute(
+        path: '/now-playing',
+        builder: (context, state) => const NowPlayingPage(),
+      ),
+
+      GoRoute(
+        path: '/coming-soon',
+        builder: (context, state) => const ComingSoonPage(),
+      ),
+      GoRoute(
+        path: '/now-playing',
+        builder: (context, state) => const NowPlayingPage(),
+      ),
+
+      GoRoute(
+        path: '/coming-soon',
+        builder: (context, state) => const ComingSoonPage(),
+      ),
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const HomePage(),
         routes: [
           /// HOME
           GoRoute(path: '/', builder: (context, state) => const HomePage()),
