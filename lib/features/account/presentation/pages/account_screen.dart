@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../providers/account_providers.dart';
 
@@ -83,20 +84,45 @@ class AccountScreen extends ConsumerWidget {
                 const _ThinDivider(),
                 const SizedBox(height: 6),
 
+                /// WATCHLIST
+                _MenuRow(
+                  icon: Icons.favorite_border,
+                  title: "Watchlist",
+                  onTap: () {
+                    context.push('/watchlist');
+                  },
+                ),
+
                 const _MenuRow(
-                    icon: Icons.favorite_border, title: "Watchlist"),
-                const _MenuRow(
-                    icon: Icons.grid_view_outlined, title: "Movie Interest"),
-                const _MenuRow(
-                    icon: Icons.credit_card_outlined,
-                    title: "Payment Methods"),
+                  icon: Icons.grid_view_outlined,
+                  title: "Movie Interest",
+                ),
+
+                _MenuRow(
+                  icon: Icons.credit_card_outlined,
+                  title: "Payment Methods",
+                  onTap: () {
+                    context.push('/payment-methods');
+                  },
+                ),
 
                 const SizedBox(height: 14),
                 const _SectionLineLabel(label: "General"),
                 const SizedBox(height: 8),
 
-                const _MenuRow(icon: Icons.person_outline, title: "Personal Info"),
-                const _MenuRow(icon: Icons.notifications_none, title: "Notification"),
+                const _MenuRow(
+                  icon: Icons.person_outline,
+                  title: "Personal Info",
+                ),
+
+                _MenuRow(
+                  icon: Icons.notifications_none,
+                  title: "Notification",
+                  onTap: () {
+                    context.push('/notifications');
+                  },
+                ),
+
                 const _MenuRow(icon: Icons.shield_outlined, title: "Security"),
 
                 const _MenuRow(
@@ -123,8 +149,11 @@ class AccountScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
 
                 const _MenuRow(icon: Icons.help_outline, title: "Help Center"),
+
                 const _MenuRow(
-                    icon: Icons.info_outline, title: "About VPHAN Booking"),
+                  icon: Icons.info_outline,
+                  title: "About VNAPH Booking",
+                ),
 
                 const _MenuRow(
                   icon: Icons.logout,
@@ -137,42 +166,6 @@ class AccountScreen extends ConsumerWidget {
             ),
           );
         },
-      ),
-
-      /// BOTTOM NAV
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 4,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: red,
-        unselectedItemColor: const Color(0xFFB0B0B0),
-        selectedFontSize: 11,
-        unselectedFontSize: 11,
-        iconSize: 22,
-        showUnselectedLabels: true,
-        elevation: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view_outlined),
-            label: "Cinemas",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.confirmation_number_outlined),
-            label: "My Tickets",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "Account",
-          ),
-        ],
       ),
     );
   }
@@ -226,6 +219,7 @@ class _MenuRow extends StatelessWidget {
   final bool showChevron;
   final Color titleColor;
   final Color iconColor;
+  final VoidCallback? onTap;
 
   const _MenuRow({
     required this.icon,
@@ -235,43 +229,50 @@ class _MenuRow extends StatelessWidget {
     this.showChevron = true,
     this.titleColor = Colors.black,
     this.iconColor = Colors.black,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: iconColor),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 13.5,
-                fontWeight: FontWeight.w600,
-                color: titleColor,
-              ),
-            ),
-          ),
-          if (trailingWidget != null) trailingWidget!,
-          if (trailingText != null)
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            Icon(icon, size: 20, color: iconColor),
+            const SizedBox(width: 14),
+            Expanded(
               child: Text(
-                trailingText!,
-                style: const TextStyle(
-                  fontSize: 12.5,
-                  color: Color(0xFFB0B0B0),
+                title,
+                style: TextStyle(
+                  fontSize: 13.5,
                   fontWeight: FontWeight.w600,
+                  color: titleColor,
                 ),
               ),
             ),
-          if (showChevron)
-            const Icon(Icons.chevron_right,
-                color: Color(0xFFB0B0B0), size: 22),
-        ],
+            if (trailingWidget != null) trailingWidget!,
+            if (trailingText != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  trailingText!,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    color: Color(0xFFB0B0B0),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            if (showChevron)
+              const Icon(
+                Icons.chevron_right,
+                color: Color(0xFFB0B0B0),
+                size: 22,
+              ),
+          ],
+        ),
       ),
     );
   }
