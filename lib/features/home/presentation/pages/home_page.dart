@@ -82,10 +82,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                         title: m.title,
                         imageUrl: m.posterUrl,
                         onTap: () {
-                          context.go('/movie/${m.id}');
+                          ref.read(bookingDraftProvider.notifier).state =
+                              BookingDraft(movieId: m.id);
+
+                          context.push('/movie/${m.id}');
                         },
                         onBookNow: () {
-                          context.go('/showtimes/${m.id}');
+                          ref.read(bookingDraftProvider.notifier).state =
+                              BookingDraft(movieId: m.id);
+
+                          context.push('/movie/${m.id}');
                         },
                       );
                     },
