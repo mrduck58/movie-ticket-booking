@@ -23,61 +23,65 @@ class AppRouter {
   static final router = GoRouter(
     initialLocation: '/',
     routes: [
-
       /// MAIN LAYOUT (BottomNavigationBar)
       ShellRoute(
         builder: (context, state, child) {
           return MainLayout(child: child);
         },
         routes: [
-
           /// HOME
-          GoRoute(
-            path: '/',
-            builder: (context, state) => const HomePage(),
-          ),
+          GoRoute(path: '/', builder: (context, state) => const HomePage()),
 
-          /// NOW PLAYING
-          GoRoute(
-            path: '/now-playing',
-            builder: (context, state) => const NowPlayingPage(),
-          ),
+          /// CINEMAS TAB
+          // GoRoute(
+          //   path: '/cinemas',
+          //   builder: (context, state) => const ChooseCinemaPage(),
+          // ),
 
-          /// COMING SOON
-          GoRoute(
-            path: '/coming-soon',
-            builder: (context, state) => const ComingSoonPage(),
-          ),
+          /// MY TICKETS TAB
+          // GoRoute(
+          //   path: '/tickets',
+          //   builder: (context, state) => const BookingDetailPage(),
+          // ),
 
-          /// ACCOUNT
-          GoRoute(
-            path: '/account',
-            builder: (context, state) => const AccountScreen(),
-          ),
-
-          /// WATCHLIST
-          GoRoute(
-            path: '/watchlist',
-            builder: (context, state) => const WatchlistWatchedScreen(),
-          ),
-
-          /// SEARCH
+          /// SEARCH TAB
           GoRoute(
             path: '/search',
             builder: (context, state) => const SearchPage(),
           ),
 
-          /// NOTIFICATIONS
+          /// ACCOUNT TAB
           GoRoute(
-            path: '/notifications',
-            builder: (context, state) => const NotificationScreen(),
-          ),
-
-          GoRoute(
-            path: '/booking-detail',
-            builder: (context, state) => const BookingDetailPage(),
+            path: '/account',
+            builder: (context, state) => const AccountScreen(),
           ),
         ],
+      ),
+
+      /// OTHER PAGES (không có bottom nav)
+      GoRoute(
+        path: '/watchlist',
+        builder: (context, state) => const WatchlistWatchedScreen(),
+      ),
+
+      GoRoute(
+        path: '/notifications',
+        builder: (context, state) => const NotificationScreen(),
+      ),
+
+      GoRoute(
+        path: '/booking-detail',
+        builder: (context, state) => const BookingDetailPage(),
+      ),
+
+      GoRoute(
+        path: '/now-playing',
+        builder: (context, state) => const NowPlayingPage(),
+      ),
+
+      GoRoute(
+        path: '/coming-soon',
+        builder: (context, state) => const ComingSoonPage(),
       ),
 
       /// MOVIE DETAIL (không có bottom nav)
@@ -90,7 +94,6 @@ class AppRouter {
       ),
 
       /// BOOKING FLOW
-
       GoRoute(
         path: '/choose-cinema/:movieId',
         builder: (context, state) {
@@ -105,10 +108,7 @@ class AppRouter {
           final movieId = state.pathParameters['movieId']!;
           final cinemaId = state.pathParameters['cinemaId']!;
 
-          return ChooseShowtimePage(
-            movieId: movieId,
-            cinemaId: cinemaId,
-          );
+          return ChooseShowtimePage(movieId: movieId, cinemaId: cinemaId);
         },
       ),
 
