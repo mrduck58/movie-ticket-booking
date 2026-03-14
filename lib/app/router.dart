@@ -8,7 +8,7 @@ import 'package:movie_ticket_booking/features/payment_method/presentation/pages/
 import 'package:movie_ticket_booking/features/notification/presentation/pages/notification_screen.dart';
 
 import '../core/widgets/layouts/navigation_bar.dart';
-
+import '../features/login/presentation/pages/intro_2.dart';
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/movie_detail/presentation/pages/movie_detail_page.dart';
 import '../features/cinemas/presentation/pages/choose_cinema_page.dart';
@@ -22,7 +22,7 @@ import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soo
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/intro',
     routes: [
       /// MAIN LAYOUT (BottomNavigationBar)
       ShellRoute(
@@ -60,6 +60,7 @@ class AppRouter {
       ),
 
       /// OTHER PAGES (không có bottom nav)
+      
       GoRoute(
         path: '/watchlist',
         builder: (context, state) => const WatchlistWatchedScreen(),
@@ -145,6 +146,10 @@ class AppRouter {
       GoRoute(
         path: '/payment-methods',
         builder: (context, state) => const ChoosePaymentMethodScreen(),
+      ),
+       GoRoute(
+        path: '/intro',
+        builder: (context, state) => const Intro2(),
       ),
     ],
   );

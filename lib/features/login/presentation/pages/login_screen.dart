@@ -25,7 +25,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final loginState = ref.watch(loginProvider);
 
     /// listen login success
-    ref.listen(loginProvider, (previous, next) {
+    ref.listen<LoginProvider>(loginProvider, (previous, next) {
       if (next.token != null) {
         Navigator.pushReplacement(
           context,
@@ -178,7 +178,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      ref.read(loginProvider.notifier).login(
+                      ref
+                          .read(loginProvider)
+                          .login(
                             emailController.text.trim(),
                             passwordController.text.trim(),
                           );
