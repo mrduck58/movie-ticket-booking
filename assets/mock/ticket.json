@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Jujutsu Kaisen",
+    "poster": "https://upload.wikimedia.org/wikipedia/en/4/46/Jujutsu_kaisen.jpg",
+    "startTime": "2026-12-22T17:30:00",
+    "endTime": "2026-12-22T20:38:00",
+    "cinema": "Hola Cinema",
+    "room": "Cinema 3",
+    "seats": ["F6", "F7", "F8"],
+    "duration": 134,
+    "director": "Nia DaCosta",
+    "ageRating": "R13+",
+    "genres": ["Action", "Fantasy"],
+    "qrData": "ticket_jujutsu_001"
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "poster": "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg",
+    "startTime": "2026-03-20T19:00:00",
+    "endTime": "2026-03-20T21:30:00",
+    "cinema": "Galaxy Cinema",
+    "room": "Cinema 5",
+    "seats": ["D3", "D4"],
+    "duration": 148,
+    "director": "Jon Watts",
+    "ageRating": "R13+",
+    "genres": ["Action", "Adventure", "Sci-Fi"],
+    "qrData": "ticket_spiderman_002"
+  },
+  {
+    "title": "Dune: Part Two",
+    "poster": "https://upload.wikimedia.org/wikipedia/en/5/52/Dune_Part_Two_poster.jpeg",
+    "startTime": "2026-03-14T14:00:00",
+    "endTime": "2026-03-14T16:45:00",
+    "cinema": "Lotte Cinema",
+    "room": "Cinema 1",
+    "seats": ["B1", "B2", "B3"],
+    "duration": 165,
+    "director": "Denis Villeneuve",
+    "ageRating": "R16+",
+    "genres": ["Sci-Fi", "Adventure"],
+    "qrData": "ticket_dune_003"
+  },
+  {
+    "title": "Avengers: Endgame",
+    "poster": "https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg",
+    "startTime": "2026-03-10T18:00:00",
+    "endTime": "2026-03-10T21:00:00",
+    "cinema": "CGV Vincom",
+    "room": "Cinema 7",
+    "seats": ["E8", "E9"],
+    "duration": 181,
+    "director": "Russo Brothers",
+    "ageRating": "R13+",
+    "genres": ["Action", "Superhero"],
+    "qrData": "ticket_avengers_004"
+  },
+  {
+    "title": "Your Name",
+    "poster": "https://upload.wikimedia.org/wikipedia/en/0/0b/Your_Name_poster.png",
+    "startTime": "2026-03-13T20:00:00",
+    "endTime": "2026-03-13T21:50:00",
+    "cinema": "Beta Cinema",
+    "room": "Cinema 2",
+    "seats": ["C5", "C6"],
+    "duration": 110,
+    "director": "Makoto Shinkai",
+    "ageRating": "P",
+    "genres": ["Animation", "Romance", "Fantasy"],
+    "qrData": "ticket_yourname_005"
+  }
+]
