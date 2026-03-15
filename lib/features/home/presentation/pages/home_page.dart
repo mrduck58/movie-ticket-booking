@@ -20,7 +20,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final movieAsync = ref.watch(movieProvider);
 
     return Scaffold(
-      bottomNavigationBar: const _HomeBottomNav(),
+      // bottomNavigationBar: const _HomeBottomNav(),
       body: SafeArea(
         child: movieAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -83,13 +83,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                         imageUrl: m.posterUrl,
                         onTap: () {
                           ref.read(bookingDraftProvider.notifier).state =
-                              BookingDraft(movieId: m.id);
+                              BookingDraft(movie: m.toEntity());
 
                           context.push('/movie/${m.id}');
                         },
                         onBookNow: () {
                           ref.read(bookingDraftProvider.notifier).state =
-                              BookingDraft(movieId: m.id);
+                              BookingDraft(movie: m.toEntity());
 
                           context.push('/movie/${m.id}');
                         },
@@ -387,54 +387,54 @@ class _MovieCard extends StatelessWidget {
   }
 }
 
-class _HomeBottomNav extends StatefulWidget {
-  const _HomeBottomNav();
+// class _HomeBottomNav extends StatefulWidget {
+//   const _HomeBottomNav();
 
-  @override
-  State<_HomeBottomNav> createState() => _HomeBottomNavState();
-}
+//   @override
+//   State<_HomeBottomNav> createState() => _HomeBottomNavState();
+// }
 
-class _HomeBottomNavState extends State<_HomeBottomNav> {
-  int index = 0;
+// class _HomeBottomNavState extends State<_HomeBottomNav> {
+//   int index = 0;
 
-  void onTap(int i) {
-    setState(() {
-      index = i;
-    });
+//   void onTap(int i) {
+//     setState(() {
+//       index = i;
+//     });
 
-    debugPrint("Bottom navigation clicked: $i");
-  }
+//     debugPrint("Bottom navigation clicked: $i");
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    const accent = Color(0xFFFF4D67);
+//   @override
+//   Widget build(BuildContext context) {
+//     const accent = Color(0xFFFF4D67);
 
-    return BottomNavigationBar(
-      currentIndex: index,
-      onTap: onTap,
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: accent,
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
+//     return BottomNavigationBar(
+//       currentIndex: index,
+//       onTap: onTap,
+//       type: BottomNavigationBarType.fixed,
+//       selectedItemColor: accent,
+//       unselectedItemColor: Colors.grey,
+//       items: const [
+//         BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.grid_view_outlined),
-          label: "Cinemas",
-        ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.grid_view_outlined),
+//           label: "Cinemas",
+//         ),
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.confirmation_number_outlined),
-          label: "My Tickets",
-        ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.confirmation_number_outlined),
+//           label: "My Tickets",
+//         ),
 
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+//         BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          label: "Account",
-        ),
-      ],
-    );
-  }
-}
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.person_outline),
+//           label: "Account",
+//         ),
+//       ],
+//     );
+//   }
+// }

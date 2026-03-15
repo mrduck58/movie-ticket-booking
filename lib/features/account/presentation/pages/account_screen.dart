@@ -110,9 +110,12 @@ class AccountScreen extends ConsumerWidget {
                 const _SectionLineLabel(label: "General"),
                 const SizedBox(height: 8),
 
-                const _MenuRow(
+                _MenuRow(
                   icon: Icons.person_outline,
                   title: "Personal Info",
+                  onTap: () {
+                    context.push('/profile');
+                  },
                 ),
 
                 _MenuRow(
