@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:movie_ticket_booking/features/account/presentation/pages/account_screen.dart';
+import 'package:movie_ticket_booking/features/profile/presentation/pages/my_profile.dart';
 import 'package:movie_ticket_booking/features/search/presentation/pages/search_page.dart';
+import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticket.dart';
 import 'package:movie_ticket_booking/features/watchlist/presentation/pages/watchlist_watched_screen.dart';
 import 'package:movie_ticket_booking/features/payment_method/presentation/pages/payment_method_screen.dart';
 import 'package:movie_ticket_booking/features/notification/presentation/pages/notification_screen.dart';
@@ -38,11 +40,11 @@ class AppRouter {
           //   builder: (context, state) => const ChooseCinemaPage(),
           // ),
 
-          /// MY TICKETS TAB
-          // GoRoute(
-          //   path: '/tickets',
-          //   builder: (context, state) => const BookingDetailPage(),
-          // ),
+          //MY TICKETS TAB
+          GoRoute(
+            path: '/tickets',
+            builder: (context, state) => const MyTicketsPage(),
+          ),
 
           /// SEARCH TAB
           GoRoute(
@@ -83,6 +85,10 @@ class AppRouter {
       GoRoute(
         path: '/coming-soon',
         builder: (context, state) => const ComingSoonPage(),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (context, state) => const ProfileInfoScreen(),
       ),
 
       /// MOVIE DETAIL (không có bottom nav)
