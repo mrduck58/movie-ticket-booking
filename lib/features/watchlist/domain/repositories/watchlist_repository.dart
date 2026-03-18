@@ -1,4 +1,4 @@
-import '../entities/movie.dart';
+import '../../../../domain/entities/movie.dart';
 
 abstract class WatchlistRepository {
   Future<List<Movie>> getWatchlist();

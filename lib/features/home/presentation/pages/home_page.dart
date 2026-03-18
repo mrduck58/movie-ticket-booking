@@ -29,11 +29,19 @@ class _HomePageState extends ConsumerState<HomePage> {
             final banners = movies.take(10).toList();
 
             final nowPlaying = movies
-                .where((m) => m.releaseDate.isBefore(DateTime.now()))
+                .where(
+                  (m) =>
+                      m.releaseDate != null &&
+                      m.releaseDate!.isBefore(DateTime.now()),
+                )
                 .toList();
 
             final comingSoon = movies
-                .where((m) => m.releaseDate.isAfter(DateTime.now()))
+                .where(
+                  (m) =>
+                      m.releaseDate != null &&
+                      m.releaseDate!.isAfter(DateTime.now()),
+                )
                 .toList();
 
             return ListView(
@@ -46,7 +54,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 const SizedBox(height: 16),
 
                 _BannerCarousel(
-                  items: banners.map((e) => e.posterUrl).toList(),
+                  items: banners
+                      .map(
+                        (e) =>
+                            e.posterUrl ??
+                            "https://via.placeholder.com/300x200",
+                      )
+                      .toList(),
                   onIndexChanged: (i) {
                     setState(() {
                       bannerIndex = i;
@@ -80,18 +94,19 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                       return _MovieCard(
                         title: m.title,
-                        imageUrl: m.posterUrl,
+                        imageUrl:
+                            m.posterUrl ?? "https://via.placeholder.com/300",
                         onTap: () {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.id}');
+                          context.push('/movie/${m.movieId}');
                         },
                         onBookNow: () {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.id}');
+                          context.push('/movie/${m.movieId}');
                         },
                       );
                     },
@@ -120,18 +135,19 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                       return _MovieCard(
                         title: m.title,
-                        imageUrl: m.posterUrl,
+                        imageUrl:
+                            m.posterUrl ?? "https://via.placeholder.com/300",
                         onTap: () {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.id}');
+                          context.push('/movie/${m.movieId}');
                         },
                         onBookNow: () {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.id}');
+                          context.push('/movie/${m.movieId}');
                         },
                       );
                     },
@@ -251,7 +267,16 @@ class _BannerCarousel extends StatelessWidget {
           itemCount: items.length,
           onPageChanged: onIndexChanged,
           itemBuilder: (context, index) {
-            return Image.network(items[index], fit: BoxFit.cover);
+            return Image.network(
+              items[index],
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.image_not_supported),
+                );
+              },
+            );
           },
         ),
       ),
@@ -351,7 +376,16 @@ class _MovieCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               child: AspectRatio(
                 aspectRatio: 3 / 4,
-                child: Image.network(imageUrl, fit: BoxFit.cover),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.broken_image),
+                    );
+                  },
+                ),
               ),
             ),
 

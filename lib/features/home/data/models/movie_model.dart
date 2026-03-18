@@ -1,70 +1,59 @@
-import 'package:movie_ticket_booking/features/watchlist/domain/entities/movie.dart';
+import 'package:movie_ticket_booking/domain/entities/movie.dart';
+import 'package:movie_ticket_booking/domain/entities/cast.dart';
 
 class MovieModel {
-  final String id;
+  final String movieId;
   final String title;
-  final String posterUrl;
-  final double rating;
-  final int durationMin;
-  final List<String> genres;
-  final DateTime releaseDate;
-  final String trailer;
-  final List<CastModel> cast;
+  final String? titleVn;
+  final int duration;
+  final double? rating;
+
+  final String? posterUrl;
+  final DateTime? releaseDate;
+
+  final String? trailer;
+  final List<Cast>? cast;
 
   MovieModel({
-    required this.id,
+    required this.movieId,
     required this.title,
-    required this.posterUrl,
-    required this.rating,
-    required this.durationMin,
-    required this.genres,
-    required this.releaseDate,
-    required this.trailer,
-    required this.cast,
+    this.titleVn,
+    required this.duration,
+    this.rating,
+    this.posterUrl,
+    this.releaseDate,
+    this.trailer,
+    this.cast,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
-      id: json["id"],
-      title: json["title"],
-      posterUrl: json["posterUrl"],
-      rating: (json["rating"] as num).toDouble(),
-      durationMin: json["durationMin"],
-      genres: List<String>.from(json["genres"]),
-      releaseDate: DateTime.parse(json["releaseDate"]),
-      trailer: json["trailer"],
-      cast: (json["cast"] as List)
-          .map((e) => CastModel.fromJson(e))
-          .toList(),
+      movieId: json['movieId'],
+      title: json['title'],
+      titleVn: json['titleVn'],
+      duration: json['duration'],
+      rating: (json['rating'] as num?)?.toDouble(),
+      posterUrl: json['posterUrl'],
+      releaseDate: json['releaseDate'] != null
+          ? DateTime.parse(json['releaseDate'])
+          : null,
+      trailer: json['trailerUrl'],
+      cast: [],
     );
   }
 
   Movie toEntity() {
     return Movie(
-      id: id,
+      id: movieId,
       title: title,
-      imageUrl: posterUrl,
-      duration: '${durationMin} min',
-      genres: genres,
-      rating: rating,
-      posterUrl: posterUrl,
-    );
-  }
-}
-
-class CastModel {
-  final String name;
-  final String imageUrl;
-
-  CastModel({
-    required this.name,
-    required this.imageUrl,
-  });
-
-  factory CastModel.fromJson(Map<String, dynamic> json) {
-    return CastModel(
-      name: json["name"],
-      imageUrl: json["imageUrl"],
+      posterUrl: posterUrl ?? "https://via.placeholder.com/300",
+      rating: rating ?? 0.0,
+      durationMin: duration,
+      genres: [],
+      releaseDate: releaseDate ?? DateTime.now(),
+      trailer: trailer ?? "",
+      cast: cast ?? [],
+      director: '',
     );
   }
 }

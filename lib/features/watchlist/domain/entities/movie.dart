@@ -1,4 +1,4 @@
-class Movie {
+class Movies {
   final String id;
   final String title;
   final String imageUrl;
@@ -9,7 +9,7 @@ class Movie {
   final double? rating;
   final String? posterUrl;
 
-  const Movie({
+  const Movies({
     required this.id,
     required this.title,
     required this.imageUrl,

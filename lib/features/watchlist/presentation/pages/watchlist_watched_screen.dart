@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/movie.dart';
+import '../../../../domain/entities/movie.dart';
 import '../providers/watchlist_providers.dart';
 
 class WatchlistWatchedScreen extends ConsumerStatefulWidget {
@@ -171,7 +171,7 @@ class _WatchlistGrid extends StatelessWidget {
                         height: posterHeight,
                         width: double.infinity,
                         child: Image.network(
-                          m.imageUrl,
+                          m.posterUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -266,7 +266,7 @@ class _WatchedList extends StatelessWidget {
                     child: SizedBox(
                       width: 120,
                       height: 170,
-                      child: Image.network(m.imageUrl, fit: BoxFit.cover),
+                      child: Image.network(m.posterUrl, fit: BoxFit.cover),
                     ),
                   ),
                   const SizedBox(width: 14),
@@ -282,7 +282,7 @@ class _WatchedList extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        _MetaRow(label: "Duration", value: m.duration ?? "-"),
+                        _MetaRow(label: "Duration", value: m.durationMin.toString() ?? "-" ),
                         const SizedBox(height: 6),
                         _MetaRow(label: "Director", value: m.director ?? "-"),
                         const SizedBox(height: 6),
@@ -301,7 +301,7 @@ class _WatchedList extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               child: Text(
-                                m.ageRating ?? "R13+",
+                                m.rating?.toString() ?? "R13+",
                                 style: const TextStyle(
                                   color: red,
                                   fontSize: 12,

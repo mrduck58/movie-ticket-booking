@@ -29,7 +29,7 @@ class MovieDetailPage extends ConsumerWidget {
       ),
       data: (movies) {
         final movie = movies.firstWhere(
-          (m) => m.id == movieId,
+          (m) => m.movieId == movieId,
           orElse: () => movies.first,
         );
 
@@ -47,7 +47,7 @@ class MovieDetailPage extends ConsumerWidget {
                     fit: StackFit.expand,
                     children: [
                       Image.network(
-                        movie.posterUrl,
+                        movie.posterUrl ?? '',
                         fit: BoxFit.cover,
                       ),
 
@@ -96,7 +96,7 @@ class MovieDetailPage extends ConsumerWidget {
                                 const SizedBox(width: 10),
 
                                 Text(
-                                  "${movie.durationMin} min",
+                                  "${movie.duration} min",
                                   style:
                                       const TextStyle(color: Colors.white70),
                                 ),
@@ -105,10 +105,10 @@ class MovieDetailPage extends ConsumerWidget {
 
                             const SizedBox(height: 6),
 
-                            Text(
-                              movie.genres.join(", "),
-                              style: const TextStyle(color: Colors.white70),
-                            ),
+                            // Text(
+                            //   movie.genres.join(", "),
+                            //   style: const TextStyle(color: Colors.white70),
+                            // ),
                           ],
                         ),
                       )
@@ -139,7 +139,7 @@ class MovieDetailPage extends ConsumerWidget {
                           ),
                           onPressed: () {
                             ref.read(bookingDraftProvider.notifier).setMovie(movie.toEntity());
-                            context.push('/choose-cinema/${movie.id}');
+                            context.push('/choose-cinema/${movie.movieId}');
                           },
                           child: const Text(
                             "Book Now",
@@ -161,7 +161,7 @@ class MovieDetailPage extends ConsumerWidget {
 
                       GestureDetector(
                         onTap: () async {
-                          final url = Uri.parse(movie.trailer);
+                          final url = Uri.parse(movie.trailer ?? '');
 
                           if (await canLaunchUrl(url)) {
                             launchUrl(url);
@@ -174,7 +174,7 @@ class MovieDetailPage extends ConsumerWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: Image.network(
-                                movie.posterUrl,
+                                movie.posterUrl ?? '',
                                 height: 180,
                                 width: double.infinity,
                                 fit: BoxFit.cover,
@@ -232,10 +232,10 @@ class MovieDetailPage extends ConsumerWidget {
 
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: movie.cast.length,
+                          itemCount: movie.cast?.length,
 
                           itemBuilder: (context, index) {
-                            final actor = movie.cast[index];
+                            final actor = movie.cast?[index];
 
                             return Padding(
                               padding:
@@ -246,13 +246,13 @@ class MovieDetailPage extends ConsumerWidget {
                                   CircleAvatar(
                                     radius: 35,
                                     backgroundImage:
-                                        NetworkImage(actor.imageUrl),
+                                        NetworkImage(actor?.imageUrl ?? ''),
                                   ),
 
                                   const SizedBox(height: 6),
 
                                   Text(
-                                    actor.name,
+                                    actor?.name ?? '',
                                     style:
                                         const TextStyle(fontSize: 12),
                                   )
@@ -291,7 +291,7 @@ class MovieDetailPage extends ConsumerWidget {
                                     BorderRadius.circular(12),
 
                                 child: Image.network(
-                                  movie.posterUrl,
+                                  movie.posterUrl ?? '',
                                   width: 160,
                                   fit: BoxFit.cover,
                                 ),

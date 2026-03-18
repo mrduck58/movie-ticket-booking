@@ -77,7 +77,7 @@ class ReviewSummaryPage extends ConsumerWidget {
           children: [
             MovieInfoSection(
               title: draft.movie?.title ?? "-",
-              duration: draft.movie?.duration ?? "-",
+              duration: draft.movie?.durationMin.toString() ?? "-",
               director: draft.movie?.director ?? "-",
               rating: draft.movie?.rating?.toString() ?? "-",
               genre: draft.movie?.genres?.join(", ") ?? "-",
@@ -87,7 +87,7 @@ class ReviewSummaryPage extends ConsumerWidget {
             const SizedBox(height: 16),
 
             BookingDetailsSection(
-              durationMin: draft.movie?.duration ?? "",
+              durationMin: draft.movie?.durationMin.toString() ?? "-",
               cinema: draft.cinema?.name ?? "-",
               auditorium: draft.auditorium ?? "Auditorium 3",
               seats: draft.seats
