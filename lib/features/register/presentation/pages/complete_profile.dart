@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'create_account.dart';
-import 'movie_interest_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   const CompleteProfileScreen({super.key});
@@ -18,6 +18,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args = GoRouterState.of(context).extra as Map;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
@@ -136,7 +137,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
                     if (picked != null) {
                       dobController.text =
-                          "${picked.day}/${picked.month}/${picked.year}";
+                          "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
                     }
                   },
                   validator: (value) {
@@ -162,11 +163,14 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MovieInterestScreen(),
-                          ),
+                        context.go(
+                          '/movie-interest',
+                          extra: {
+                            ...args,
+                            "fullName": nameController.text,
+                            "phone": phoneController.text,
+                            "dateOfBirth": dobController.text,
+                          },
                         );
                       }
                     },
