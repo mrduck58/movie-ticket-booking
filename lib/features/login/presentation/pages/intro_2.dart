@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'create_account.dart';
-import 'login_screen.dart';
-
+import 'package:go_router/go_router.dart';
 class Intro2 extends StatelessWidget {
   const Intro2({super.key});
 
@@ -68,10 +66,7 @@ class Intro2 extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    );
+                    context.go('/login');
                   },
                   child: const Text(
                     "Sign in with password",
@@ -92,12 +87,7 @@ class Intro2 extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const CreateAccountScreen(),
-                        ),
-                      );
+                      context.go('/create-account');
                     },
                     child: const Text(
                       "Sign up",
