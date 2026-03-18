@@ -1,9 +1,9 @@
-import '../datasources/movie_mock_datasource.dart';
+import '../datasources/movie_api_datasource.dart';
 import '../models/movie_model.dart';
 
 class MovieRepository {
 
-  final MovieMockDatasource datasource;
+  final MovieDatasource datasource;
 
   MovieRepository(this.datasource);
 

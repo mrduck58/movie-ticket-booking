@@ -1,4 +1,4 @@
-import '../../domain/entities/movie.dart';
+import '../../../../domain/entities/movie.dart';
 import '../../domain/repositories/watchlist_repository.dart';
 import '../datasources/watchlist_local_datasource.dart';
 

@@ -35,9 +35,12 @@ class NowPlayingPage extends ConsumerWidget {
         error: (e, _) => Center(child: Text("Error: $e")),
         data: (movies) {
           final nowPlaying = movies
-              .where((m) => m.releaseDate.isBefore(DateTime.now()))
-              .toList();
-
+                .where(
+                  (m) =>
+                      m.releaseDate != null &&
+                      m.releaseDate!.isBefore(DateTime.now()),
+                )
+                .toList();
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
 
@@ -80,13 +83,13 @@ class _MovieCard extends ConsumerWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () {
-              context.push('/movie/${movie.id}');
+              context.push('/movie/${movie.movieId}');
             },
 
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
-                movie.posterUrl,
+                movie.posterUrl ?? '',
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -106,7 +109,7 @@ class _MovieCard extends ConsumerWidget {
 
         OutlinedButton(
           onPressed: () {
-            context.push('/movie/${movie.id}');
+            context.push('/movie/${movie.movieId}');
           },
 
           style: OutlinedButton.styleFrom(

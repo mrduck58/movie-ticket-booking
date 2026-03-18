@@ -33,9 +33,14 @@ class ComingSoonPage extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text("Error: $e")),
         data: (movies) {
-          final comingSoon = movies
-              .where((m) => m.releaseDate.isAfter(DateTime.now()))
-              .toList();
+
+            final comingSoon = movies
+                .where(
+                  (m) =>
+                      m.releaseDate != null &&
+                      m.releaseDate!.isAfter(DateTime.now()),
+                )
+                .toList();
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -79,13 +84,13 @@ class _MovieCard extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () {
-              context.push('/movie/${movie.id}');
+              context.push('/movie/${movie.movieId}');
             },
 
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
-                movie.posterUrl,
+                movie.posterUrl ?? '',
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -105,7 +110,7 @@ class _MovieCard extends StatelessWidget {
 
         OutlinedButton(
           onPressed: () {
-            context.push('/movie/${movie.id}');
+            context.push('/movie/${movie.movieId}');
           },
 
           style: OutlinedButton.styleFrom(

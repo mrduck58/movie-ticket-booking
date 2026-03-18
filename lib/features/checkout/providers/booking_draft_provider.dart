@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:movie_ticket_booking/domain/entities/seat.dart';
 import 'package:movie_ticket_booking/features/checkout/providers/booking_draft.dart';
-import 'package:movie_ticket_booking/features/watchlist/domain/entities/movie.dart';
+import 'package:movie_ticket_booking/domain/entities/movie.dart';
 import 'package:movie_ticket_booking/domain/entities/cinema.dart';
 import 'package:movie_ticket_booking/domain/entities/showtime.dart';
 

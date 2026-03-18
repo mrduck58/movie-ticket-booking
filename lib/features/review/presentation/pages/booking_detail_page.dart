@@ -68,7 +68,7 @@ class BookingDetailPage extends ConsumerWidget {
             /// Movie info
             MovieInfoSection(
               title: draft.movie?.title ?? "-",
-              duration: draft.movie?.duration ?? "-",
+              duration: draft.movie?.durationMin.toString() ?? "-",
               director: draft.movie?.director ?? "-",
               rating: draft.movie?.rating?.toString() ?? "-",
               genre: draft.movie?.genres?.join(", ") ?? "-",
@@ -79,7 +79,7 @@ class BookingDetailPage extends ConsumerWidget {
 
             /// Booking details
             BookingDetailsSection(
-              durationMin: draft.movie?.duration ?? "",
+              durationMin: draft.movie?.durationMin.toString() ?? "-",
               cinema: draft.cinema?.name ?? "-",
               auditorium: draft.auditorium ?? "-",
               seats: draft.seats

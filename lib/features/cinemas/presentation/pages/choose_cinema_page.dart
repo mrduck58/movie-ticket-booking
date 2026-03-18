@@ -111,7 +111,7 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
                         final movies = moviesAsync.value;
                         if (movies != null) {
                           final movie = movies.firstWhere(
-                            (m) => m.id == widget.movieId,
+                            (m) => m.movieId == widget.movieId,
                             orElse: () => movies.first,
                           );
                           final booking = ref.read(bookingDraftProvider.notifier);

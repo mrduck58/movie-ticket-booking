@@ -1,7 +1,7 @@
 import 'package:movie_ticket_booking/domain/entities/cinema.dart';
 import 'package:movie_ticket_booking/domain/entities/seat.dart';
 import 'package:movie_ticket_booking/domain/entities/showtime.dart';
-import 'package:movie_ticket_booking/features/watchlist/domain/entities/movie.dart';
+import 'package:movie_ticket_booking/domain/entities/movie.dart';
 
 class BookingDraft {
   final Movie? movie;
