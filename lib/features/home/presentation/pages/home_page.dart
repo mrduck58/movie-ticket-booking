@@ -100,13 +100,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.movieId}');
+                          context.push('/movies/${m.movieId}');
                         },
                         onBookNow: () {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.movieId}');
+                          context.push('/movies/${m.movieId}/cinemas');
                         },
                       );
                     },

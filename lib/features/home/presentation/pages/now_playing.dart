@@ -83,7 +83,7 @@ class _MovieCard extends ConsumerWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () {
-              context.push('/movie/${movie.movieId}');
+              context.push('/movies/${movie.movieId}');
             },
 
             child: ClipRRect(
@@ -109,7 +109,7 @@ class _MovieCard extends ConsumerWidget {
 
         OutlinedButton(
           onPressed: () {
-            context.push('/movie/${movie.movieId}');
+            context.push('/movies/${movie.movieId}');
           },
 
           style: OutlinedButton.styleFrom(

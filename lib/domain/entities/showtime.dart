@@ -1,17 +1,24 @@
 class Showtime {
-  final String id;
-  final String cinemaId;
-  final String format; 
-  final String auditorium;
+  final String showtimeId;
+  final String roomName;
+  final DateTime startTime;
   final double price;
-  final List<String> times; 
 
-  const Showtime({
-    required this.id,
-    required this.cinemaId,
-    required this.format,
-    required this.auditorium,
+  Showtime({
+    required this.showtimeId,
+    required this.roomName,
+    required this.startTime,
     required this.price,
-    required this.times,
   });
+
+  Showtime copyWith({
+    double? price,
+  }) {
+    return Showtime(
+      showtimeId: showtimeId,
+      roomName: roomName,
+      startTime: startTime,
+      price: price ?? this.price,
+    );
+  }
 }

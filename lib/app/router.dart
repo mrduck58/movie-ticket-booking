@@ -74,10 +74,10 @@ class AppRouter {
         builder: (context, state) => const NotificationScreen(),
       ),
 
-      GoRoute(
-        path: '/booking-detail',
-        builder: (context, state) => const BookingDetailPage(),
-      ),
+      // GoRoute(
+      //   path: '/booking-detail',
+      //   builder: (context, state) => const BookingDetailPage(),
+      // ),
 
       GoRoute(
         path: '/now-playing',
@@ -95,7 +95,7 @@ class AppRouter {
 
       /// MOVIE DETAIL (không có bottom nav)
       GoRoute(
-        path: '/movie/:id',
+        path: '/movies/:id',
         builder: (context, state) {
           final id = state.pathParameters['id']!;
           return MovieDetailPage(movieId: id);
@@ -104,7 +104,7 @@ class AppRouter {
 
       /// BOOKING FLOW
       GoRoute(
-        path: '/choose-cinema/:movieId',
+        path: '/movies/:movieId/cinemas',
         builder: (context, state) {
           final movieId = state.pathParameters['movieId']!;
           return ChooseCinemaPage(movieId: movieId);
@@ -136,10 +136,10 @@ class AppRouter {
         },
       ),
 
-      GoRoute(
-        path: '/review',
-        builder: (context, state) => const ReviewSummaryPage(),
-      ),
+      // GoRoute(
+      //   path: '/review',
+      //   builder: (context, state) => const ReviewSummaryPage(),
+      // ),
 
       GoRoute(
         path: '/payment-method',

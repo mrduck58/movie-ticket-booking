@@ -11,7 +11,7 @@ class BookingDraft {
   final String? paymentMethod;
   final String? date;
   final String? auditorium;
-  final int? totalPrice;
+  final double? totalPrice;
 
   BookingDraft({
     this.movie,
@@ -32,7 +32,7 @@ class BookingDraft {
     String? paymentMethod,
     String? date,
     String? auditorium,
-    int? totalPrice,
+    double? totalPrice,
   }) {
     return BookingDraft(
       movie: movie ?? this.movie,

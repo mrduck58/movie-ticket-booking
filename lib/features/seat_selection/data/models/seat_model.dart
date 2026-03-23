@@ -1,33 +1,25 @@
 import '../../../../domain/entities/seat.dart';
 
-class SeatModel {
-  final String id;
-  final String row;
-  final int number;
-  final bool taken;
-
-  SeatModel({
-    required this.id,
-    required this.row,
-    required this.number,
-    required this.taken,
+class SeatModel extends Seat {
+  const SeatModel({
+    required super.seatId,
+    required super.seatName,
+    required super.status,
   });
 
   factory SeatModel.fromJson(Map<String, dynamic> json) {
     return SeatModel(
-      id: json['id'],
-      row: json['row'],
-      number: json['number'],
-      taken: json['taken'],
+      seatId: json['seatId'],
+      seatName: json['seatName'],
+      status: json['status'],
     );
   }
 
   Seat toEntity() {
     return Seat(
-      id: id,
-      row: row,
-      number: number,
-      taken: taken,
+      seatId: seatId,
+      seatName: seatName,
+      status: status,
     );
   }
 }
