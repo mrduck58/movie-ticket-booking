@@ -7,7 +7,9 @@ import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticke
 import 'package:movie_ticket_booking/features/watchlist/presentation/pages/watchlist_watched_screen.dart';
 import 'package:movie_ticket_booking/features/payment_method/presentation/pages/payment_method_screen.dart';
 import 'package:movie_ticket_booking/features/notification/presentation/pages/notification_screen.dart';
-
+import 'package:movie_ticket_booking/features/register/presentation/pages/create_account.dart';
+import 'package:movie_ticket_booking/features/register/presentation/pages/movie_interest_screen.dart';
+import 'package:movie_ticket_booking/features/login/presentation/pages/login_screen.dart';
 import '../core/widgets/layouts/navigation_bar.dart';
 import '../features/login/presentation/pages/intro_2.dart';
 import '../features/home/presentation/pages/home_page.dart';
@@ -18,6 +20,7 @@ import '../features/review/presentation/pages/review_summary_page.dart';
 import '../features/payment/presentation/pages/choose_payment_page.dart';
 import '../features/seat_selection/presentation/pages/seat_selection_page.dart';
 import '../features/review/presentation/pages/booking_detail_page.dart';
+import '../features/register/presentation/pages/complete_profile.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
 
@@ -148,6 +151,23 @@ class AppRouter {
         builder: (context, state) => const ChoosePaymentMethodScreen(),
       ),
       GoRoute(path: '/intro', builder: (context, state) => const Intro2()),
+
+      GoRoute(
+        path: '/create-account',
+        builder: (context, state) => const CreateAccountScreen(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LoginScreen(),
+      ),
+       GoRoute(
+        path: '/complete-profile',
+        builder: (context, state) => const CompleteProfileScreen(),
+      ),
+      GoRoute(
+        path: '/movie-interest',
+        builder: (context, state) => const MovieInterestScreen(),
+      )
     ],
   );
 }

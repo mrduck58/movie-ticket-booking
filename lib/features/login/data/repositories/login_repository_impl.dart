@@ -18,4 +18,10 @@ class LoginRepositoryImpl implements LoginRepository {
 
     return token;
   }
+
+  @override
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("token");
+  }
 }
