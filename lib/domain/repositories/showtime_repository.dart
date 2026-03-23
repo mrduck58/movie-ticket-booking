@@ -1,5 +1,9 @@
-import '../entities/showtime.dart';
+import '../entities/showtime_group.dart';
 
 abstract class ShowtimeRepository {
-  Future<List<Showtime>> getShowtimes(String cinemaId);
+  Future<List<ShowtimeGroup>> getShowtimes(
+    String movieId,
+    String cinemaId,
+    DateTime date,
+  );
 }
