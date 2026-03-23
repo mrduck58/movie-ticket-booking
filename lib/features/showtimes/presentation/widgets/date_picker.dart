@@ -12,10 +12,22 @@ class DatePickerBar extends ConsumerWidget {
 
     final today = DateTime.now();
 
-    final dates = List.generate(
-      7,
-      (index) => today.add(Duration(days: index)),
-    );
+    // Data 7 ngày kể từ hôm nay
+    // final dates = List.generate(
+    //   7,
+    //   (index) => today.add(Duration(days: index)),
+    // );
+
+    // Data tĩnh để test
+    final dates = [
+      DateTime(2026, 3, 21),
+      DateTime(2026, 6, 10),
+      DateTime(2026, 6, 23),
+      DateTime(2026, 6, 24),
+      DateTime(2026, 6, 25),
+      DateTime(2026, 6, 26),
+      DateTime(2026, 6, 27),
+    ];
 
     return SizedBox(
       height: 60,
@@ -26,8 +38,7 @@ class DatePickerBar extends ConsumerWidget {
         itemBuilder: (context, index) {
           final date = dates[index];
           final isSelected =
-              date.day == selectedDate.day &&
-              date.month == selectedDate.month;
+              date.day == selectedDate.day && date.month == selectedDate.month;
 
           return GestureDetector(
             onTap: () {
@@ -36,9 +47,7 @@ class DatePickerBar extends ConsumerWidget {
             child: Container(
               width: 60,
               decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.primary
-                    : Colors.white,
+                color: isSelected ? AppColors.primary : Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey.shade300),
               ),
@@ -51,18 +60,14 @@ class DatePickerBar extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: isSelected
-                          ? Colors.white
-                          : Colors.black,
+                      color: isSelected ? Colors.white : Colors.black,
                     ),
                   ),
                   Text(
                     _weekday(date),
                     style: TextStyle(
                       fontSize: 14,
-                      color: isSelected
-                          ? Colors.white
-                          : Colors.grey,
+                      color: isSelected ? Colors.white : Colors.grey,
                     ),
                   ),
                 ],

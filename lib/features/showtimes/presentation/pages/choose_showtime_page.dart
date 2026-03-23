@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_ticket_booking/features/cinemas/presentation/providers/cinema_providers.dart';
 import 'package:movie_ticket_booking/features/showtimes/presentation/widgets/date_picker.dart';
 
 import '../../../checkout/providers/booking_draft_provider.dart';
@@ -25,7 +26,17 @@ class ChooseShowtimePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showtimesAsync = ref.watch(showtimesProvider(cinemaId));
+    final selectedDate = ref.watch(selectedDateProvider);
+
+    final cinemaAsync = ref.watch(cinemaProvider(cinemaId));
+
+    final showtimesAsync = ref.watch(
+      showtimesProvider((
+        movieId: movieId,
+        cinemaId: cinemaId,
+        date: selectedDate,
+      )),
+    );
 
     final selectedTime = ref.watch(selectedShowtimeProvider);
 
@@ -66,42 +77,58 @@ class ChooseShowtimePage extends ConsumerWidget {
 
               const SizedBox(height: 16),
 
-              Text(
-                "Name movie",
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+              cinemaAsync.when(
+                loading: () => const CircularProgressIndicator(),
+                error: (e, _) => Text(e.toString()),
+                data: (cinema) => Text(
+                  cinema.name,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
 
               const SizedBox(height: 6),
 
-              Row(
-                children: const [
-                  Icon(Icons.star, color: Colors.orange, size: 18),
-                  SizedBox(width: 6),
-                  Text("4.1 (10,771 Google reviews)"),
-                ],
+              cinemaAsync.when(
+                loading: () => const CircularProgressIndicator(),
+                error: (e, _) => Text(e.toString()),
+                data: (cinema) => Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.orange, size: 18),
+                    const SizedBox(width: 6),
+                    Text(cinema.rating),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 8),
 
-              const Row(
-                children: [
-                  Icon(Icons.location_on_outlined, size: 18),
-                  SizedBox(width: 6),
-                  Expanded(child: Text("234 W 42nd St, New York")),
-                ],
+              cinemaAsync.when(
+                data: (cinema) => Row(
+                  children: [
+                    const Icon(Icons.location_on_outlined, size: 18),
+                    const SizedBox(width: 6),
+                    Expanded(child: Text(cinema.location)),
+                  ],
+                ),
+                loading: () => const SizedBox(),
+                error: (_, __) => const SizedBox(),
               ),
 
               const SizedBox(height: 6),
 
-              const Row(
-                children: [
-                  Icon(Icons.phone_outlined, size: 18),
-                  SizedBox(width: 6),
-                  Text("+1 212-398-2597"),
-                ],
+              cinemaAsync.when(
+                data: (cinema) => Row(
+                  children: [
+                    const Icon(Icons.phone_outlined, size: 18),
+                    const SizedBox(width: 6),
+                    Text("+${cinema.hotline}"),
+                  ],
+                ),
+                loading: () => const SizedBox(),
+                error: (_, __) => const SizedBox(),
               ),
 
               const SizedBox(height: 24),
@@ -110,7 +137,7 @@ class ChooseShowtimePage extends ConsumerWidget {
 
               const SizedBox(height: 16),
 
-              ...showtimes.map((s) => ShowtimeSection(showtime: s)),
+              ...showtimes.map((group) => ShowtimeSection(group: group)),
             ],
           );
         },
@@ -134,11 +161,11 @@ class ChooseShowtimePage extends ConsumerWidget {
                       .setShowtime(
                         selectedTime.showtime,
                         date: formattedDate,
-                        auditorium: selectedTime.showtime.auditorium,
+                        auditorium: selectedTime.showtime.roomName,
                       );
 
                   context.push(
-                    '/seat-selection/$movieId/$cinemaId/${selectedTime.showtime.id}',
+                    '/seat-selection/$movieId/$cinemaId/${selectedTime.showtime.showtimeId}',
                   );
                 },
           child: const Text(

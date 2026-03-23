@@ -1,41 +1,30 @@
 import '../../../../domain/entities/showtime.dart';
 
 class ShowtimeModel {
-  final String id;
-  final String cinemaId;
-  final String format;
-  final String auditorium;
-  final double price;
-  final List<String> times;
+  final String showtimeId;
+  final DateTime startTime;
+  final String roomName;
 
   ShowtimeModel({
-    required this.id,
-    required this.cinemaId,
-    required this.format,
-    required this.auditorium,
-    required this.price,
-    required this.times,
+    required this.showtimeId,
+    required this.startTime,
+    required this.roomName,
   });
 
   factory ShowtimeModel.fromJson(Map<String, dynamic> json) {
     return ShowtimeModel(
-      id: json['id'],
-      cinemaId: json['cinema_id'],
-      format: json['format'],
-      auditorium: json['auditorium'],
-      price: (json['price'] as num).toDouble(),
-      times: List<String>.from(json['times']),
+      showtimeId: json['showtimeId'],
+      startTime: DateTime.parse(json['startTime']),
+      roomName: json['roomName'],
     );
   }
 
-  Showtime toEntity() {
+  Showtime toEntity(double price) {
     return Showtime(
-      id: id,
-      cinemaId: cinemaId,
-      format: format,
-      auditorium: auditorium,
+      showtimeId: showtimeId,
+      startTime: startTime,
+      roomName: roomName,
       price: price,
-      times: times,
     );
   }
 }
