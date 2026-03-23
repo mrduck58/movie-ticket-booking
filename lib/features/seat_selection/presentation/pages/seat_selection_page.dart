@@ -26,7 +26,7 @@ class SeatSelectionPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final seatsAsync = ref.watch(seatsProvider);
+    final seatsAsync = ref.watch(seatMapProvider(showtimeId));
     final selectedSeats = ref.watch(selectedSeatsProvider);
     final draft = ref.watch(bookingDraftProvider);
 
@@ -61,7 +61,7 @@ class SeatSelectionPage extends ConsumerWidget {
 
         error: (e, _) => Center(child: Text(e.toString())),
 
-        data: (seats) {
+        data: (seatMap) {
           double ticketPrice = draft.showtime?.price ?? 0;
           final price = selectedSeats.length * ticketPrice;
 
@@ -76,7 +76,7 @@ class SeatSelectionPage extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      Expanded(child: SeatGrid(seats: seats)),
+                      Expanded(child: SeatGrid(seats: seatMap.seats)),
 
                       const SizedBox(height: 12),
 
@@ -155,7 +155,7 @@ class SeatSelectionPage extends ConsumerWidget {
                                       .map(
                                         (e) => Chip(
                                           label: Text(
-                                            "${e.row}${e.number}",
+                                            e.seatName,
                                             style: const TextStyle(
                                               color: Colors.white,
                                             ),

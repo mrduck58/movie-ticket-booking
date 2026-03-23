@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:http/http.dart' as http;
+import 'package:movie_ticket_booking/features/seat_selection/data/datasources/seat_api_datasource.dart';
+import 'package:movie_ticket_booking/features/seat_selection/data/models/seat_map_model.dart';
 
 import '../../../../domain/entities/seat.dart';
 import '../../../../domain/repositories/seat_repository.dart';
@@ -7,25 +11,24 @@ import '../../../../domain/repositories/seat_repository.dart';
 import '../../data/datasources/seat_mock_datasource.dart';
 import '../../data/repositories/seat_repository_impl.dart';
 
-final seatDatasourceProvider =
-    Provider<SeatMockDatasource>((ref) {
-  return SeatMockDatasourceImpl();
+final dioProvider = Provider((ref) {
+  return Dio(BaseOptions(
+    baseUrl: 'https://localhost:7132/api',
+  ));
 });
 
-final seatRepositoryProvider =
-    Provider<SeatRepository>((ref) {
-
-  final ds = ref.watch(seatDatasourceProvider);
-
-  return SeatRepositoryImpl(ds);
+final seatDatasourceProvider = Provider((ref) {
+  final dio = ref.watch(dioProvider);
+  return SeatApiDatasource(dio);
 });
 
-final seatsProvider =
-    FutureProvider<List<Seat>>((ref) {
+final seatRepositoryProvider = Provider<SeatRepository>((ref) {
+  return SeatRepositoryImpl(ref.read(seatDatasourceProvider));
+});
 
-  final repo = ref.watch(seatRepositoryProvider);
-
-  return repo.getSeats();
+final seatMapProvider =
+    FutureProvider.family<SeatMapModel, String>((ref, showtimeId) {
+  return ref.read(seatRepositoryProvider).getSeats(showtimeId);
 });
 
 final selectedSeatsProvider =
@@ -37,8 +40,8 @@ class SeatSelectionNotifier extends StateNotifier<List<Seat>> {
   SeatSelectionNotifier() : super([]);
 
   void toggleSeat(Seat seat) {
-    if (state.any((s) => s.id == seat.id)) {
-      state = state.where((s) => s.id != seat.id).toList();
+    if (state.any((s) => s.seatId == seat.seatId)) {
+      state = state.where((s) => s.seatId != seat.seatId).toList();
     } else {
       state = [...state, seat];
     }
