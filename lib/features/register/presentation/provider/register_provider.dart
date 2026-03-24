@@ -6,6 +6,7 @@ import '../../data/datasources/register_remote_datasource.dart';
 import '../../data/models/register_request_model.dart';
 import '../../data/repositories/register_repository_impl.dart';
 
+
 /// 👇 DÙNG TRỰC TIẾP DioClient có sẵn (bạn đã có ở project)
 final registerRepositoryProvider = Provider((ref) {
   final dioClient = DioClient(baseUrl: "https://localhost:7132");
@@ -36,5 +37,17 @@ class RegisterNotifier extends StateNotifier<AsyncValue<void>> {
       print(e);
       state = AsyncError(e, st);
     }
+  }
+  Future<bool> checkEmail(String email) async {
+    return await repo.checkEmailExists(email);
+  }
+  Future<bool> sendOtp(String email) async {
+    // Bạn có thể set state = AsyncLoading() ở đây nếu muốn hiện loading toàn màn hình
+    return await repo.sendOtp(email);
+  }
+
+  // 4. THÊM: Hàm xác thực OTP
+  Future<bool> verifyOtp(String email, String otp) async {
+    return await repo.verifyOtp(email, otp);
   }
 }
