@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-class Intro2 extends StatelessWidget {
+import '../provider/login_provider.dart'; // Đảm bảo đúng đường dẫn file provider của bạn
+
+class Intro2 extends ConsumerWidget { // 1. Chuyển sang ConsumerWidget
   const Intro2({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) { // 2. Thêm WidgetRef
+    // Theo dõi trạng thái của loginProvider
+    final loginState = ref.watch(loginProvider);
+
+    // Lắng nghe lỗi để hiển thị thông báo (Snackbar)
+    ref.listen(loginProvider, (previous, next) {
+      if (next.error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.error!), backgroundColor: Colors.red),
+        );
+      }
+      // Nếu có token (đăng nhập thành công), chuyển hướng trang
+      if (next.token != null) {
+        context.go('/'); // Thay đổi đường dẫn theo app của bạn
+      }
+    });
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
@@ -31,10 +50,18 @@ class Intro2 extends StatelessWidget {
               const SizedBox(height: 40),
 
               /// Google Button
-              socialButton(
-                imagePath: "assets/images/icons/google.png",
-                text: "Continue with Google",
-              ),
+              loginState.isLoading 
+                ? const CircularProgressIndicator(color: Color(0xFFFF5A5F))
+                : GestureDetector(
+                    onTap: () {
+                      // 3. Gọi hàm loginWithGoogle từ provider
+                      ref.read(loginProvider.notifier).loginWithGoogle();
+                    },
+                    child: socialButton(
+                      imagePath: "assets/images/icons/google.png",
+                      text: "Continue with Google",
+                    ),
+                  ),
 
               const SizedBox(height: 16),
 
@@ -109,7 +136,7 @@ class Intro2 extends StatelessWidget {
   }
 
   /// Social Button Widget
-  static Widget socialButton({
+  Widget socialButton({
     required String imagePath,
     required String text,
   }) {

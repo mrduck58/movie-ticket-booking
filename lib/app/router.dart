@@ -23,6 +23,7 @@ import '../features/review/presentation/pages/booking_detail_page.dart';
 import '../features/register/presentation/pages/complete_profile.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
+import '../features/register/presentation/pages/verify_otp_screen.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -78,7 +79,6 @@ class AppRouter {
       //   path: '/booking-detail',
       //   builder: (context, state) => const BookingDetailPage(),
       // ),
-
       GoRoute(
         path: '/now-playing',
         builder: (context, state) => const NowPlayingPage(),
@@ -140,7 +140,6 @@ class AppRouter {
       //   path: '/review',
       //   builder: (context, state) => const ReviewSummaryPage(),
       // ),
-
       GoRoute(
         path: '/payment-method',
         builder: (context, state) => const ChoosePaymentPage(),
@@ -156,18 +155,22 @@ class AppRouter {
         path: '/create-account',
         builder: (context, state) => const CreateAccountScreen(),
       ),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginScreen(),
-      ),
-       GoRoute(
         path: '/complete-profile',
         builder: (context, state) => const CompleteProfileScreen(),
       ),
       GoRoute(
         path: '/movie-interest',
         builder: (context, state) => const MovieInterestScreen(),
-      )
+      ),
+      GoRoute(
+        path: '/verify-otp',
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return VerifyOtpScreen(data: args);
+        },
+      ),
     ],
   );
 }
