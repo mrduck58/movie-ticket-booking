@@ -10,6 +10,8 @@ class MovieApiDatasource implements MovieDatasource {
   Future<List<MovieModel>> getMovies() async {
     final response = await http.get(Uri.parse(baseUrl));
 
+    print(response.body);
+
     if (response.statusCode == 200) {
       final List data = json.decode(response.body);
       return data.map((e) => MovieModel.fromJson(e)).toList();

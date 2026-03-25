@@ -69,7 +69,7 @@ class MovieInfoSection extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: Text(
-                          "AR",
+                          "Rating",
                           style: TextStyle(
                             fontSize: 18,
                             color: AppColors.textSecondary,

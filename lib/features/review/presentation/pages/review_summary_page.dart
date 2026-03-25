@@ -34,13 +34,22 @@ class ReviewSummaryPage extends ConsumerWidget {
 
     final selectedVoucher = ref.watch(selectedVoucherProvider);
 
-    final voucherDiscount = selectedVoucher?.discountValue ?? 0;
-
     int comboTotal = 0;
 
     for (final combo in combos) {
       final qty = selectedCombos[combo.id] ?? 0;
       comboTotal += combo.price * qty;
+    }
+
+    double voucherDiscount = 0;
+
+    if (selectedVoucher != null) {
+      if (selectedVoucher.type == "PERCENTAGE") {
+        voucherDiscount =
+            (ticketTotal + comboTotal) * selectedVoucher.discountValue / 100;
+      } else if (selectedVoucher.type == "FIX_AMOUNT") {
+        voucherDiscount = selectedVoucher.discountValue;
+      }
     }
 
     final total = ticketTotal + comboTotal - voucherDiscount;
@@ -81,7 +90,7 @@ class ReviewSummaryPage extends ConsumerWidget {
               duration: draft.movie?.durationMin.toString() ?? "-",
               director: draft.movie?.director ?? "-",
               rating: draft.movie?.rating?.toString() ?? "-",
-              genre: draft.movie?.genres?.join(", ") ?? "-",
+              genre: draft.movie?.genres?.map((g) => g.name).join(", ") ?? "-",
               poster: draft.movie?.posterUrl ?? "assets/mock/movie.jpg",
             ),
 
@@ -113,8 +122,9 @@ class ReviewSummaryPage extends ConsumerWidget {
               ticketPrice: ticketPrice.toInt(),
               ticketCount: ticketCount,
               comboPrice: comboTotal,
-              voucher: selectedVoucher?.discountValue.toInt() ?? 0,
+              voucher: voucherDiscount.toInt(),
               total: total.toInt(),
+              voucherType: selectedVoucher?.type,
             ),
 
             const SizedBox(height: 20),

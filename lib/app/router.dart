@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:movie_ticket_booking/features/account/presentation/pages/account_screen.dart';
 import 'package:movie_ticket_booking/features/food_combo/presentation/pages/choose_combo.dart';
 import 'package:movie_ticket_booking/features/account/presentation/pages/screens/account_screen.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/pages/my_profile.dart';

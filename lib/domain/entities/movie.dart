@@ -1,4 +1,5 @@
 import 'package:movie_ticket_booking/domain/entities/cast.dart';
+import 'package:movie_ticket_booking/domain/entities/genre.dart';
 
 class Movie {
   final String id;
@@ -7,7 +8,7 @@ class Movie {
   final String director;
   final double rating;
   final int durationMin;
-  final List<String> genres;
+  final List<Genre> genres;
   final DateTime releaseDate;
   final String trailer;
   final List<Cast> cast;

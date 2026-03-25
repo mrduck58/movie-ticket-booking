@@ -9,6 +9,7 @@ class PriceDetailsSection extends StatelessWidget {
   final int comboPrice;
   final int voucher;
   final int total;
+  final String? voucherType;
 
   const PriceDetailsSection({
     super.key,
@@ -17,24 +18,30 @@ class PriceDetailsSection extends StatelessWidget {
     required this.comboPrice,
     required this.voucher,
     required this.total,
+    this.voucherType,
   });
 
   @override
   Widget build(BuildContext context) {
     final ticketTotal = ticketPrice * ticketCount;
+    final subtotal = ticketTotal + comboPrice;
+
+    String voucherText = "-${MoneyFormatter.vnd(voucher)}";
+
+    if (voucherType == "PERCENTAGE" && subtotal > 0) {
+      final percent = ((voucher / subtotal) * 100).round();
+      voucherText = "-$percent% (-${MoneyFormatter.vnd(voucher)})";
+    }
 
     return Container(
       padding: const EdgeInsets.all(16),
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
         color: AppColors.surface,
       ),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-
         children: [
           const Text(
             "Price Details",
@@ -42,9 +49,7 @@ class PriceDetailsSection extends StatelessWidget {
           ),
 
           const SizedBox(height: 6),
-
           const Divider(),
-
           const SizedBox(height: 6),
 
           _row("Standard (x$ticketCount)", MoneyFormatter.vnd(ticketTotal)),
@@ -52,7 +57,8 @@ class PriceDetailsSection extends StatelessWidget {
           if (comboPrice > 0)
             _row("Food Combo", MoneyFormatter.vnd(comboPrice)),
 
-          _row("Voucher", "-${MoneyFormatter.vnd(voucher)}"),
+          if (voucher > 0)
+            _row("Voucher", voucherText),
 
           const Divider(),
 
@@ -65,20 +71,17 @@ class PriceDetailsSection extends StatelessWidget {
   Widget _row(String label, String value, {bool highlight = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
         children: [
           Text(
             label,
             style: const TextStyle(
               color: AppColors.textSecondary,
               fontWeight: FontWeight.w500,
-              fontSize: 16
+              fontSize: 16,
             ),
           ),
-
           Text(
             value,
             style: TextStyle(
