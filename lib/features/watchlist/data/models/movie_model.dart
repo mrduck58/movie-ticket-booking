@@ -12,6 +12,11 @@ class MovieModel extends Movie {
     required super.director,
     required super.rating,
     required super.genres,
+    required super.releaseDate,
+    required super.trailer,
+    required super.cast,
+    required super.status,
+    required super.synopsis
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +39,14 @@ class MovieModel extends Movie {
       genres: json['genres'] is List
           ? (json['genres'] as List).map((e) => e.toString()).toList()
           : const [],
+      
+      releaseDate: json['releaseDate'] != null
+          ? DateTime.parse(json['releaseDate'])
+          : DateTime.now(),
+      trailer: json['trailerUrl'] ?? "",
+      cast: [],
+      status: json['status'] ?? "",
+      synopsis: json['synopsis'] ?? "",
     );
   }
 

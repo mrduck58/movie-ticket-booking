@@ -29,19 +29,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             final banners = movies.take(10).toList();
 
             final nowPlaying = movies
-                .where(
-                  (m) =>
-                      m.releaseDate != null &&
-                      m.releaseDate!.isBefore(DateTime.now()),
-                )
+                .where((m) => m.status == "NOWSHOWING")
                 .toList();
 
             final comingSoon = movies
-                .where(
-                  (m) =>
-                      m.releaseDate != null &&
-                      m.releaseDate!.isAfter(DateTime.now()),
-                )
+                .where((m) => m.status == "COMINGSOON")
                 .toList();
 
             return ListView(
@@ -141,13 +133,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.movieId}');
+                          context.push('/movies/${m.movieId}');
                         },
                         onBookNow: () {
                           ref.read(bookingDraftProvider.notifier).state =
                               BookingDraft(movie: m.toEntity());
 
-                          context.push('/movie/${m.movieId}');
+                          context.push('/movies/${m.movieId}');
                         },
                       );
                     },

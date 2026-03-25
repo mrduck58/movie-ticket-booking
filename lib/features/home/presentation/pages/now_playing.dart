@@ -35,12 +35,8 @@ class NowPlayingPage extends ConsumerWidget {
         error: (e, _) => Center(child: Text("Error: $e")),
         data: (movies) {
           final nowPlaying = movies
-                .where(
-                  (m) =>
-                      m.releaseDate != null &&
-                      m.releaseDate!.isBefore(DateTime.now()),
-                )
-                .toList();
+              .where((m) => m.status == "NOWSHOWING")
+              .toList();
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
 

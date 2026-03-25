@@ -10,5 +10,7 @@ class MovieRepository {
   Future<List<MovieModel>> getMovies() {
     return datasource.getMovies();
   }
-
+Future<MovieModel> getMovieById(String id) {
+    return datasource.getMovieById(id);
+  }
 }
