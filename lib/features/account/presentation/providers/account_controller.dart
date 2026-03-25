@@ -15,4 +15,9 @@ class AccountController extends AsyncNotifier<AccountState> {
 
     return AccountState(user: user);
   }
+
+  Future<void> refreshData() async {
+    state = const AsyncLoading();
+    state = AsyncData(await build());
+  }
 }

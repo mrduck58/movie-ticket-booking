@@ -7,7 +7,9 @@ import 'account_controller.dart';
 import 'account_state.dart';
 
 final accountLocalDatasourceProvider =
-    Provider((ref) => AccountLocalDatasource());
+    Provider<AccountLocalDatasource>((ref) {
+  return AccountLocalDatasource();
+});
 
 final accountRepositoryProvider =
     Provider<AccountRepository>((ref) {

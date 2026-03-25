@@ -1,41 +1,49 @@
-import '../../../../domain/entities/movie.dart';
-import '../../../../domain/entities/cast.dart';
+import '../../domain/entities/movie.dart';
 
 class MovieModel extends Movie {
-  MovieModel({
+  const MovieModel({
+    required super.watchListId,
     required super.id,
     required super.title,
     required super.posterUrl,
+    required super.type,
+    required super.createdAt,
     required super.durationMin,
+    required super.director,
     required super.rating,
     required super.genres,
-    required super.releaseDate,
-    required super.trailer,
-    required super.cast,
-    required super.director,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
-      id: json['movieId'] ?? "",
-      title: json['title'] ?? "",
-
-      durationMin: json['duration'] ?? 0,
-
-      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
-
-      posterUrl: json['posterUrl'] ?? "https://via.placeholder.com/300x400",
-
-      releaseDate: json['releaseDate'] != null
-          ? DateTime.parse(json['releaseDate'])
-          : DateTime.now(),
-
-      trailer: json['trailerUrl'] ?? "",
-
-      genres: [], // backend chưa có
-
-      cast: [], // backend chưa có
-      director: json['director'] ?? "",
+      watchListId: (json['watchListId'] ?? '').toString(),
+      id: (json['movieId'] ?? '').toString(),
+      title: (json['title'] ?? '').toString(),
+      posterUrl: (json['posterUrl'] ?? '').toString(),
+      type: MovieListType.fromString(json['type']?.toString()),
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'].toString())
+          : null,
+      durationMin: json['duration'] is num
+          ? (json['duration'] as num).toInt()
+          : null,
+      director: json['director']?.toString(),
+      rating: json['rating'] is num
+          ? (json['rating'] as num).toDouble()
+          : null,
+      genres: json['genres'] is List
+          ? (json['genres'] as List).map((e) => e.toString()).toList()
+          : const [],
     );
+  }
+
+  Map<String, dynamic> toAddJson({
+    required String movieId,
+    required MovieListType type,
+  }) {
+    return {
+      'movieId': movieId,
+      'type': type.apiValue,
+    };
   }
 }
