@@ -1,11 +1,12 @@
 class Post {
-  final int id;
+  final String id;
   final String name;
   final DateTime time;
   final String content;
   final String? image;
   final int likes;
   final String avatar;
+  final bool isLiked;
   Post({
     required this.id,
     required this.name,
@@ -13,17 +14,19 @@ class Post {
     required this.content,
     this.image,
     required this.likes,
-    required this.avatar
+    required this.avatar,
+    required this.isLiked
   });
 
   Post copyWith({
-    int? id,
+    String? id,
     String? name,
     int? likes,
     DateTime? time,
     String? content,
     String? image,
     String? avatar,
+    bool? isLiked,
   }) {
     return Post(
       id: id ?? this.id,
@@ -33,6 +36,7 @@ class Post {
       content: content ?? this.content,
       image: image ?? this.image,
       avatar: avatar ?? this.avatar,
+      isLiked: isLiked ?? this.isLiked,
     );
   }
 }

@@ -3,14 +3,18 @@ import '../../domain/repositories/post_comment_repository.dart';
 import '../datasources/post_comment_local_datasource.dart';
 
 class PostCommentRepositoryImpl implements PostCommentRepository {
-  final PostCommentLocalDatasource datasource;
+  final PostCommentRemoteDatasource datasource;
 
   PostCommentRepositoryImpl(this.datasource);
 
   @override
+  Future<List<PostComment>> getComments(String postId) async {
+    final models = await datasource.getComments(postId);
+    return models.map((e) => e.toEntity()).toList();
+  }
+
   @override
-  Future<List<PostComment>> getComments() async {
-    final models = await datasource.getComments();
-    return models.map((e) => e as PostComment).toList();
+  Future<void> addComment(String postId, String content) async {
+    await datasource.addComment(postId: postId, content: content);
   }
 }

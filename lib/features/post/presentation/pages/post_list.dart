@@ -36,6 +36,7 @@ class CommunityScreen extends ConsumerWidget {
                   likes: post.likes,
                   avatar: post.avatar,
                   image: post.image,
+                  isLiked: post.isLiked
                 ),
               );
             },

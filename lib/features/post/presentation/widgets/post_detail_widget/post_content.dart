@@ -25,6 +25,12 @@ class PostContent extends StatelessWidget {
             child: Image.network(
               post.image!,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Icon(Icons.broken_image),
+                  );
+                },
             ),
           ),
       ],

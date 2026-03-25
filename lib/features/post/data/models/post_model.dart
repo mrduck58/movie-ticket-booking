@@ -8,19 +8,22 @@ class PostModel extends Post {
     required super.content,
     super.image,
     required super.likes,
-    required super.avatar
+    required super.avatar,
+    required super.isLiked,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
-      id: json["id"],
+      id: json["id"].toString(),
       name: json["name"],
-      time: DateTime.parse(json['created_at']),
+      time: DateTime.parse(json['createdAt']),
       content: json["content"],
       image: json["image"],
       likes: json["likes"],
-      avatar: json["avatar"]
+      avatar: json["avatar"],
+      isLiked: json["isLiked"]
     );
   }
+  
   
 }

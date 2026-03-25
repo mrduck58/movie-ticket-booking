@@ -1,32 +1,30 @@
+import 'package:movie_ticket_booking/features/post/data/datasources/post_remote_datasource.dart';
+import 'package:movie_ticket_booking/features/post/data/models/create_post_model.dart';
+import 'package:movie_ticket_booking/features/post/domain/entities/create_post.dart';
+
 import '../../domain/entities/post.dart';
 import '../../domain/repositories/post_repository.dart';
-import '../datasources/post_local_datasource.dart';
-import '../models/post_model.dart';
 
 class PostRepositoryImpl implements PostRepository {
-  final PostLocalDataSource datasource;
-
+  // final PostLocalDataSource datasource;
+  final PostRemoteDataSource datasource;
   PostRepositoryImpl(this.datasource);
 
   @override
   Future<List<Post>> getPosts() async {
-  final models = await datasource.getPosts();
+    final models = await datasource.getPosts();
 
-  return List<Post>.from(models);
-}
+    return List<Post>.from(models);
+  }
 
   @override
-  Future<void> createPost(Post post) async {
-    final model = PostModel(
-      id: post.id,
-      name: post.name,
-      time: post.time,
-      likes: post.likes,
-      content: post.content,
-      image: post.image,
-      avatar: post.avatar
-    );
+  Future<Map<String, dynamic>> toggleLike(String id) {
+    return datasource.toggleLike(id);
+  }
 
+  @override
+  Future<void> createPost(CreatePost post) async {
+    final model = CreatePostModel.fromEntity(post);
     await datasource.createPost(model);
   }
 }

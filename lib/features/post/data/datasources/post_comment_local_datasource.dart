@@ -1,14 +1,50 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/post_comment_model.dart';
 
-class PostCommentLocalDatasource {
-  Future<List<PostCommentModel>> getComments() async {
-    final jsonString =
-        await rootBundle.loadString('assets/mock/post_comment.json');
+class PostCommentRemoteDatasource {
+  final String baseUrl = "https://localhost:7132/api"; // sửa lại
+  Future<Map<String, String>> _headers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
 
-    final List data = json.decode(jsonString);
+    print("WATCHLIST TOKEN: $token");
 
-    return data.map((e) => PostCommentModel.fromJson(e)).toList();
+    return {
+      'Content-Type': 'application/json',
+      if (token != null && token.isNotEmpty) 'Authorization': 'Bearer $token',
+    };
+  }
+
+  /// GET comments theo postId
+  Future<List<PostCommentModel>> getComments(String postId) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/blogpost/$postId/comments'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode == 200) {
+      final List data = json.decode(response.body);
+
+      return data.map((e) => PostCommentModel.fromJson(e)).toList();
+    } else {
+      throw Exception('Failed to load comments');
+    }
+  }
+
+  Future<void> addComment({
+    required String postId,
+    required String content,
+  }) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/blogpost/$postId/comments'),
+      headers: await _headers(),
+      body: json.encode({"content": content}),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add comment');
+    }
   }
 }
