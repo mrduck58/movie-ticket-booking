@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:movie_ticket_booking/domain/entities/movie.dart';
 import 'package:movie_ticket_booking/features/cinemas/data/datasources/cinema_api_datasource.dart';
 
 import '../../../../domain/entities/cinema.dart';
@@ -56,4 +57,11 @@ class FavoriteCinemasNotifier extends StateNotifier<Set<String>> {
 final favoriteCinemasProvider =
     StateNotifierProvider<FavoriteCinemasNotifier, Set<String>>((ref) {
   return FavoriteCinemasNotifier();
+});
+final allCinemasProvider = FutureProvider<List<Cinema>>((ref) async {
+  return ref.read(cinemaRepositoryProvider).getCinemas();
+});
+// Provider lấy danh sách phim theo CinemaId
+final moviesByCinemaProvider = FutureProvider.family<List<Movie>, String>((ref, cinemaId) async {
+  return ref.read(cinemaRepositoryProvider).getMoviesByCinema(cinemaId);
 });
