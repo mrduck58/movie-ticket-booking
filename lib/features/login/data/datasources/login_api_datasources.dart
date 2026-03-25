@@ -20,4 +20,20 @@ class LoginApiDatasource {
 
     return null;
   }
+  Future<String?> loginWithGoogle(String Token) async {
+  try {
+    // Gọi đến đúng endpoint api/auth/google-login
+    final response = await dio.post('/api/auth/google-login', data: {
+      'Token': Token,
+    });
+
+    if (response.statusCode == 200) {
+      // Backend trả về { "token": "..." }
+      return response.data['token'];
+    }
+    return null;
+  } catch (e) {
+    rethrow;
+  }
+}
 }

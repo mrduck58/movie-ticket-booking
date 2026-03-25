@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'create_account.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   const CompleteProfileScreen({super.key});
@@ -93,31 +94,45 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 TextFormField(
                   controller: nameController,
                   decoration: _inputStyle("Enter your full name"),
+                  // Ngăn người dùng nhập quá nhiều, ví dụ max 50 ký tự
+                  inputFormatters: [LengthLimitingTextInputFormatter(50)],
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter your name";
+                    }
+                    // Kiểm tra độ dài: Thường 3 ký tự là mức tối thiểu an toàn
+                    if (value.trim().length < 3) {
+                      return "Name is too short (minimum 3 characters)";
                     }
                     return null;
                   },
                 ),
 
                 const SizedBox(height: 20),
-
-                /// Phone Number
-                const Text("Phone Number"),
-                const SizedBox(height: 8),
+                 const Text("Phone number"),
                 TextFormField(
                   controller: phoneController,
-                  keyboardType: TextInputType.phone,
+                  keyboardType:
+                      TextInputType.text, // Để hiện bàn phím chữ/số bình thường
                   decoration: _inputStyle("Enter your phone number"),
+                  // XÓA phần inputFormatters ở đây để cho phép nhập chữ thoải mái
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter your phone number";
                     }
+
+                    // 1. Kiểm tra xem có ký tự chữ nào không (Regex: chỉ cho phép 0-9)
+                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      return "Phone number must contain only digits";
+                    }
+
+                    // 2. Kiểm tra độ dài 10 hoặc 11
+                    if (value.length < 10 || value.length > 11) {
+                      return "Phone number must be 10 or 11 digits";
+                    }
                     return null;
                   },
                 ),
-
                 const SizedBox(height: 20),
 
                 /// Date of Birth

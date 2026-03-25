@@ -20,6 +20,11 @@ class LoginRepositoryImpl implements LoginRepository {
   }
 
   @override
+  Future<String?> loginWithGoogle(String Token) async {
+    return await datasource.loginWithGoogle(Token);
+  }
+
+  @override
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove("token");
