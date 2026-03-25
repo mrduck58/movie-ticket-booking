@@ -191,7 +191,7 @@ class SeatSelectionPage extends ConsumerWidget {
 
                                 booking.setSeats(selectedSeats);
 
-                                context.push('/review');
+                                context.push('/combos');
                               },
                         child: const Text(
                           "Continue",

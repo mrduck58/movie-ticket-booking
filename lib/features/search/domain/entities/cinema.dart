@@ -1,11 +1,15 @@
 class Cinema {
   final String id;
   final String name;
-  final bool isFavorite;
+  final String location;
+  final double rating;
+  final String hotline;
 
-  Cinema({
+  const Cinema({
     required this.id,
     required this.name,
-    required this.isFavorite,
+    required this.location,
+    required this.rating,
+    required this.hotline,
   });
 }

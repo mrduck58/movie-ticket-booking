@@ -1,6 +1,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:movie_ticket_booking/domain/entities/combo.dart';
 import 'package:movie_ticket_booking/domain/entities/seat.dart';
 import 'package:movie_ticket_booking/features/checkout/providers/booking_draft.dart';
 import 'package:movie_ticket_booking/domain/entities/movie.dart';
@@ -27,8 +28,16 @@ class BookingDraftNotifier extends StateNotifier<BookingDraft> {
     state = state.copyWith(showtime: showtime, date: date, auditorium: auditorium);
   }
 
+  void setPackage(String package) {
+    state = state.copyWith(package: package);
+  }
+
   void setSeats(List<Seat> seats) {
     state = state.copyWith(seats: seats);
+  }
+
+  void setCombos(List<Combo> combos) {
+    state = state.copyWith(combos: combos);
   }
 
   void setPayment(String method) {

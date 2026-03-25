@@ -6,12 +6,20 @@ import 'package:movie_ticket_booking/core/network/dio_client.dart';
 import 'package:movie_ticket_booking/features/login/data/repositories/login_repository_impl.dart';
 import '../../domain/repositories/login_repository.dart';
 import '../../data/datasources/login_api_datasources.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+// 1. Cấu hình Google Sign In (Dành riêng cho Web)
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  clientId:
+      "1007019760091-msrkcffduk67n9kao7uatqdh6toshhdp.apps.googleusercontent.com",
+
+  // scopes: ['email', 'profile'],
+);
 
 final loginRepositoryProvider = Provider<LoginRepository>((ref) {
+  // Đảm bảo URL này khớp với Backend của bạn
   final dioClient = DioClient(baseUrl: "https://localhost:7132");
-
   final datasource = LoginApiDatasource(dioClient.dio);
-
   return LoginRepositoryImpl(datasource);
 });
 
@@ -29,29 +37,79 @@ class LoginProvider extends ChangeNotifier {
   String? _token;
   String? get token => _token;
 
+  // --- Hàm Login cũ bằng Email/Password ---
   Future<void> login(String email, String password) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
     try {
       final token = await repository.login(email, password);
-
       if (token != null) {
         _token = token;
       } else {
         _error = "Invalid email or password";
       }
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        _error = "Invalid email or password";
-      } else {
-        _error = "Server error";
-      }
+      _error = e.response?.data?.toString() ?? "Server error";
     } catch (e) {
       _error = "Login failed";
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  // --- 2. Hàm Login mới bằng Google ---
+
+  Future<bool> loginWithGoogle() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      // 1. Luôn SignOut trước để buộc hiện bảng chọn tài khoản (giúp fix lỗi cache token)
+      await _googleSignIn.signOut();
+
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final String? tokenToSend = googleAuth.accessToken;
+
+      // Log để bạn kiểm tra ở Console F12
+     print("TOKEN GỬI LÊN SERVER: $tokenToSend");
+
+     if (tokenToSend == null) {
+    _error = "Không thể lấy Token từ Google";
+    _isLoading = false;
+    notifyListeners();
+    return false;
+  }
+     final serverToken = await repository.loginWithGoogle(tokenToSend);
+
+      if (serverToken != null) {
+        _token = serverToken;
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      } else {
+        _error = "Server từ chối xác thực tài khoản này.";
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+    } catch (e) {
+      _error = "Lỗi kết nối: Không thể gọi đến API Backend.";
+      print("Google Auth Error: $e");
+      _isLoading = false;
+      notifyListeners();
+      return false;
     }
   }
 

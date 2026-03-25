@@ -6,4 +6,12 @@ class AccountState {
   const AccountState({
     required this.user,
   });
+
+  AccountState copyWith({
+    UserProfile? user,
+  }) {
+    return AccountState(
+      user: user ?? this.user,
+    );
+  }
 }

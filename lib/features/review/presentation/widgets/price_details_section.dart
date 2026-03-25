@@ -38,7 +38,7 @@ class PriceDetailsSection extends StatelessWidget {
         children: [
           const Text(
             "Price Details",
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
           ),
 
           const SizedBox(height: 6),
@@ -75,14 +75,16 @@ class PriceDetailsSection extends StatelessWidget {
             style: const TextStyle(
               color: AppColors.textSecondary,
               fontWeight: FontWeight.w500,
+              fontSize: 16
             ),
           ),
 
           Text(
             value,
             style: TextStyle(
-              color: highlight ? Colors.red : null,
+              color: highlight ? AppColors.primary : null,
               fontWeight: highlight ? FontWeight.w700 : FontWeight.w600,
+              fontSize: highlight ? 18 : 16,
             ),
           ),
         ],

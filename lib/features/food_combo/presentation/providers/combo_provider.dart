@@ -1,11 +1,25 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:movie_ticket_booking/features/food_combo/data/datasources/combo_api_datasource.dart';
 
 import '../../data/repositories/combo_repository_impl.dart';
 import '../../../../domain/entities/combo.dart';
 
+final dioProvider = Provider<Dio>((ref) {
+  return Dio(
+    BaseOptions(
+      baseUrl: 'https://localhost:7132/api',
+    ),
+  );
+});
+
+final comboDatasourceProvider = Provider(
+  (ref) => ComboApiDatasource(ref.watch(dioProvider)),
+);
+
 final comboRepositoryProvider = Provider(
-  (ref) => ComboRepositoryImpl(),
+  (ref) => ComboRepositoryImpl(ref.watch(comboDatasourceProvider)),
 );
 
 final combosProvider = FutureProvider<List<Combo>>((ref) async {

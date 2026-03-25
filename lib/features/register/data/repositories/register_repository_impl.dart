@@ -11,4 +11,19 @@ class RegisterRepositoryImpl implements RegisterRepository {
   Future<void> register(RegisterRequestModel model) {
     return remote.register(model);
   }
+  @override
+  Future<bool> checkEmailExists(String email) async {
+    // Gọi đến hàm bạn đã viết trong datasource
+    return await remote.checkEmailExists(email);
+  }
+  @override
+  Future<bool> sendOtp(String email) async {
+    return await remote.sendOtp(email);
+  }
+
+  @override
+  Future<bool> verifyOtp(String email, String otp) async {
+    return await remote.verifyOtp(email, otp);
+  }
+  
 }

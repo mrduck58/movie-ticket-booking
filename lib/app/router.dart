@@ -1,15 +1,19 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:movie_ticket_booking/features/account/presentation/pages/account_screen.dart';
+import 'package:movie_ticket_booking/features/food_combo/presentation/pages/choose_combo.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/account_screen.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/pages/my_profile.dart';
-import 'package:movie_ticket_booking/features/search/presentation/pages/search_page.dart';
+import 'package:movie_ticket_booking/features/search/presentation/pages/screens/search_page.dart';
 import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticket.dart';
-import 'package:movie_ticket_booking/features/watchlist/presentation/pages/watchlist_watched_screen.dart';
+import 'package:movie_ticket_booking/features/watchlist/presentation/pages/screens/watchlist_watched_screen.dart';
 import 'package:movie_ticket_booking/features/payment_method/presentation/pages/payment_method_screen.dart';
-import 'package:movie_ticket_booking/features/notification/presentation/pages/notification_screen.dart';
+import 'package:movie_ticket_booking/features/notification/presentation/pages/screens/notification_screen.dart';
 import 'package:movie_ticket_booking/features/register/presentation/pages/create_account.dart';
 import 'package:movie_ticket_booking/features/register/presentation/pages/movie_interest_screen.dart';
 import 'package:movie_ticket_booking/features/login/presentation/pages/login_screen.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/help_center_screen.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/about_app_screen.dart';
 import '../core/widgets/layouts/navigation_bar.dart';
 import '../features/login/presentation/pages/intro_2.dart';
 import '../features/home/presentation/pages/home_page.dart';
@@ -23,6 +27,7 @@ import '../features/review/presentation/pages/booking_detail_page.dart';
 import '../features/register/presentation/pages/complete_profile.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
+import '../features/register/presentation/pages/verify_otp_screen.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -78,7 +83,6 @@ class AppRouter {
       //   path: '/booking-detail',
       //   builder: (context, state) => const BookingDetailPage(),
       // ),
-
       GoRoute(
         path: '/now-playing',
         builder: (context, state) => const NowPlayingPage(),
@@ -136,11 +140,22 @@ class AppRouter {
         },
       ),
 
+      GoRoute(
+        path: '/combos',
+        builder: (context, state) {
+          return FoodOrderPage();
+        },
+      ),
+
+      GoRoute(
+        path: '/review',
+        builder: (context, state) => const ReviewSummaryPage(),
+      ),
+
       // GoRoute(
       //   path: '/review',
       //   builder: (context, state) => const ReviewSummaryPage(),
       // ),
-
       GoRoute(
         path: '/payment-method',
         builder: (context, state) => const ChoosePaymentPage(),
@@ -156,18 +171,30 @@ class AppRouter {
         path: '/create-account',
         builder: (context, state) => const CreateAccountScreen(),
       ),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginScreen(),
-      ),
-       GoRoute(
         path: '/complete-profile',
         builder: (context, state) => const CompleteProfileScreen(),
       ),
       GoRoute(
         path: '/movie-interest',
         builder: (context, state) => const MovieInterestScreen(),
-      )
+      ),
+      GoRoute(
+        path: '/help-center',
+        builder: (context, state) => const HelpCenterScreen(),
+      ),
+      GoRoute(
+        path: '/about-app',
+        builder: (context, state) => const AboutAppScreen(),
+      ),
+      GoRoute(
+        path: '/verify-otp',
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return VerifyOtpScreen(data: args);
+        },
+      ),
     ],
   );
 }

@@ -1,52 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../login/presentation/pages/intro_2.dart';
 import 'package:go_router/go_router.dart';
+import '../provider/register_provider.dart';
 
-class CreateAccountScreen extends StatefulWidget {
+class CreateAccountScreen extends ConsumerStatefulWidget {
   const CreateAccountScreen({super.key});
 
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  ConsumerState<CreateAccountScreen> createState() =>
+      _CreateAccountScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   bool isChecked = false;
   bool isPasswordHidden = true;
   bool isConfirmHidden = true;
   String? confirmError;
+  String? passwordError;
+  String? emailError;
+  bool _isCheckingEmail = false;
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
-  void validatePassword() {
-    // 1. check password match
-    if (passwordController.text != confirmController.text) {
-      setState(() {
-        confirmError = "Passwords do not match";
-      });
-      return;
-    }
+  bool _isPasswordStrong(String password) {
+    final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d).{8,}$');
+    return passwordRegex.hasMatch(password);
+  }
 
-    // 2. check checkbox (nếu muốn bắt buộc)
-    if (!isChecked) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please agree to Terms")));
-      return;
-    }
+  bool _isValidEmail(String email) {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+  }
 
-    // 3. nếu OK → đi tiếp
+  void validateAndSubmit() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+    final confirm = confirmController.text;
+
+    // 1. Reset các thông báo lỗi cũ
     setState(() {
       confirmError = null;
+      emailError = null;
     });
-
-    context.go(
-      '/complete-profile',
-      extra: {
-        "email": emailController.text,
-        "password": passwordController.text,
-      },
+    if (!isChecked) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("You must agree to the Terms & Conditions to continue."),
+        backgroundColor: Colors.redAccent,
+      ),
     );
+    return; // Dừng lại ở đây, không gọi API nữa
+  }
+    // 2. Validate mật khẩu mạnh (8 ký tự, 1 hoa, 1 số)
+    final passRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d).{8,}$');
+    if (!passRegex.hasMatch(password)) {
+      setState(
+        () => passwordError =
+            "Password must be at least 8 characters, include an uppercase letter and a number",
+      );
+      return;
+    }
+    if (!_isValidEmail(email)) {
+      setState(
+        () => emailError =
+            "Please enter a valid email address (e.g. name@example.com)",
+      );
+      return;
+    }
+
+    // 3. Check khớp mật khẩu
+    if (password != confirm) {
+      setState(() => confirmError = "Passwords do not match");
+      return;
+    }
+
+    // 4. Gọi API check Email (Hết gạch đỏ sau khi làm Bước 1 & 2)
+
+    // 3. Bắt đầu gọi API
+    setState(() => _isCheckingEmail = true);
+
+    try {
+      // BƯỚC A: Check email tồn tại trong DB chưa
+      final emailExists = await ref
+          .read(registerProvider.notifier)
+          .repo
+          .checkEmailExists(email);
+
+      if (emailExists) {
+        setState(() {
+          emailError = "This email is already registered";
+          _isCheckingEmail = false;
+        });
+        return;
+      }
+
+      // BƯỚC B: Gửi mã OTP về email người dùng
+      final isOtpSent = await ref
+          .read(registerProvider.notifier)
+          .repo
+          .sendOtp(email);
+
+      setState(() => _isCheckingEmail = false);
+
+      if (isOtpSent) {
+        // BƯỚC C: CHUYỂN SANG MÀN HÌNH NHẬP OTP (Thay vì Complete Profile)
+        // Dùng context.push để người dùng có thể quay lại nếu nhập sai email
+        context.push(
+          '/verify-otp',
+          extra: {"email": email, "password": password},
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Failed to send OTP. Please try again later."),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() => _isCheckingEmail = false);
+      print("Lỗi hệ thống: $e");
+    }
   }
 
   @override
@@ -100,6 +174,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     hintText: "Email",
                     prefixIcon: const Icon(Icons.email_outlined),
                     filled: true,
+                    errorText: emailError,
                     fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -119,6 +194,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   obscureText: isPasswordHidden,
                   decoration: InputDecoration(
                     hintText: "Password",
+                    errorText: passwordError,
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -250,11 +326,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: validatePassword,
-                    child: const Text(
-                      "Sign Up",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
+                    onPressed: _isCheckingEmail ? null : validateAndSubmit,
+                    child: _isCheckingEmail
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                            "Sign Up",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
                   ),
                 ),
 
