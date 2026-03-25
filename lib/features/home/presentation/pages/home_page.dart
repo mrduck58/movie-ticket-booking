@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_ticket_booking/features/checkout/providers/booking_draft.dart';
 import 'package:movie_ticket_booking/features/home/presentation/providers/home_providers.dart';
 import 'package:movie_ticket_booking/features/checkout/providers/booking_draft_provider.dart';
+import '../../data/models/user_model.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -156,74 +157,80 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
-class _TopLocationBar extends StatelessWidget {
+class _TopLocationBar extends ConsumerWidget {
   const _TopLocationBar();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const accent = Color(0xFFFF4D67);
+
+    final userAsync = ref.watch(currentUserProvider);
 
     return Row(
       children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xFFEAEAEA),
-          ),
-        ),
-
-        const SizedBox(width: 12),
-
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        userAsync.when(
+          data: (user) => Row(
             children: [
-              Text(
-                "Your location",
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: Colors.black54),
+              CircleAvatar(
+                radius: 22,
+                backgroundImage: user.avatarUrl.isNotEmpty
+                    ? NetworkImage(user.avatarUrl)
+                    : null,
+                child: user.avatarUrl.isEmpty ? const Icon(Icons.person) : null,
               ),
 
-              const SizedBox(height: 2),
+              const SizedBox(width: 12),
 
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hoa Lac",
+                    "Welcome",
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: Colors.black54),
+                  ),
+
+                  Text(
+                    user.name, // 🔥 FIX
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-
-                  const SizedBox(width: 6),
-
-                  const Icon(
-                    Icons.location_on_outlined,
-                    color: accent,
-                    size: 18,
                   ),
                 ],
               ),
             ],
           ),
+
+          loading: () => const SizedBox(
+            width: 24,
+            height: 24,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+
+          error: (e, _) => const Text("Error"),
         ),
 
+        const Spacer(),
+
+        // 🔔 Notification
         Stack(
           clipBehavior: Clip.none,
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.black12),
+            InkWell(
+              onTap: () {
+                context.push("/notifications");
+              },
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.black12),
+                ),
+                child: const Icon(Icons.notifications_none),
               ),
-              child: const Icon(Icons.notifications_none),
             ),
-
             Positioned(
               right: 10,
               top: 10,
