@@ -4,13 +4,27 @@
     "name": "Jumbo Popcorn",
     "description": "Indulge in the ultimate movie experience with our Movie Magic Popcorn!",
     "price": 99000,
-    "image": "assets/images/combo/popcorn_combo.jpg"
+    "image": "assets/images/combo/popcorn_combo.png"
   },
   {
     "id": "combo2",
     "name": "Popcorn & Pepsi",
     "description": "A perfect snack combo for your cinema night.",
     "price": 79000,
-    "image": "assets/images/combo/popcorn_combo.jpg"
+    "image": "assets/images/combo/popcorn_combo.png"
+  },
+    {
+    "id": "combo3",
+    "name": "Jumbo Popcorn",
+    "description": "Indulge in the ultimate movie experience with our Movie Magic Popcorn!",
+    "price": 99000,
+    "image": "assets/images/combo/popcorn_combo.png"
+  },
+  {
+    "id": "combo4",
+    "name": "Popcorn & Pepsi",
+    "description": "A perfect snack combo for your cinema night.",
+    "price": 79000,
+    "image": "assets/images/combo/popcorn_combo.png"
   }
 ]

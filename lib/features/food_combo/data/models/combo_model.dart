@@ -11,11 +11,11 @@ class ComboModel extends Combo {
 
   factory ComboModel.fromJson(Map<String, dynamic> json) {
     return ComboModel(
-      id: json['id'] as String,
+      id: json['foodComboId'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
       price: (json['price'] as num).toInt(),
-      image: json['image'] as String,
+      image: json['imageUrl'] as String,
     );
   }
 }

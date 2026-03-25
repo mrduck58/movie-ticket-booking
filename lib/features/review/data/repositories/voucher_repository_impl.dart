@@ -1,17 +1,19 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
-
 import 'package:movie_ticket_booking/domain/entities/voucher.dart';
 import 'package:movie_ticket_booking/domain/repositories/voucher_repository.dart';
-import 'package:movie_ticket_booking/features/review/data/models/voucher_model.dart';
+import '../datasources/voucher_api_datasource.dart';
 
 class VoucherRepositoryImpl implements VoucherRepository {
+  final VoucherApiDatasource datasource;
+
+  VoucherRepositoryImpl(this.datasource);
+
   @override
-  Future<List<Voucher>> getVouchers() async {
-    final jsonString = await rootBundle.loadString("assets/mock/vouchers.json");
+  Future<List<Voucher>> getUserVouchers() {
+    return datasource.getUserVouchers();
+  }
 
-    final List data = json.decode(jsonString);
-
-    return data.map((e) => VoucherModel.fromJson(e)).toList();
+  @override
+  Future<void> applyVoucher(String voucherId) {
+    return datasource.applyVoucher(voucherId);
   }
 }

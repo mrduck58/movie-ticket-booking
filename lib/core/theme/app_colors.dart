@@ -8,7 +8,7 @@ class AppColors {
   //background / surface
   static const Color background= Colors.white;
   //static const Color onBackground = Colors.white;
-  static const Color surface = Color(0xFFEEEEEE);
+  static const Color surface = Color.fromARGB(255, 250, 250, 250);
   //static const Color onSurface = Colors.white;
 
   // default
