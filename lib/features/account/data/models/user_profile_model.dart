@@ -7,7 +7,7 @@ class UserProfileModel extends UserProfile {
     required super.email,
     required super.avatar,
   });
-
+//commit
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
       userId: json['userId'] ?? '',
