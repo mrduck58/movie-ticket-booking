@@ -1,15 +1,17 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:movie_ticket_booking/features/account/presentation/pages/account_screen.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/account_screen.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/pages/my_profile.dart';
-import 'package:movie_ticket_booking/features/search/presentation/pages/search_page.dart';
+import 'package:movie_ticket_booking/features/search/presentation/pages/screens/search_page.dart';
 import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticket.dart';
-import 'package:movie_ticket_booking/features/watchlist/presentation/pages/watchlist_watched_screen.dart';
+import 'package:movie_ticket_booking/features/watchlist/presentation/pages/screens/watchlist_watched_screen.dart';
 import 'package:movie_ticket_booking/features/payment_method/presentation/pages/payment_method_screen.dart';
-import 'package:movie_ticket_booking/features/notification/presentation/pages/notification_screen.dart';
+import 'package:movie_ticket_booking/features/notification/presentation/pages/screens/notification_screen.dart';
 import 'package:movie_ticket_booking/features/register/presentation/pages/create_account.dart';
 import 'package:movie_ticket_booking/features/register/presentation/pages/movie_interest_screen.dart';
 import 'package:movie_ticket_booking/features/login/presentation/pages/login_screen.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/help_center_screen.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/about_app_screen.dart';
 import '../core/widgets/layouts/navigation_bar.dart';
 import '../features/login/presentation/pages/intro_2.dart';
 import '../features/home/presentation/pages/home_page.dart';
@@ -163,6 +165,14 @@ class AppRouter {
       GoRoute(
         path: '/movie-interest',
         builder: (context, state) => const MovieInterestScreen(),
+      ),
+      GoRoute(
+        path: '/help-center',
+        builder: (context, state) => const HelpCenterScreen(),
+      ),
+      GoRoute(
+        path: '/about-app',
+        builder: (context, state) => const AboutAppScreen(),
       ),
       GoRoute(
         path: '/verify-otp',
