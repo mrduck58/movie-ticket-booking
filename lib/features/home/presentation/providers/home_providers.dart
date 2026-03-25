@@ -11,7 +11,11 @@ final movieDatasourceProvider = Provider<MovieApiDatasource>((ref) {
 final movieRepositoryProvider = Provider<MovieRepository>((ref) {
   return MovieRepository(ref.watch(movieDatasourceProvider));
 });
-
+final movieDetailProvider =
+    FutureProvider.family<MovieModel, String>((ref, id) async {
+  final repo = ref.watch(movieRepositoryProvider);
+  return repo.getMovieById(id);
+});
 final movieProvider = FutureProvider<List<MovieModel>>((ref) async {
 
   final repo = ref.watch(movieRepositoryProvider);

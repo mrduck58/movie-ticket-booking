@@ -11,7 +11,8 @@ class Movie {
   final DateTime releaseDate;
   final String trailer;
   final List<Cast> cast;
-
+  final String status;
+  final String synopsis;
   Movie({
     required this.id,
     required this.title,
@@ -23,5 +24,7 @@ class Movie {
     required this.releaseDate,
     required this.trailer,
     required this.cast,
+    required this.status,
+    required this.synopsis
   });
 }

@@ -11,8 +11,12 @@ class MovieModel {
   final String? posterUrl;
   final DateTime? releaseDate;
 
-  final String? trailer;
+  
+  final String? trailerUrl;
+
   final List<Cast>? cast;
+  final String? status;
+  final String? synopsis;
 
   MovieModel({
     required this.movieId,
@@ -22,8 +26,10 @@ class MovieModel {
     this.rating,
     this.posterUrl,
     this.releaseDate,
-    this.trailer,
+    this.trailerUrl,
     this.cast,
+    this.status,
+    this.synopsis,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -37,8 +43,15 @@ class MovieModel {
       releaseDate: json['releaseDate'] != null
           ? DateTime.parse(json['releaseDate'])
           : null,
-      trailer: json['trailerUrl'],
-      cast: [],
+
+      trailerUrl: json['trailerUrl'],
+
+      cast: (json['casts'] as List?)
+          ?.map((e) => Cast.fromJson(e))
+          .toList(),
+
+      status: json['status'],
+      synopsis: json['description'],
     );
   }
 
@@ -51,9 +64,14 @@ class MovieModel {
       durationMin: duration,
       genres: [],
       releaseDate: releaseDate ?? DateTime.now(),
-      trailer: trailer ?? "",
+
+  
+      trailer: trailerUrl ?? "",
+
       cast: cast ?? [],
       director: '',
+      status: status ?? "",
+      synopsis: synopsis ?? "",
     );
   }
 }

@@ -13,6 +13,8 @@ class MovieModel extends Movie {
     required super.trailer,
     required super.cast,
     required super.director,
+    required super.status,
+    required super.synopsis
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,8 @@ class MovieModel extends Movie {
 
       cast: [], // backend chưa có
       director: json['director'] ?? "",
+      status: json['status'] ?? "",
+      synopsis: json['synopsis'] ?? "",
     );
   }
 }

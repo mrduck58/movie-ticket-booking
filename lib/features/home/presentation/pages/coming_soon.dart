@@ -33,14 +33,9 @@ class ComingSoonPage extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text("Error: $e")),
         data: (movies) {
-
-            final comingSoon = movies
-                .where(
-                  (m) =>
-                      m.releaseDate != null &&
-                      m.releaseDate!.isAfter(DateTime.now()),
-                )
-                .toList();
+          final comingSoon = movies
+              .where((m) => m.status == "COMINGSOON")
+              .toList();
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
