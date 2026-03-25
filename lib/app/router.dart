@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:movie_ticket_booking/features/account/presentation/pages/account_screen.dart';
+import 'package:movie_ticket_booking/features/food_combo/presentation/pages/choose_combo.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/pages/my_profile.dart';
 import 'package:movie_ticket_booking/features/search/presentation/pages/search_page.dart';
 import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticket.dart';
@@ -133,10 +134,17 @@ class AppRouter {
         },
       ),
 
-      // GoRoute(
-      //   path: '/review',
-      //   builder: (context, state) => const ReviewSummaryPage(),
-      // ),
+      GoRoute(
+        path: '/combos',
+        builder: (context, state) {
+          return FoodOrderPage();
+        },
+      ),
+
+      GoRoute(
+        path: '/review',
+        builder: (context, state) => const ReviewSummaryPage(),
+      ),
 
       GoRoute(
         path: '/payment-method',

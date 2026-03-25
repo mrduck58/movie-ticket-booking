@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_ticket_booking/features/checkout/providers/booking_draft_provider.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/formatters/money_formatter.dart';
@@ -41,10 +42,7 @@ class ShowtimeSection extends ConsumerWidget {
 
                 Text(
                   '(${MoneyFormatter.vnd(group.price)})',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ],
             ),
@@ -63,14 +61,15 @@ class ShowtimeSection extends ConsumerWidget {
           children: group.showtimes.map((time) {
             final formatted = DateFormat.Hm().format(time.startTime);
 
-            final isSelected =
-                selected?.showtime.showtimeId == time.showtimeId;
+            final isSelected = selected?.showtime.showtimeId == time.showtimeId;
 
             return GestureDetector(
               onTap: () {
                 ref.read(selectedShowtimeProvider.notifier).state =
                     SelectedShowtime(showtime: time);
-                    
+                ref
+                    .read(bookingDraftProvider.notifier)
+                    .setPackage(group.ticketType);
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -78,18 +77,14 @@ class ShowtimeSection extends ConsumerWidget {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: isSelected
-                      ? AppColors.primary
-                      : Colors.white,
+                  color: isSelected ? AppColors.primary : Colors.white,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: AppColors.primary),
                 ),
                 child: Text(
                   formatted,
                   style: TextStyle(
-                    color: isSelected
-                        ? Colors.white
-                        : AppColors.primary,
+                    color: isSelected ? Colors.white : AppColors.primary,
                   ),
                 ),
               ),
