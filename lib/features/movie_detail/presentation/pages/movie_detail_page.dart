@@ -139,7 +139,7 @@ class MovieDetailPage extends ConsumerWidget {
                           ),
                           onPressed: () {
                             ref.read(bookingDraftProvider.notifier).setMovie(movie.toEntity());
-                            context.push('/choose-cinema/${movie.movieId}');
+                            context.push('/movies/${movie.movieId}/cinemas');
                           },
                           child: const Text(
                             "Book Now",

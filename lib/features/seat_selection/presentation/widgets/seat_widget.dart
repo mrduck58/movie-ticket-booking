@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../domain/entities/seat.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class SeatWidget extends StatelessWidget {
-
   final Seat seat;
   final bool selected;
   final VoidCallback onTap;
@@ -16,19 +16,20 @@ class SeatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Color color;
 
-    if (seat.taken) {
+    if (seat.isBooked) {
       color = Colors.grey;
+    } else if (seat.isLocked) {
+      color = AppColors.seatSold;
     } else if (selected) {
-      color = Colors.red;
+      color = AppColors.primary;
     } else {
       color = Colors.white;
     }
 
     return GestureDetector(
-      onTap: seat.taken ? null : onTap,
+      onTap: seat.isAvailable ? onTap : null,
       child: Container(
         width: 34,
         height: 34,
@@ -36,17 +37,13 @@ class SeatWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: Colors.grey.shade300,
-          ),
+          border: Border.all(color: Colors.grey.shade300),
         ),
         child: Text(
-          "${seat.row}${seat.number}",
+          seat.seatName,
           style: TextStyle(
             fontSize: 11,
-            color: seat.taken || selected
-                ? Colors.white
-                : Colors.black,
+            color: seat.isBooked || selected ? Colors.white : Colors.black,
           ),
         ),
       ),

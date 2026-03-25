@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_ticket_booking/core/theme/app_colors.dart';
-import 'package:movie_ticket_booking/core/utils/formatters/money_formatter.dart';
-import 'package:movie_ticket_booking/features/showtimes/data/models/selected_showtime.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/formatters/money_formatter.dart';
+import '../../../../domain/entities/showtime_group.dart';
 import '../../../../domain/entities/showtime.dart';
 import '../providers/showtime_providers.dart';
+import '../../data/models/selected_showtime.dart';
 
 class ShowtimeSection extends ConsumerWidget {
-  final Showtime showtime;
+  final ShowtimeGroup group;
 
-  const ShowtimeSection({super.key, required this.showtime});
+  const ShowtimeSection({super.key, required this.group});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,13 +23,14 @@ class ShowtimeSection extends ConsumerWidget {
       children: [
         const SizedBox(height: 20),
 
+        /// HEADER (Standard / IMAX)
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 Text(
-                  showtime.format,
+                  group.ticketType,
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
@@ -36,49 +40,56 @@ class ShowtimeSection extends ConsumerWidget {
                 const SizedBox(width: 15),
 
                 Text(
-                  '(${MoneyFormatter.vnd(showtime.price)})',
-                  style: const TextStyle(fontSize: 18, color: Colors.grey),
+                  '(${MoneyFormatter.vnd(group.price)})',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
                 ),
               ],
             ),
 
-            Text(showtime.auditorium),
+            /// room (lấy từ showtime đầu tiên)
+            Text(group.showtimes.first.roomName),
           ],
         ),
 
         const SizedBox(height: 12),
 
+        /// TIMES
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children: showtime.times.map((time) {
+          children: group.showtimes.map((time) {
+            final formatted = DateFormat.Hm().format(time.startTime);
+
             final isSelected =
-                selected?.showtime == showtime && selected?.time == time;
+                selected?.showtime.showtimeId == time.showtimeId;
 
             return GestureDetector(
               onTap: () {
                 ref.read(selectedShowtimeProvider.notifier).state =
-                    SelectedShowtime(showtime: showtime, time: time);
+                    SelectedShowtime(showtime: time);
+                    
               },
-
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 8,
                 ),
-
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : Colors.white,
-
+                  color: isSelected
+                      ? AppColors.primary
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(8),
-
                   border: Border.all(color: AppColors.primary),
                 ),
-
                 child: Text(
-                  time,
+                  formatted,
                   style: TextStyle(
-                    color: isSelected ? Colors.white : AppColors.primary,
+                    color: isSelected
+                        ? Colors.white
+                        : AppColors.primary,
                   ),
                 ),
               ),

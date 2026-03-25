@@ -25,6 +25,7 @@ import '../features/review/presentation/pages/booking_detail_page.dart';
 import '../features/register/presentation/pages/complete_profile.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
+import '../features/register/presentation/pages/verify_otp_screen.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -76,11 +77,10 @@ class AppRouter {
         builder: (context, state) => const NotificationScreen(),
       ),
 
-      GoRoute(
-        path: '/booking-detail',
-        builder: (context, state) => const BookingDetailPage(),
-      ),
-
+      // GoRoute(
+      //   path: '/booking-detail',
+      //   builder: (context, state) => const BookingDetailPage(),
+      // ),
       GoRoute(
         path: '/now-playing',
         builder: (context, state) => const NowPlayingPage(),
@@ -97,7 +97,7 @@ class AppRouter {
 
       /// MOVIE DETAIL (không có bottom nav)
       GoRoute(
-        path: '/movie/:id',
+        path: '/movies/:id',
         builder: (context, state) {
           final id = state.pathParameters['id']!;
           return MovieDetailPage(movieId: id);
@@ -106,7 +106,7 @@ class AppRouter {
 
       /// BOOKING FLOW
       GoRoute(
-        path: '/choose-cinema/:movieId',
+        path: '/movies/:movieId/cinemas',
         builder: (context, state) {
           final movieId = state.pathParameters['movieId']!;
           return ChooseCinemaPage(movieId: movieId);
@@ -138,11 +138,10 @@ class AppRouter {
         },
       ),
 
-      GoRoute(
-        path: '/review',
-        builder: (context, state) => const ReviewSummaryPage(),
-      ),
-
+      // GoRoute(
+      //   path: '/review',
+      //   builder: (context, state) => const ReviewSummaryPage(),
+      // ),
       GoRoute(
         path: '/payment-method',
         builder: (context, state) => const ChoosePaymentPage(),
@@ -174,6 +173,13 @@ class AppRouter {
       GoRoute(
         path: '/about-app',
         builder: (context, state) => const AboutAppScreen(),
+      ),
+      GoRoute(
+        path: '/verify-otp',
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return VerifyOtpScreen(data: args);
+        },
       ),
     ],
   );

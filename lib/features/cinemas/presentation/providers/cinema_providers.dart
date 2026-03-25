@@ -1,23 +1,35 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:movie_ticket_booking/features/cinemas/data/datasources/cinema_api_datasource.dart';
 
 import '../../../../domain/entities/cinema.dart';
 import '../../../../domain/repositories/cinema_repository.dart';
-import '../../data/datasources/cinema_mock_datasource.dart';
+//import '../../data/datasources/cinema_mock_datasource.dart';
 import '../../data/repositories/cinema_repository_impl.dart';
 
-final cinemaLocalDataSourceProvider = Provider<CinemaMockDataSource>((ref) {
-  return CinemaMockDataSourceImpl();
+final dioProvider = Provider((ref) {
+  return Dio(BaseOptions(
+    baseUrl: 'https://localhost:7132/api',
+  ));
+});
+
+final cinemaRemoteDataSourceProvider = Provider<CinemaDatasource>((ref) {
+  final dio = ref.watch(dioProvider);
+  return CinemaApiDataSource(dio);
 });
 
 final cinemaRepositoryProvider = Provider<CinemaRepository>((ref) {
-  final local = ref.watch(cinemaLocalDataSourceProvider);
-  return CinemaRepositoryImpl(local);
+  final remote = ref.watch(cinemaRemoteDataSourceProvider);
+  return CinemaRepositoryImpl(remote);
 });
 
-final cinemasProvider = FutureProvider<List<Cinema>>((ref) async {
-  final repo = ref.watch(cinemaRepositoryProvider);
-  return repo.getCinemas();
+final cinemasByMovieProvider = FutureProvider.family<List<Cinema>, String>((ref, movieId) async {
+  return ref.read(cinemaRepositoryProvider).getCinemasByMovie(movieId);
+});
+
+final cinemaProvider = FutureProvider.family<Cinema, String>((ref, cinemaId) {
+  return ref.read(cinemaRepositoryProvider).getCinemaById(cinemaId);
 });
 
 class FavoriteCinemasNotifier extends StateNotifier<Set<String>> {

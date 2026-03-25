@@ -1,16 +1,15 @@
-import '../../../../domain/entities/seat.dart';
+import '../../data/models/seat_map_model.dart';
 import '../../../../domain/repositories/seat_repository.dart';
-import '../datasources/seat_mock_datasource.dart';
+import '../datasources/seat_api_datasource.dart';
 
 class SeatRepositoryImpl implements SeatRepository {
 
-  final SeatMockDatasource datasource;
+  final SeatApiDatasource datasource;
 
   SeatRepositoryImpl(this.datasource);
 
   @override
-  Future<List<Seat>> getSeats() async {
-    final models = await datasource.getSeats();
-    return models.map((e) => e.toEntity()).toList();
+  Future<SeatMapModel> getSeats(String showtimeId) {
+    return datasource.getSeats(showtimeId);
   }
 }
