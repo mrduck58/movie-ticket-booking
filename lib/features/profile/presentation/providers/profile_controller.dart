@@ -4,24 +4,28 @@ import '../../domain/repositories/profile_repository.dart';
 import 'profile_state.dart';
 
 class ProfileController extends StateNotifier<ProfileState> {
-
   final ProfileRepository repository;
 
   ProfileController(this.repository) : super(ProfileState());
 
   Future<void> loadProfile() async {
-
     state = state.copyWith(loading: true);
 
     final profile = await repository.getProfile();
 
-    state = state.copyWith(
-      profile: profile,
-      loading: false,
-    );
+    state = state.copyWith(profile: profile, loading: false);
   }
 
-  void updateProfile(Profile profile) {
-    state = state.copyWith(profile: profile);
+  Future<void> updateProfile(Profile profile) async {
+    state = state.copyWith(loading: true);
+
+    try {
+      await repository.updateProfile(profile);
+
+      state = state.copyWith(profile: profile, loading: false);
+    } catch (e) {
+      state = state.copyWith(loading: false);
+      rethrow;
+    }
   }
 }

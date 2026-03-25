@@ -11,15 +11,25 @@ class ProfileModel extends Profile {
     required super.hometown,
     required super.email,
   });
-
+  factory ProfileModel.fromEntity(Profile profile) {
+  return ProfileModel(
+    name: profile.name,
+    gender: profile.gender,
+    birthday: profile.birthday,
+    cccd: profile.cccd,
+    address: profile.address,
+    hometown: profile.hometown,
+    email: profile.email,
+  );
+}
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       name: json["name"],
-      gender: json["gender"],
+      gender: json["gender"]?? "Chưa cập nhật",
       birthday: json["birthday"],
-      cccd: json["cccd"],
-      address: json["address"],
-      hometown: json["hometown"],
+      cccd: json["cccd"]?? "Chưa cập nhật",
+      address: json["address"]?? "Chưa cập nhật",
+      hometown: json["hometown"]?? "Chưa cập nhật",
       email: json["email"],
     );
   }

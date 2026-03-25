@@ -27,19 +27,7 @@ class EditProfileScreen extends ConsumerWidget {
         iconTheme: const IconThemeData(color: Colors.black),
       ),  
 
-      body: EditProfileForm(
-        profile: profile,
-        onSave: (updatedProfile) {
-
-          /// cập nhật state
-          ref
-              .read(profileControllerProvider.notifier)
-              .updateProfile(updatedProfile);
-
-          /// quay lại màn hình profile
-          Navigator.pop(context);
-        },
-      ),
+      body: EditProfileForm(profile: profile),
     );
   }
 }

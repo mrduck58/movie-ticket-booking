@@ -13,7 +13,7 @@ class GenderDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final genders = ["Nam", "Nữ", "Ẩn"];
+    final genders = ["Nam", "Nữ", "Chưa cập nhật"];
 
     return DropdownButtonFormField<String>(
       initialValue: value,
