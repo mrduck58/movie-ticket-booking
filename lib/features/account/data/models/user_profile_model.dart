@@ -2,6 +2,7 @@ import '../../domain/entities/user_profile.dart';
 
 class UserProfileModel extends UserProfile {
   UserProfileModel({
+    required super.userId,
     required super.name,
     required super.email,
     required super.avatar,
@@ -9,9 +10,10 @@ class UserProfileModel extends UserProfile {
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
-      name: json['name'],
-      email: json['email'],
-      avatar: json['avatar'] ?? "",
+      userId: json['userId'] ?? '',
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      avatar: json['avatar'] ?? '',
     );
   }
 }
