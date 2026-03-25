@@ -21,8 +21,7 @@ enum MovieListType {
         return MovieListType.favorite;
     }
   }
-}
-
+}//commit
 class Movie {
   final String watchListId;
   final String id;
