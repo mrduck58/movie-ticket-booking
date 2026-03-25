@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:movie_ticket_booking/features/login/presentation/provider/login_provider.dart';
 import '../providers/account_providers.dart';
 
 class AccountScreen extends ConsumerWidget {
@@ -158,12 +158,36 @@ class AccountScreen extends ConsumerWidget {
                   title: "About VNAPH Booking",
                 ),
 
-                const _MenuRow(
+                _MenuRow(
                   icon: Icons.logout,
                   title: "Logout",
                   iconColor: red,
                   titleColor: red,
                   showChevron: false,
+                  onTap: () async {
+                    final confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Confirm"),
+                        content: const Text("Bạn có muốn đăng xuất không?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: const Text("Hủy"),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, true),
+                            child: const Text("Đăng xuất"),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    if (confirm == true) {
+                      await ref.read(loginProvider).logout();
+                      context.go('/login');
+                    }
+                  },
                 ),
               ],
             ),

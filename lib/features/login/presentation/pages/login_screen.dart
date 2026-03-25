@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_ticket_booking/features/home/presentation/pages/home_page.dart';
 import 'intro_2.dart';
 import '../provider/login_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -26,13 +26,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     /// listen login success
     ref.listen<LoginProvider>(loginProvider, (previous, next) {
-      if (next.token != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const HomePage()),
-        );
-      }
-    });
+  if (next.token != null) {
+    context.go('/'); 
+  }
+});
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -47,11 +44,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 /// Back button
                 IconButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (_) => const Intro2()),
-                      (route) => false,
-                    );
+                    context.go('/intro');
                   },
                   icon: const Icon(Icons.arrow_back, color: Colors.black),
                 ),

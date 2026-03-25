@@ -55,7 +55,8 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
-  void logout() {
+  Future<void> logout() async {
+    await repository.logout();
     _token = null;
     notifyListeners();
   }
