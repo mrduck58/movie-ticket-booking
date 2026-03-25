@@ -1,3 +1,4 @@
+import '../../../../domain/entities/cast.dart';
 enum MovieListType {
   favorite,
   watched;
@@ -20,8 +21,7 @@ enum MovieListType {
         return MovieListType.favorite;
     }
   }
-}
-
+}//commit
 class Movie {
   final String watchListId;
   final String id;
@@ -34,6 +34,12 @@ class Movie {
   final double? rating;
   final List<String> genres;
 
+  final DateTime releaseDate;
+  final String trailer;
+  final List<Cast> cast;
+  final String status;
+  final String synopsis;
+
   const Movie({
     required this.watchListId,
     required this.id,
@@ -45,6 +51,11 @@ class Movie {
     required this.director,
     required this.rating,
     required this.genres,
+    required this.releaseDate,
+    required this.trailer,
+    required this.cast,
+    required this.status,
+    required this.synopsis,
   });
 
   bool get isWatched => type == MovieListType.watched;
@@ -62,6 +73,11 @@ class Movie {
     String? director,
     double? rating,
     List<String>? genres,
+    DateTime? releaseDate,
+    String? trailer,
+    List<Cast>? cast,
+    String? status,
+    String? synopsis,
   }) {
     return Movie(
       watchListId: watchListId ?? this.watchListId,
@@ -74,6 +90,11 @@ class Movie {
       director: director ?? this.director,
       rating: rating ?? this.rating,
       genres: genres ?? this.genres,
+      releaseDate: releaseDate ?? this.releaseDate,
+      trailer: trailer ?? this.trailer,
+      cast: cast ?? this.cast,
+      status: status ?? this.status,
+      synopsis: synopsis ?? this.synopsis,
     );
   }
 }
