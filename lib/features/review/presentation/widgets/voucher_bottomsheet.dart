@@ -10,13 +10,12 @@ class VoucherBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vouchers = ref.watch(vouchersProvider).value ?? [];
+    final vouchersAsync = ref.watch(vouchersProvider);
     final selected = ref.watch(selectedVoucherProvider);
 
     return Container(
       padding: const EdgeInsets.all(16),
       height: 420,
-
       child: Column(
         children: [
           Container(
@@ -38,82 +37,97 @@ class VoucherBottomSheet extends ConsumerWidget {
           const SizedBox(height: 16),
 
           Expanded(
-            child: ListView.builder(
-              itemCount: vouchers.length,
+            child: vouchersAsync.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
 
-              itemBuilder: (context, index) {
-                final voucher = vouchers[index];
-                final isSelected = selected?.id == voucher.id;
+              error: (e, _) => Center(child: Text("Error: $e")),
 
-                return InkWell(
-                  onTap: () {
-                    final notifier = ref.read(selectedVoucherProvider.notifier);
+              data: (vouchers) {
+                if (vouchers.isEmpty) {
+                  return const Center(child: Text("No vouchers available"));
+                }
 
-                    if (selected?.id == voucher.id) {
-                      notifier.state = null;
-                    } else {
-                      notifier.state = voucher;
-                    }
+                return ListView.builder(
+                  itemCount: vouchers.length,
+                  itemBuilder: (context, index) {
+                    final voucher = vouchers[index];
+                    final isSelected = selected?.id == voucher.id;
+
+                    return InkWell(
+                      onTap: () {
+                        final notifier = ref.read(
+                          selectedVoucherProvider.notifier,
+                        );
+
+                        if (selected?.id == voucher.id) {
+                          notifier.state = null;
+                        } else {
+                          notifier.state = voucher;
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 14,
+                        ),
+                        child: Row(
+                          children: [
+                            /// CHECK ICON
+                            Icon(
+                              isSelected
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.grey,
+                            ),
+
+                            const SizedBox(width: 12),
+
+                            /// INFO
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    voucher.code,
+                                    style: const TextStyle(
+                                      color: AppColors.textPrimary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 4),
+
+                                  Text(
+                                    voucher.description,
+                                    style: const TextStyle(
+                                      color: AppColors.textSecondary,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            /// PRICE
+                            Text(
+                              voucher.type == "PERCENTAGE"
+                                  ? "-${voucher.discountValue}%"
+                                  : "-${MoneyFormatter.vnd(voucher.discountValue)}",
+                              style: const TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   },
-
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 14,
-                    ),
-
-                    child: Row(
-                      children: [
-                        /// CHECK ICON
-                        Icon(
-                          isSelected
-                              ? Icons.check_circle
-                              : Icons.radio_button_unchecked,
-                          color: isSelected ? AppColors.primary : Colors.grey,
-                        ),
-
-                        const SizedBox(width: 12),
-
-                        /// INFO
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                voucher.code,
-                                style: const TextStyle(
-                                  color: AppColors.textPrimary,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                ),
-                              ),
-
-                              const SizedBox(height: 4),
-
-                              Text(
-                                voucher.description,
-                                style: const TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        /// PRICE
-                        Text(
-                          "-${MoneyFormatter.vnd(voucher.discountValue)}",
-                          style: const TextStyle(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 );
               },
             ),

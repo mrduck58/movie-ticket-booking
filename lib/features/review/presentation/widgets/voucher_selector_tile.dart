@@ -53,6 +53,8 @@ class VoucherSelectorTile extends ConsumerWidget {
                   Text(
                     selectedVoucher == null
                         ? "Select voucher"
+                        : selectedVoucher.type == "PERCENTAGE"
+                        ? "${selectedVoucher.code} (-${selectedVoucher.discountValue}%)"
                         : "${selectedVoucher.code} (-${MoneyFormatter.vnd(selectedVoucher.discountValue)})",
                     style: const TextStyle(
                       color: AppColors.textSecondary,

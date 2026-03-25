@@ -19,7 +19,7 @@ class VoucherModel extends Voucher {
       title: json["title"],
       code: json["code"],
       description: json["description"],
-      discountValue: json["discountValue"],
+      discountValue: json["value"],
       type: json["type"],
       expiryDate: DateTime.parse(json["expiredDate"]),
       status: json["status"],
