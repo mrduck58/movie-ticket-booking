@@ -10,7 +10,7 @@ class VoucherBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vouchers = ref.watch(vouchersProvider);
+    final vouchers = ref.watch(vouchersProvider).value ?? [];
     final selected = ref.watch(selectedVoucherProvider);
 
     return Container(
