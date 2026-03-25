@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_ticket_booking/features/post/data/models/post_model.dart';
 import 'package:movie_ticket_booking/features/post/presentation/providers/post_providers.dart';
-import 'package:movie_ticket_booking/features/post/presentation/widgets/post_list_widget/reaction_bar.dart';
-// import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
-// import '../../providers/post_controller.dart';
 
 import 'post_header.dart';
 import 'post_content.dart';
@@ -27,8 +23,6 @@ class _PostDetailViewState extends ConsumerState<PostDetailView>
   final TextEditingController commentController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
-  bool isLiked = false;
-  late int likeCount;
   String currentReaction = "👍";
 
   final LayerLink layerLink = LayerLink();
@@ -41,8 +35,6 @@ class _PostDetailViewState extends ConsumerState<PostDetailView>
   void initState() {
     super.initState();
 
-    likeCount = widget.post.likes;
-
     animController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -51,70 +43,14 @@ class _PostDetailViewState extends ConsumerState<PostDetailView>
     scaleAnimation = Tween<double>(begin: 1, end: 1.4).animate(animController);
   }
 
-  void toggleLike() {
-    setState(() {
-      isLiked ? likeCount-- : likeCount++;
-      isLiked = !isLiked;
-    });
-
-    animController.forward().then((_) => animController.reverse());
-  }
-
-  void showReactions() {
-    if (overlayEntry != null) return;
-
-    overlayEntry = OverlayEntry(
-      builder: (context) => GestureDetector(
-        onTap: hideReactions,
-        behavior: HitTestBehavior.translucent,
-        child: Stack(
-          children: [
-            CompositedTransformFollower(
-              link: layerLink,
-              offset: const Offset(160, -70),
-              child: Material(
-                color: Colors.transparent,
-                child: ReactionBar(
-                  onReact: (emoji) {
-                    if (!mounted) return;
-
-                    setState(() {
-                      currentReaction = emoji;
-                      if (!isLiked) likeCount++;
-                      isLiked = true;
-                    });
-
-                    animController.forward().then((_) {
-                      animController.reverse();
-                    });
-
-                    hideReactions();
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    Overlay.of(context, rootOverlay: true).insert(overlayEntry!);
-  }
-
-  void hideReactions() {
-    overlayEntry?.remove();
-    overlayEntry = null;
-  }
-
   void addComment() {
     final text = commentController.text.trim();
     if (text.isEmpty) return;
 
     ref
-        .read(postCommentControllerProvider.notifier)
-        .addComment(commentController.text.trim());
-
-    /// scroll xuống comment mới
+        .read(postCommentControllerProvider(widget.post.id).notifier)
+        .addComment(text);
+    commentController.clear(); 
     Future.delayed(const Duration(milliseconds: 100), () {
       if (!scrollController.hasClients) return;
 
@@ -131,14 +67,23 @@ class _PostDetailViewState extends ConsumerState<PostDetailView>
     commentController.dispose();
     scrollController.dispose();
     animController.dispose();
-    hideReactions();
+    overlayEntry?.remove();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    /// watch để rebuild khi comment thay đổi
-    ref.watch(postControllerProvider.notifier);
+    /// lấy post mới nhất từ Riverpod
+    final postsAsync = ref.watch(postControllerProvider);
+    final posts = postsAsync.value ?? [];
+
+    final post = posts.firstWhere(
+      (p) => p.id == widget.post.id,
+      orElse: () => widget.post, // fallback
+    );
+    final controller = ref.watch(postControllerProvider.notifier);
+    final isLiked = controller.likedPosts[post.id] ?? post.isLiked;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
 
@@ -155,42 +100,46 @@ class _PostDetailViewState extends ConsumerState<PostDetailView>
               controller: scrollController,
               padding: const EdgeInsets.all(16),
               children: [
+                /// HEADER
                 PostHeader(post: widget.post),
 
                 const SizedBox(height: 16),
 
+                /// CONTENT
                 PostContent(post: widget.post),
 
                 const SizedBox(height: 20),
 
+                /// LIKE COUNT
                 Row(
                   children: [
                     const Icon(Icons.thumb_up, size: 16, color: Colors.blue),
                     const SizedBox(width: 6),
-                    Text("$likeCount lượt thích"),
+                    Text("${post.likes} lượt thích"),
                   ],
                 ),
 
                 const Divider(),
 
+                /// ACTIONS
                 CompositedTransformTarget(
                   link: layerLink,
                   child: PostActions(
+                    postId: post.id,
                     isLiked: isLiked,
                     currentReaction: currentReaction,
                     scaleAnimation: scaleAnimation,
-                    onLike: toggleLike,
-                    onLongPress: showReactions,
                   ),
                 ),
 
                 const Divider(),
 
-                const CommentList(),
+                CommentList(postId: post.id),
               ],
             ),
           ),
 
+          /// COMMENT INPUT
           CommentInput(controller: commentController, onSend: addComment),
         ],
       ),

@@ -13,7 +13,7 @@ class PostHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 20,
-          backgroundImage: NetworkImage(post.avatar),
+          // backgroundImage: NetworkImage(post.avatar),
         ),
         const SizedBox(width: 12),
         Column(

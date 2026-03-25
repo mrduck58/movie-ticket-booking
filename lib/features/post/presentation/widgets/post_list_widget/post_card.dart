@@ -1,77 +1,61 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_ticket_booking/features/post/presentation/pages/post_detail.dart';
+import 'package:movie_ticket_booking/features/post/presentation/providers/post_providers.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../../data/models/post_model.dart';
 import 'reaction_bar.dart';
 
-class PostCard extends StatefulWidget {
+class PostCard extends ConsumerStatefulWidget {
   final PostModel post;
 
   const PostCard({super.key, required this.post});
 
   @override
-  State<PostCard> createState() => _PostCardState();
+  ConsumerState<PostCard> createState() => _PostCardState();
 }
 
-class _PostCardState extends State<PostCard> {
-  bool isLiked = false;
+class _PostCardState extends ConsumerState<PostCard> {
   String reaction = "👍";
-  late int likeCount;
-
   final LayerLink layerLink = LayerLink();
   OverlayEntry? overlay;
 
-  @override
-  void initState() {
-    super.initState();
-    likeCount = widget.post.likes;
-  }
-
-  void toggleLike() {
-    setState(() {
-      if (isLiked) {
-        likeCount--;
-      } else {
-        likeCount++;
-      }
-      isLiked = !isLiked;
-    });
-  }
-
   void showReactions() {
-  if (overlay != null) return;
+    if (overlay != null) return;
 
-  overlay = OverlayEntry(
-    builder: (context) => GestureDetector(
-      onTap: hideReactions,
-      behavior: HitTestBehavior.translucent,
-      child: Stack(
-        children: [
-          CompositedTransformFollower(
-            link: layerLink,
-            offset: const Offset(-60, -70), // giảm offset
-            child: Material(
-              color: Colors.transparent,
-              child: ReactionBar(
-                onReact: (emoji) {
-                  setState(() {
-                    reaction = emoji;
-                    if (!isLiked) likeCount++;
-                    isLiked = true;
-                  });
-                  hideReactions();
-                },
+    overlay = OverlayEntry(
+      builder: (context) => GestureDetector(
+        onTap: hideReactions,
+        behavior: HitTestBehavior.translucent,
+        child: Stack(
+          children: [
+            CompositedTransformFollower(
+              link: layerLink,
+              offset: const Offset(-60, -70),
+              child: Material(
+                color: Colors.transparent,
+                child: ReactionBar(
+                  onReact: (emoji) {
+                    setState(() {
+                      reaction = emoji;
+                    });
+
+                    ref
+                        .read(postControllerProvider.notifier)
+                        .likePost(widget.post.id);
+
+                    hideReactions();
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
 
-  Overlay.of(context).insert(overlay!);
-}
+    Overlay.of(context).insert(overlay!);
+  }
 
   void hideReactions() {
     overlay?.remove();
@@ -86,6 +70,10 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(postControllerProvider.notifier);
+    final isLiked =
+        controller.likedPosts[widget.post.id] ?? widget.post.isLiked;
+
     final post = widget.post;
 
     return Container(
@@ -102,12 +90,14 @@ class _PostCardState extends State<PostCard> {
             children: [
               CircleAvatar(backgroundImage: NetworkImage(post.avatar)),
               const SizedBox(width: 10),
+
               Expanded(
                 child: Text(
                   post.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
+
               Text(
                 timeago.format(post.time, locale: 'vi'),
                 style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -122,9 +112,18 @@ class _PostCardState extends State<PostCard> {
 
           if (post.image != null) ...[
             const SizedBox(height: 10),
+
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(post.image!),
+              child: Image.network(
+                post.image!,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Icon(Icons.broken_image),
+                  );
+                },
+              ),
             ),
           ],
 
@@ -132,7 +131,7 @@ class _PostCardState extends State<PostCard> {
 
           /// LIKE COUNT
           Text(
-            "$likeCount lượt thích",
+            "${post.likes} lượt thích",
             style: const TextStyle(color: Colors.grey),
           ),
 
@@ -142,20 +141,28 @@ class _PostCardState extends State<PostCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              /// LIKE
               CompositedTransformTarget(
                 link: layerLink,
                 child: GestureDetector(
-                  onTap: toggleLike,
-                  onLongPress: showReactions,
+                  onTap: () {
+                    ref.read(postControllerProvider.notifier).likePost(post.id);
+                  },
+
+                  // onLongPress: showReactions,
                   child: Row(
                     children: [
                       isLiked
-                          ? Text(
-                              reaction,
-                              style: const TextStyle(fontSize: 22),
-                            )
-                          : const Icon(Icons.thumb_up_alt_outlined),
+                          ? Text(reaction, style: const TextStyle(fontSize: 22))
+                          : Icon(
+                              isLiked
+                                  ? Icons.thumb_up
+                                  : Icons.thumb_up_alt_outlined,
+                              color: isLiked ? Colors.blue : Colors.black,
+                            ),
+
                       const SizedBox(width: 4),
+
                       Text(
                         "Thích",
                         style: TextStyle(
@@ -167,6 +174,7 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
 
+              /// COMMENT
               GestureDetector(
                 onTap: () {
                   Navigator.push(
