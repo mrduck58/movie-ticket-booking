@@ -21,6 +21,14 @@ class TicketMovieInfo extends StatelessWidget {
               height: 240,
               width: 150,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: 240,
+                  width: 150,
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.broken_image),
+                );
+              },
             ),
           ),
 
@@ -42,8 +50,8 @@ class TicketMovieInfo extends StatelessWidget {
                 const SizedBox(height: 6),
 
                 TicketInfoRow("Duration", "${ticket.duration} minutes"),
-                TicketInfoRow("Director", ticket.director),
-                TicketInfoRow("AR", ticket.ageRating),
+                // TicketInfoRow("Director", ticket.director),
+                TicketInfoRow("Rating", ticket.rating.toString()),
                 TicketInfoRow("Genre", ticket.genres.join(", ")),
               ],
             ),

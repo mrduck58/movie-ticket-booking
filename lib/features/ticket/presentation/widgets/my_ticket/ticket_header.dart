@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_ticket_booking/features/home/presentation/pages/home_page.dart';
 import 'package:movie_ticket_booking/features/ticket/presentation/widgets/my_ticket/ticket_search.dart';
 
 class TicketHeader extends ConsumerWidget {
@@ -14,7 +16,7 @@ class TicketHeader extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              context.push('/');
             },
           ),
 
@@ -22,10 +24,7 @@ class TicketHeader extends ConsumerWidget {
             child: Center(
               child: Text(
                 "My Tickets",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -35,9 +34,7 @@ class TicketHeader extends ConsumerWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const TicketSearchPage(),
-                ),
+                MaterialPageRoute(builder: (_) => const TicketSearchPage()),
               );
             },
           ),

@@ -10,8 +10,8 @@ class Ticket {
   final List<String> seats;
 
   final int duration;
-  final String director;
-  final String ageRating;
+  // final String director;
+  final double rating;
   final List<String> genres;
 
   final String qrData;
@@ -27,8 +27,8 @@ class Ticket {
     required this.room,
     required this.seats,
     required this.duration,
-    required this.director,
-    required this.ageRating,
+    // required this.director,
+    required this.rating,
     required this.genres,
     required this.qrData,
     this.remind = false,
