@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_ticket_booking/features/profile/domain/entities/profile.dart';
+import 'package:movie_ticket_booking/features/profile/presentation/providers/profile_providers.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/widgets/update_profile/birthday_picker.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/widgets/update_profile/cccd_field.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/widgets/update_profile/email_field.dart';
@@ -7,21 +9,19 @@ import 'package:movie_ticket_booking/features/profile/presentation/widgets/updat
 import 'package:movie_ticket_booking/features/profile/presentation/widgets/update_profile/name_field.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/widgets/update_profile/province_dropdown.dart';
 
-class EditProfileForm extends StatefulWidget {
+class EditProfileForm extends ConsumerStatefulWidget {
   final Profile profile;
-  final Function(Profile) onSave;
 
   const EditProfileForm({
     super.key,
     required this.profile,
-    required this.onSave,
   });
 
   @override
-  State<EditProfileForm> createState() => _EditProfileFormState();
+  ConsumerState<EditProfileForm> createState() => _EditProfileFormState();
 }
 
-class _EditProfileFormState extends State<EditProfileForm> {
+class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   final _formKey = GlobalKey<FormState>();
 
   late final TextEditingController nameController;
@@ -59,7 +59,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
     super.dispose();
   }
 
-  void saveProfile() {
+  Future<void> saveProfile() async {
     if (!_formKey.currentState!.validate()) return;
 
     final updatedProfile = Profile(
@@ -72,23 +72,48 @@ class _EditProfileFormState extends State<EditProfileForm> {
       email: emailController.text.trim(),
     );
 
-    widget.onSave(updatedProfile);
+    try {
+      await ref
+          .read(profileControllerProvider.notifier)
+          .updateProfile(updatedProfile);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Cập nhật thành công')),
+      );
+
+      Navigator.pop(context); // quay lại
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Cập nhật thất bại')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildInfoCard(),
+    final state = ref.watch(profileControllerProvider);
 
-          const SizedBox(height: 30),
+    return Stack(
+      children: [
+        Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              _buildInfoCard(),
+              const SizedBox(height: 30),
+              _buildSaveButton(),
+            ],
+          ),
+        ),
 
-          _buildSaveButton(),
-        ],
-      ),
+        /// 🔥 loading overlay
+        if (state.loading)
+          Container(
+            color: Colors.black.withOpacity(0.3),
+            child: const Center(child: CircularProgressIndicator()),
+          ),
+      ],
     );
   }
 
@@ -102,14 +127,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
       child: Column(
         children: [
           NameField(controller: nameController),
-
           const SizedBox(height: 16),
 
           GenderDropdown(
             value: genderController.text,
-            onChanged: (value) {
-              genderController.text = value;
-            },
+            onChanged: (value) => genderController.text = value,
           ),
 
           const SizedBox(height: 16),
@@ -125,9 +147,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           ProvinceDropdown(
             label: "Địa chỉ",
             value: addressController.text,
-            onChanged: (value) {
-              addressController.text = value;
-            },
+            onChanged: (value) => addressController.text = value,
           ),
 
           const SizedBox(height: 16),
@@ -135,9 +155,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           ProvinceDropdown(
             label: "Quê quán",
             value: hometownController.text,
-            onChanged: (value) {
-              hometownController.text = value;
-            },
+            onChanged: (value) => hometownController.text = value,
           ),
 
           const SizedBox(height: 16),
@@ -153,10 +171,15 @@ class _EditProfileFormState extends State<EditProfileForm> {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue,
         minimumSize: const Size(double.infinity, 55),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+        ),
       ),
       onPressed: saveProfile,
-      child: const Text("Lưu thông tin", style: TextStyle(color: Colors.white)),
+      child: const Text(
+        "Lưu thông tin",
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }
