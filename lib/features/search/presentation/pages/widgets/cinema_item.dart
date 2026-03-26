@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:movie_ticket_booking/core/theme/app_colors.dart';
 import '../../../domain/entities/cinema.dart';
@@ -10,15 +11,31 @@ import '../../../domain/entities/cinema.dart';
 ///   + tên rạp
 ///   + địa chỉ / location
 ///   + nút "Suất chiếu"
+///
+/// HÀNH VI:
+/// - bấm cả item -> vào danh sách phim của rạp
+/// - bấm nút "Suất chiếu" -> cũng vào danh sách phim của rạp
 /// =======================================================
 class CinemaItem extends StatelessWidget {
   final Cinema cinema;
 
   const CinemaItem({super.key, required this.cinema});
 
+  void _openCinemaMovies(BuildContext context) {
+    context.pushNamed(
+      'cinema-movies',
+      pathParameters: {
+        'cinemaId': cinema.id,
+      },
+      extra: cinema.name,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => _openCinemaMovies(context),
+
       /// =========================
       /// ICON BOX BÊN TRÁI
       /// =========================
@@ -49,7 +66,6 @@ class CinemaItem extends StatelessWidget {
 
       /// =========================
       /// NÚT ACTION
-      /// - hiện tại chưa xử lý onPressed
       /// =========================
       trailing: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -58,7 +74,7 @@ class CinemaItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        onPressed: () {},
+        onPressed: () => _openCinemaMovies(context),
         child: const Text('Suất chiếu'),
       ),
     );

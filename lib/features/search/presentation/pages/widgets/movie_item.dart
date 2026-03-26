@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:movie_ticket_booking/core/theme/app_colors.dart';
 import '../../../domain/entities/movie.dart';
 import '../utils/search_formatters.dart';
-  
+
 /// =======================================================
 /// ITEM CỦA KẾT QUẢ TÌM KIẾM PHIM
 /// - hiển thị:
@@ -12,15 +13,29 @@ import '../utils/search_formatters.dart';
 ///   + duration
 ///   + badge status
 ///   + nút "Đặt vé"
+///
+/// HÀNH VI:
+/// - bấm cả item -> vào movie detail
+/// - bấm nút "Đặt vé" -> vào flow chọn rạp của phim
 /// =======================================================
 class MovieItem extends StatelessWidget {
   final Movie movie;
 
   const MovieItem({super.key, required this.movie});
 
+  void _openMovieDetail(BuildContext context) {
+    context.push('/movies/${movie.id}');
+  }
+
+  void _openBookingFlow(BuildContext context) {
+    context.push('/movies/${movie.id}/cinemas');
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => _openMovieDetail(context),
+
       /// =========================
       /// POSTER BÊN TRÁI
       /// - nếu lỗi ảnh hoặc không có URL thì hiện placeholder
@@ -90,7 +105,7 @@ class MovieItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        onPressed: () {},
+        onPressed: () => _openBookingFlow(context),
         child: const Text('Đặt vé'),
       ),
     );
