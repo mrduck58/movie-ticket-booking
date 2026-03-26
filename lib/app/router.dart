@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:movie_ticket_booking/features/cinemas/presentation/pages/cinema_system.dart';
+import 'package:movie_ticket_booking/features/cinemas/presentation/widgets/cinema_movies_page.dart';
 
 import 'package:movie_ticket_booking/features/food_combo/presentation/pages/choose_combo.dart';
 import 'package:movie_ticket_booking/features/account/presentation/pages/screens/account_screen.dart';
@@ -192,6 +194,23 @@ class AppRouter {
         builder: (context, state) {
           final args = state.extra as Map<String, dynamic>;
           return VerifyOtpScreen(data: args);
+        },
+      ),
+      GoRoute(
+        path: '/cinemas',
+        builder: (context, state) => const CinemaSystemPage(),
+      ),
+      GoRoute(
+        path: '/cinema-movies/:cinemaId',
+        name: 'cinema-movies',
+        builder: (context, state) {
+          // Lấy ID từ URL
+          final cinemaId = state.pathParameters['cinemaId']!;
+
+          // Lấy tên rạp được truyền qua extra (để hiển thị lên AppBar cho đẹp)
+          final cinemaName = state.extra as String? ?? "Cinema Detail";
+
+          return CinemaMoviesPage(cinemaId: cinemaId, cinemaName: cinemaName);
         },
       ),
     ],
