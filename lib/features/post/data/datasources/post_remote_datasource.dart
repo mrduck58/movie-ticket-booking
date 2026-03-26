@@ -19,6 +19,30 @@ class PostRemoteDataSource {
     };
   }
 
+  Future<Map<String, dynamic>?> getUserFromToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token == null || token.isEmpty) return null;
+
+    // Token format: header.payload.signature
+    final parts = token.split('.');
+    if (parts.length != 3) return null;
+
+    final payload = parts[1];
+
+    // Base64Url decode (có padding)
+    var normalized = base64Url.normalize(payload);
+    final decodedBytes = base64Url.decode(normalized);
+    final decodedString = utf8.decode(decodedBytes);
+
+    // Chuyển payload thành JSON
+    final payloadMap = json.decode(decodedString);
+    return payloadMap; // chứa id, name, avatar...
+  }
+
+  
+
   Future<List<PostModel>> getPosts() async {
     final response = await http.get(
       Uri.parse("$baseUrl/posts"),

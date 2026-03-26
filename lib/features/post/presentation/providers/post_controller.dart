@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_ticket_booking/features/post/data/datasources/post_remote_datasource.dart';
 import 'package:movie_ticket_booking/features/post/domain/entities/create_post.dart';
 
 import '../../domain/entities/post.dart';
@@ -8,6 +9,10 @@ import '../../domain/entities/post_comment.dart';
 import '../../domain/repositories/post_comment_repository.dart';
 
 //Post controller
+final userProvider = FutureProvider<Map<String, dynamic>?>((ref) async {
+  final dataSource = PostRemoteDataSource();
+  return await dataSource.getUserFromToken();
+});
 class PostController extends AsyncNotifier<List<Post>> {
   // late final PostRepository _repo;
   final Map<String, bool> likedPosts = {};
@@ -92,6 +97,9 @@ class PostCommentController extends AsyncNotifier<List<PostComment>> {
       state = AsyncData(current);
     }
   }
+  
 }
+
+
   //post_create
   

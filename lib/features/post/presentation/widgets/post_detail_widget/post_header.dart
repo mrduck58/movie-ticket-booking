@@ -9,18 +9,33 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final avatar = post.avatar; // URL avatar từ PostModel
+    final name = post.name;
+    final initials = name.isNotEmpty
+        ? name.split(' ').map((e) => e[0]).take(2).join()
+        : 'ĐV';
+
     return Row(
       children: [
         CircleAvatar(
           radius: 20,
-          // backgroundImage: NetworkImage(post.avatar),
+          backgroundColor: Colors.pink,
+          backgroundImage: avatar != null && avatar.isNotEmpty
+              ? NetworkImage(avatar)
+              : null,
+          child: avatar == null || avatar.isEmpty
+              ? Text(
+                  initials,
+                  style: const TextStyle(color: Colors.white),
+                )
+              : null,
         ),
         const SizedBox(width: 12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              post.name,
+              name,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,

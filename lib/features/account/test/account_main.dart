@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_ticket_booking/features/account/presentation/pages/screens/account_screen.dart';
 
-import '../presentation/pages/account_screen.dart';
+// import '../presentation/pages/account_screen.dart';
 import '../../../../core/widgets/layouts/navigation_bar.dart';
 
 void main() {
