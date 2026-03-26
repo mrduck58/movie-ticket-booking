@@ -128,9 +128,12 @@ class AccountScreen extends ConsumerWidget {
                   },
                 ),
 
-                const AccountMenuRow(
-                  icon: Icons.shield_outlined,
-                  title: 'Security',
+                AccountMenuRow(
+                  icon: Icons.article_outlined,
+                  title: 'Post',
+                  onTap: () {
+                    context.push('/blog-posts');
+                  },
                 ),
 
                 const AccountMenuRow(
@@ -139,18 +142,18 @@ class AccountScreen extends ConsumerWidget {
                   trailingText: 'English (US)',
                 ),
 
-                AccountMenuRow(
-                  icon: Icons.dark_mode_outlined,
-                  title: 'Darkmode',
-                  trailingWidget: Transform.scale(
-                    scale: 0.9,
-                    child: Switch(
-                      value: false,
-                      onChanged: (_) {},
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                  ),
-                ),
+                // AccountMenuRow(
+                //   icon: Icons.dark_mode_outlined,
+                //   title: 'Darkmode',
+                //   trailingWidget: Transform.scale(
+                //     scale: 0.9,
+                //     child: Switch(
+                //       value: false,
+                //       onChanged: (_) {},
+                //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                //     ),
+                //   ),
+                // ),
 
                 const SizedBox(height: 14),
                 const AccountSectionLineLabel(label: 'About'),
