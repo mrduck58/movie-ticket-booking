@@ -8,21 +8,19 @@ import 'package:movie_ticket_booking/features/review/presentation/providers/book
 import 'package:movie_ticket_booking/features/seat_selection/presentation/providers/seat_providers.dart';
 import '../../../../core/theme/app_colors.dart';
 
-class PaymentSuccessDialog extends StatelessWidget {
+class PaymentSuccessDialog extends ConsumerWidget {
   const PaymentSuccessDialog({super.key});
+
   void _clearBookingFlow(WidgetRef ref) {
     ref.read(bookingDraftProvider.notifier).reset();
-
     ref.read(selectedPaymentProvider.notifier).state = null;
-
-    ref.read(selectedSeatsProvider.notifier).state = [];
-
-    ref.read(selectedCombosProvider.notifier).state = {};
-
+    ref.read(selectedSeatsProvider.notifier).clear();
+    ref.read(selectedCombosProvider.notifier).clear();
     ref.read(bookingExpiryProvider.notifier).resetTimer();
   }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -31,11 +29,9 @@ class PaymentSuccessDialog extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(24),
         ),
-
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// success icon
             Container(
               width: 90,
               height: 90,
@@ -45,20 +41,16 @@ class PaymentSuccessDialog extends StatelessWidget {
               ),
               child: const Icon(Icons.check, color: Colors.white, size: 40),
             ),
-
             const SizedBox(height: 20),
-
             const Text(
-              "Successfully Ordered!",
+              'Successfully Ordered!',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primary,
               ),
             ),
-
             const SizedBox(height: 10),
-
             const Text(
               "You're all set for an amazing movie experience!",
               textAlign: TextAlign.center,
@@ -67,10 +59,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-
             const SizedBox(height: 24),
-
-            /// View Order
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -82,10 +71,11 @@ class PaymentSuccessDialog extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
+                  _clearBookingFlow(ref);
                   context.go('/tickets');
                 },
                 child: const Text(
-                  "View My Order",
+                  'View My Order',
                   style: TextStyle(
                     color: AppColors.onPrimary,
                     fontWeight: FontWeight.w600,
@@ -94,10 +84,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 10),
-
-            /// Back Home
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -110,10 +97,11 @@ class PaymentSuccessDialog extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
+                  _clearBookingFlow(ref);
                   context.go('/');
                 },
                 child: const Text(
-                  "Back to Home",
+                  'Back to Home',
                   style: TextStyle(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w600,

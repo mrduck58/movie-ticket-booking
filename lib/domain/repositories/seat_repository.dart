@@ -2,4 +2,6 @@ import 'package:movie_ticket_booking/features/seat_selection/data/models/seat_ma
 
 abstract class SeatRepository {
   Future<SeatMapModel> getSeats(String showtimeId);
+  Future<void> lockSeats(String showtimeId, List<String> seatIds);
+
 }

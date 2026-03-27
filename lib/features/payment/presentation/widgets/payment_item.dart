@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_booking/core/theme/app_colors.dart';
 import '../../../../domain/entities/payment_method.dart';
 
 class PaymentItem extends StatelessWidget {
-
   final PaymentMethod method;
   final bool selected;
   final VoidCallback onTap;
@@ -16,7 +16,6 @@ class PaymentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: onTap,
 
@@ -24,43 +23,31 @@ class PaymentItem extends StatelessWidget {
         padding: const EdgeInsets.all(16),
 
         decoration: BoxDecoration(
-
           borderRadius: BorderRadius.circular(12),
 
           border: Border.all(
-            color: selected ? Colors.red : Colors.grey.shade300,
+            color: selected ? AppColors.primary : Colors.grey.shade300,
             width: selected ? 2 : 1,
           ),
         ),
 
         child: Row(
-
           children: [
-
-            Image.asset(
-              method.icon,
-              width: 36,
-            ),
+            Image.asset(method.icon, width: 36),
 
             const SizedBox(width: 16),
 
             Expanded(
               child: Text(
-                method.lastDigits != null
-                    ? "•••• •••• •••• ${method.lastDigits}"
-                    : method.name,
+                method.name,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
 
-            if (selected)
-              const Icon(
-                Icons.check,
-                color: Colors.red,
-              )
+            if (selected) const Icon(Icons.check, color: Colors.red),
           ],
         ),
       ),

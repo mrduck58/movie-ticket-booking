@@ -86,23 +86,18 @@ class _ReviewSummaryPageState extends ConsumerState<ReviewSummaryPage> {
               icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
               onPressed: () => context.pop(),
             ),
-            title: const Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "Review Summary",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 26,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8),
-                BookingCountdownAppbarBadge(),
-              ],
+            title: const Text(
+              "Review Summary",
+              style: TextStyle(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: 26,
+              ),
             ),
+            actions: const [
+              BookingCountdownAppbarBadge(),
+              SizedBox(width: 16),
+            ],
           ),
         ),
       ),

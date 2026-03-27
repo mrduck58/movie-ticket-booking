@@ -9,6 +9,7 @@ class AppColors {
   static const Color background= Colors.white;
   //static const Color onBackground = Colors.white;
   static const Color surface = Color.fromARGB(255, 250, 250, 250);
+  static const Color cardBackground = Color(0xFFF5F5F5);
   //static const Color onSurface = Colors.white;
 
   // default

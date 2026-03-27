@@ -12,6 +12,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/formatters/money_formatter.dart';
 
+import 'package:movie_ticket_booking/features/seat_selection/presentation/providers/seat_providers.dart';
 import '../../../../domain/entities/combo.dart';
 import '../providers/combo_provider.dart';
 
@@ -77,22 +78,60 @@ class FoodOrderPage extends ConsumerWidget {
             backgroundColor: AppColors.primary,
             minimumSize: const Size.fromHeight(64),
           ),
-          onPressed: () {
-            final combos = ref.read(combosProvider).value ?? [];
-            final selectedCombos = ref.read(selectedCombosProvider);
+          onPressed: () async {
+            final draft = ref.read(bookingDraftProvider);
+            final showtimeId = draft.showtime?.showtimeId;
+            final seatIds = draft.seats.map((s) => s.seatId).toList();
 
-            final chosenCombos = combos.where((combo) {
-              final qty = selectedCombos[combo.id] ?? 0;
-              return qty > 0;
-            }).toList();
+            if (showtimeId == null || seatIds.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Please select seats first")),
+              );
+              return;
+            }
 
-            ref.read(bookingDraftProvider.notifier).setCombos(chosenCombos);
+            try {
+              // Show loading dialog
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) =>
+                    const Center(child: CircularProgressIndicator()),
+              );
 
-            ref
-                .read(bookingExpiryProvider.notifier)
-                .start(duration: const Duration(minutes: 5));
+              // 1. Lock seats on backend
+              await ref
+                  .read(seatRepositoryProvider)
+                  .lockSeats(showtimeId, seatIds);
 
-            context.push('/review');
+              // Close loading dialog
+              if (context.mounted) Navigator.of(context).pop();
+
+              // 2. Set combos and start timer
+              final combos = ref.read(combosProvider).value ?? [];
+              final selectedCombos = ref.read(selectedCombosProvider);
+              final chosenCombos = combos.where((combo) {
+                final qty = selectedCombos[combo.id] ?? 0;
+                return qty > 0;
+              }).toList();
+
+              ref.read(bookingDraftProvider.notifier).setCombos(chosenCombos);
+
+              ref
+                  .read(bookingExpiryProvider.notifier)
+                  .start(duration: const Duration(minutes: 5));
+
+              if (context.mounted) context.push('/review');
+            } catch (e) {
+              // Close loading dialog
+              if (context.mounted) Navigator.of(context).pop();
+
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Failed to lock seats: ${e.toString()}")),
+                );
+              }
+            }
           },
           child: const Text(
             "Continue",

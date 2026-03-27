@@ -32,7 +32,8 @@ class ShowtimeApiDatasourceImpl implements ShowtimeApiDatasource {
     );
 
     final data = response.data as List;
-
+    // ignore: avoid_print
+    print('[ShowtimeAPI] Response: $data');
     return data.map((e) => ShowtimeGroupModel.fromJson(e)).toList();
   }
 }

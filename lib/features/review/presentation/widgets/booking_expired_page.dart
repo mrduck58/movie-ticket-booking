@@ -21,21 +21,22 @@ class BookingExpiredPage extends ConsumerWidget {
               const Icon(
                 Icons.access_time_filled,
                 size: 72,
-                color: Colors.red,
+                color: AppColors.error,
               ),
               const SizedBox(height: 20),
               const Text(
                 'Booking Expired',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 12),
               const Text(
                 'Your reservation time has expired. Please start booking again.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                ),
               ),
               const SizedBox(height: 28),
               SizedBox(
@@ -46,7 +47,14 @@ class BookingExpiredPage extends ConsumerWidget {
                     ref.read(bookingExpiryProvider.notifier).resetTimer();
                     context.go('/');
                   },
-                  child: const Text('Back to Home'),
+                  child: const Text(
+                    'Back to Home',
+                    style: TextStyle(
+                      color: AppColors.onPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ],

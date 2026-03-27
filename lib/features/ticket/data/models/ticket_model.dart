@@ -10,27 +10,25 @@ class TicketModel extends Ticket {
     required super.room,
     required super.seats,
     required super.duration,
-    // required super.director,
     required super.rating,
     required super.genres,
-    required super.qrData,
+    required super.qrDatas,
     super.remind,
   });
 
   factory TicketModel.fromJson(Map<String, dynamic> json) {
     return TicketModel(
-      title: json['title'],
-      poster: json['poster'],
-      startTime: DateTime.parse(json['startTime']),
-      endTime: DateTime.parse(json['endTime']),
-      cinema: json['cinema'],
-      room: json['room'],
-      seats: List<String>.from(json['seats']),
-      duration: json['duration'],
-      // director: json['director'],
-      rating: json['rating'],
-      genres: List<String>.from(json['genres']),
-      qrData: json['qrData']??'',
+      title: json['title'] ?? '',
+      poster: json['poster'] ?? '',
+      startTime: json['startTime'] != null ? DateTime.parse(json['startTime']) : DateTime.now(),
+      endTime: json['endTime'] != null ? DateTime.parse(json['endTime']) : DateTime.now(),
+      cinema: json['cinema'] ?? '',
+      room: json['room'] ?? '',
+      seats: List<String>.from(json['seats'] ?? []),
+      duration: (json['duration'] as num?)?.toInt() ?? 0,
+      rating: (json['rating'] as num?)?.toDouble() ?? 0,
+      genres: List<String>.from(json['genres'] ?? []),
+      qrDatas: List<String>.from(json['qrDatas'] ?? []),
       remind: json['remind'] ?? false,
     );
   }
@@ -45,10 +43,9 @@ class TicketModel extends Ticket {
       "room": room,
       "seats": seats,
       "duration": duration,
-      // "director": director,
-      "ageRating": rating,
+      "rating": rating,
       "genres": genres,
-      "qrData": qrData,
+      "qrDatas": qrDatas,
       "remind": remind,
     };
   }
