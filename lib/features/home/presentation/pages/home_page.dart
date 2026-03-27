@@ -157,6 +157,12 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
+String buildAccountInitial(String name) {
+  final value = name.trim();
+  if (value.isEmpty) return 'U';
+  return value[0].toUpperCase();
+}
+
 class _TopLocationBar extends ConsumerWidget {
   const _TopLocationBar();
 
@@ -169,38 +175,80 @@ class _TopLocationBar extends ConsumerWidget {
     return Row(
       children: [
         userAsync.when(
-          data: (user) => Row(
-            children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundImage: user.avatarUrl.isNotEmpty
-                    ? NetworkImage(user.avatarUrl)
-                    : null,
-                child: user.avatarUrl.isEmpty ? const Icon(Icons.person) : null,
-              ),
+          data: (user) {
+            final avatarUrl = user.avatarUrl?.trim() ?? "";
+            final name = user.name?.trim() ?? "";
 
-              const SizedBox(width: 12),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Welcome",
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: Colors.black54),
+            return Row(
+              children: [
+                /// =========================
+                /// AVATAR
+                /// - Có ảnh → hiển thị ảnh
+                /// - Không ảnh → hiển thị chữ cái đầu
+                /// =========================
+                CircleAvatar(
+                  radius: 26,
+                  backgroundColor: const Color(0xFFD9D9D9),
+                  child: ClipOval(
+                    child: user.avatarUrl.trim().isNotEmpty
+                        ? Image.network(
+                            user.avatarUrl,
+                            width: 52,
+                            height: 52,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Center(
+                                child: Text(
+                                  buildAccountInitial(user.name),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black87,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: Text(
+                              buildAccountInitial(user.name),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
                   ),
+                ),
 
-                  Text(
-                    user.name, // 🔥 FIX
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                const SizedBox(width: 12),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.black54),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+
+                    /// =========================
+                    /// NAME
+                    /// - Nếu null → fallback
+                    /// =========================
+                    Text(
+                      name.isNotEmpty ? name : "User",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
 
           loading: () => const SizedBox(
             width: 24,
