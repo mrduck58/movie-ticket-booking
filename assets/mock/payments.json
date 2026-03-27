@@ -1,29 +1,7 @@
 [
   {
-    "id": "paypal",
-    "name": "PayPal",
-    "icon": "assets/payment/paypal.png"
-  },
-  {
-    "id": "gpay",
-    "name": "Google Pay",
-    "icon": "assets/payment/google_pay.png"
-  },
-  {
-    "id": "apple",
-    "name": "Apple Pay",
-    "icon": "assets/payment/apple_pay.png"
-  },
-  {
-    "id": "mastercard",
-    "name": "Mastercard",
-    "icon": "assets/payment/mastercard.png",
-    "last_digits": "4679"
-  },
-  {
-    "id": "visa",
-    "name": "Visa",
-    "icon": "assets/payment/visa.png",
-    "last_digits": "5567"
+    "id": "payos",
+    "name": "Thanh toán qua PayOS (VietQR)",
+    "icon": "assets/images/icons/payos.png"
   }
 ]

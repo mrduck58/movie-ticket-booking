@@ -5,6 +5,7 @@ class SeatModel extends Seat {
     required super.seatId,
     required super.seatName,
     required super.status,
+    super.showtimeTicketTypeId,
   });
 
   factory SeatModel.fromJson(Map<String, dynamic> json) {
@@ -12,6 +13,8 @@ class SeatModel extends Seat {
       seatId: json['seatId'],
       seatName: json['seatName'],
       status: json['status'],
+      // Backend trả về field này để dùng khi checkout
+      showtimeTicketTypeId: json['showtimeTicketTypeId'],
     );
   }
 
@@ -20,6 +23,7 @@ class SeatModel extends Seat {
       seatId: seatId,
       seatName: seatName,
       status: status,
+      showtimeTicketTypeId: showtimeTicketTypeId,
     );
   }
 }

@@ -9,6 +9,8 @@ import 'package:movie_ticket_booking/features/profile/presentation/pages/my_prof
 import 'package:movie_ticket_booking/features/review/presentation/widgets/booking_expired_page.dart';
 import 'package:movie_ticket_booking/features/search/presentation/pages/screens/search_page.dart';
 import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticket.dart';
+import 'package:movie_ticket_booking/features/ticket/presentation/pages/ticket_detail.dart';
+import 'package:movie_ticket_booking/features/ticket/domain/entities/ticket.dart';
 import 'package:movie_ticket_booking/features/watchlist/presentation/pages/screens/watchlist_watched_screen.dart';
 import 'package:movie_ticket_booking/features/payment_method/presentation/pages/payment_method_screen.dart';
 import 'package:movie_ticket_booking/features/notification/presentation/pages/screens/notification_screen.dart';
@@ -162,6 +164,33 @@ class AppRouter {
       GoRoute(
         path: '/booking-expired',
         builder: (context, state) => const BookingExpiredPage(),
+      ),
+      GoRoute(
+        path: '/booking-detail/:bookingId',
+        builder: (context, state) {
+          final id = state.pathParameters['bookingId']!;
+          return BookingDetailPage(bookingId: id);
+        },
+      ),
+      GoRoute(
+        path: '/ticket-detail',
+        builder: (context, state) {
+          final ticket = state.extra as Ticket;
+          return TicketDetailPage(ticket: ticket);
+        },
+      ),
+      GoRoute(
+        path: '/payment-success',
+        builder: (context, state) {
+          final orderCode = state.uri.queryParameters['orderCode'] ?? "SUCCESS";
+          return BookingDetailPage(bookingId: orderCode);
+        },
+      ),
+      GoRoute(
+        path: '/payment-cancel',
+        builder: (context, state) {
+          return const ChoosePaymentPage();
+        },
       ),
       GoRoute(
         path: '/payment-method',

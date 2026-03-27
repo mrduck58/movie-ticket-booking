@@ -12,4 +12,9 @@ class SeatRepositoryImpl implements SeatRepository {
   Future<SeatMapModel> getSeats(String showtimeId) {
     return datasource.getSeats(showtimeId);
   }
+
+  @override
+  Future<void> lockSeats(String showtimeId, List<String> seatIds) {
+    return datasource.lockSeats(showtimeId, seatIds);
+  }
 }

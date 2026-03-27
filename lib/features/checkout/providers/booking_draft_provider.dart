@@ -1,5 +1,3 @@
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:movie_ticket_booking/domain/entities/combo.dart';
 import 'package:movie_ticket_booking/domain/entities/seat.dart';

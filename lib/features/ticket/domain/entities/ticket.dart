@@ -14,7 +14,7 @@ class Ticket {
   final double rating;
   final List<String> genres;
 
-  final String qrData;
+  final List<String> qrDatas;
 
   bool remind;
 
@@ -30,7 +30,7 @@ class Ticket {
     // required this.director,
     required this.rating,
     required this.genres,
-    required this.qrData,
+    required this.qrDatas,
     this.remind = false,
   });
 

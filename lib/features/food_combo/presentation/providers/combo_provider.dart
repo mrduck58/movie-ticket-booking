@@ -54,4 +54,8 @@ class SelectedCombosNotifier extends StateNotifier<Map<String, int>> {
       state = {...state, id: qty};
     }
   }
+
+  void clear() {
+    state = {};
+  }
 }

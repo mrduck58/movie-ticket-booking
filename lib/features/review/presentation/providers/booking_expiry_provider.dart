@@ -94,6 +94,11 @@ class BookingExpiryNotifier extends StateNotifier<BookingExpiryState> {
     state = BookingExpiryState.initial();
   }
 
+  void stop() {
+    _timer?.cancel();
+    state = state.copyWith(isRunning: false);
+  }
+
   String formattedTime() {
     final totalSeconds = state.remaining.inSeconds;
     final minutes = (totalSeconds ~/ 60).toString().padLeft(2, '0');

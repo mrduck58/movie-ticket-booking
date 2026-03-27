@@ -33,6 +33,7 @@ class AppNotification {
   final DateTime time;
   final bool isUnread;
   final NotificationType type;
+  final String? relatedId;
 
   const AppNotification({
     required this.id,
@@ -40,6 +41,7 @@ class AppNotification {
     required this.time,
     required this.isUnread,
     required this.type,
+    this.relatedId,
   });
 
   AppNotification copyWith({

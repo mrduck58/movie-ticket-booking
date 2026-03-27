@@ -7,11 +7,10 @@ import 'notification_providers.dart';
 import 'notification_state.dart';
 
 class NotificationController extends AsyncNotifier<List<NotificationSection>> {
-  late final NotificationRepository _repo;
+  NotificationRepository get _repo => ref.read(notificationRepositoryProvider);
 
   @override
   Future<List<NotificationSection>> build() async {
-    _repo = ref.read(notificationRepositoryProvider);
     final list = await _repo.getNotifications();
     return _group(list);
   }

@@ -22,7 +22,7 @@ class TicketDetailPage extends ConsumerWidget {
           children: [
             const SizedBox(height: 20),
 
-            const TicketQR(),
+            TicketQR(qrDatas: ticket.qrDatas),
 
             const SizedBox(height: 20),
 

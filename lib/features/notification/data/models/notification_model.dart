@@ -7,6 +7,7 @@ class AppNotificationModel extends AppNotification {
     required super.time,
     required super.isUnread,
     required super.type,
+    super.relatedId,
   });
 
   factory AppNotificationModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +19,7 @@ class AppNotificationModel extends AppNotification {
           : DateTime.now(),
       isUnread: !(json['isRead'] == true),
       type: NotificationType.fromString(json['type']?.toString()),
+      relatedId: (json['relatedId'] ?? json['RelatedId'])?.toString(),
     );
   }
 }
