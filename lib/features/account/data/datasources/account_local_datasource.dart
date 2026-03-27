@@ -14,23 +14,17 @@ class AccountLocalDatasource {
 
     final payload = _parseJwt(token);
 
-    final email = _readStringClaim(
-      payload,
-      [
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name',
-        'unique_name',
-        'email',
-      ],
-    );
+    final email = _readStringClaim(payload, [
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name',
+      'unique_name',
+      'email',
+    ]);
 
-    final userId = _readStringClaim(
-      payload,
-      [
-        'UserId',
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier',
-        'sub',
-      ],
-    );
+    final userId = _readStringClaim(payload, [
+      'UserId',
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier',
+      'sub',
+    ]);
 
     if (email.isEmpty && userId.isEmpty) {
       throw Exception('Invalid token payload');
@@ -38,16 +32,13 @@ class AccountLocalDatasource {
 
     return UserProfileModel(
       userId: userId,
-      name: _formatDisplayName(userId),
+      name: _getUsernameFromEmail(email),
       email: email,
       avatar: '',
     );
   }
 
-  String _readStringClaim(
-    Map<String, dynamic> payload,
-    List<String> keys,
-  ) {
+  String _readStringClaim(Map<String, dynamic> payload, List<String> keys) {
     for (final key in keys) {
       final value = payload[key];
       if (value != null && value.toString().trim().isNotEmpty) {
@@ -57,11 +48,16 @@ class AccountLocalDatasource {
     return '';
   }
 
-  String _formatDisplayName(String userId) {
-    if (userId.trim().isEmpty) return 'User';
-    if (userId.length <= 8) return 'User #$userId';
-    return 'User #${userId.substring(0, 8)}';
+  String _getUsernameFromEmail(String email) {
+    if (email.isEmpty) return 'User';
+    return email.split('@').first;
   }
+
+  // String _formatDisplayName(String userId) {
+  //   if (userId.trim().isEmpty) return 'User';
+  //   if (userId.length <= 8) return 'User #$userId';
+  //   return 'User #${userId.substring(0, 8)}';
+  // }
 
   Map<String, dynamic> _parseJwt(String token) {
     final parts = token.split('.');

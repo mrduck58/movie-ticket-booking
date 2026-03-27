@@ -174,6 +174,12 @@ class _HomePageState extends ConsumerState<HomePage> {
 }
 
 // --- WIDGET THANH LOCATION BAR (GIỮ NGUYÊN LOGIC BAN ĐẦU CỦA ÔNG) ---
+String buildAccountInitial(String name) {
+  final value = name.trim();
+  if (value.isEmpty) return 'U';
+  return value[0].toUpperCase();
+}
+
 class _TopLocationBar extends ConsumerWidget {
   const _TopLocationBar();
 

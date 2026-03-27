@@ -90,13 +90,13 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
 
           return Column(
             children: [
-              const LocationRow(),
+              // const LocationRow(),
 
-              const Divider(
-                height: 2,
-                indent: AppSpacing.pagePadding,
-                endIndent: AppSpacing.pagePadding,
-              ),
+              // const Divider(
+              //   height: 2,
+              //   indent: AppSpacing.pagePadding,
+              //   endIndent: AppSpacing.pagePadding,
+              // ),
 
               const SizedBox(height: 16),
 

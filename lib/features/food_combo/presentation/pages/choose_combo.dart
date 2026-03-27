@@ -6,6 +6,7 @@ import 'package:movie_ticket_booking/features/food_combo/presentation/widgets/ba
 import 'package:movie_ticket_booking/features/food_combo/presentation/widgets/combo_card.dart';
 import 'package:movie_ticket_booking/features/food_combo/presentation/widgets/most_popular_section.dart';
 import 'package:movie_ticket_booking/features/food_combo/presentation/widgets/new_beverage_section.dart';
+import 'package:movie_ticket_booking/features/review/presentation/providers/booking_expiry_provider.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -49,12 +50,12 @@ class FoodOrderPage extends ConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 children: [
                   MostPopularSection(combos: combos),
-                  
+
                   const SizedBox(height: 20),
 
-                  NewBeverageSection(combos: combos),
+                  // NewBeverageSection(combos: combos),
 
-                  const SizedBox(height: 100), // tránh bị basket che
+                  // const SizedBox(height: 100), // tránh bị basket che
                 ],
               ),
 
@@ -77,7 +78,20 @@ class FoodOrderPage extends ConsumerWidget {
             minimumSize: const Size.fromHeight(64),
           ),
           onPressed: () {
-            ref.read(bookingDraftProvider.notifier);
+            final combos = ref.read(combosProvider).value ?? [];
+            final selectedCombos = ref.read(selectedCombosProvider);
+
+            final chosenCombos = combos.where((combo) {
+              final qty = selectedCombos[combo.id] ?? 0;
+              return qty > 0;
+            }).toList();
+
+            ref.read(bookingDraftProvider.notifier).setCombos(chosenCombos);
+
+            ref
+                .read(bookingExpiryProvider.notifier)
+                .start(duration: const Duration(minutes: 5));
+
             context.push('/review');
           },
           child: const Text(
