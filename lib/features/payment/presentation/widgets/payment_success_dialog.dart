@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_ticket_booking/features/checkout/providers/booking_draft_provider.dart';
+import 'package:movie_ticket_booking/features/food_combo/presentation/providers/combo_provider.dart';
+import 'package:movie_ticket_booking/features/payment/presentation/providers/payment_providers.dart';
+import 'package:movie_ticket_booking/features/review/presentation/providers/booking_expiry_provider.dart';
+import 'package:movie_ticket_booking/features/seat_selection/presentation/providers/seat_providers.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class PaymentSuccessDialog extends StatelessWidget {
   const PaymentSuccessDialog({super.key});
+  void _clearBookingFlow(WidgetRef ref) {
+    ref.read(bookingDraftProvider.notifier).reset();
 
+    ref.read(selectedPaymentProvider.notifier).state = null;
+
+    ref.read(selectedSeatsProvider.notifier).state = [];
+
+    ref.read(selectedCombosProvider.notifier).state = {};
+
+    ref.read(bookingExpiryProvider.notifier).resetTimer();
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -66,7 +82,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  context.go('/booking-detail');
+                  context.go('/tickets');
                 },
                 child: const Text(
                   "View My Order",

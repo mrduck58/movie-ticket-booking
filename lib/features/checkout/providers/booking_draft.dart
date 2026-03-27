@@ -9,7 +9,7 @@ class BookingDraft {
   final Cinema? cinema;
   final Showtime? showtime;
   final List<Seat> seats;
-  final List<Combo>? combos;
+ final Map<String, int> comboQuantities;
   final String? paymentMethod;
   final String? date;
   final String? auditorium;
@@ -21,7 +21,7 @@ class BookingDraft {
     this.cinema,
     this.showtime,
     this.seats = const [],
-    this.combos = const [],
+    this.comboQuantities = const {},
     this.paymentMethod,
     this.date,
     this.auditorium,
@@ -47,7 +47,7 @@ class BookingDraft {
       cinema: cinema ?? this.cinema,
       showtime: showtime ?? this.showtime,
       seats: seats ?? this.seats,
-      combos: combos ?? this.combos,
+      comboQuantities: comboQuantities ,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       date: date ?? this.date,
       auditorium: auditorium ?? this.auditorium,
