@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'intro_2.dart';
 import '../provider/login_provider.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    // Load email đã lưu nếu có
+    _loadRememberedEmail();
+  }
+
+  _loadRememberedEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedEmail = prefs.getString("remembered_email");
+    if (savedEmail != null) {
+      emailController.text = savedEmail;
+      setState(() => rememberMe = true);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +42,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     /// listen login success
     ref.listen<LoginProvider>(loginProvider, (previous, next) {
-  if (next.token != null) {
-    context.go('/'); 
-  }
-});
+      if (next.token != null) {
+        context.go('/');
+      }
+    });
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -170,13 +186,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () {
-                      ref
+                    onPressed: () async {
+                      final email = emailController.text.trim();
+                      final password = passwordController.text.trim();
+
+                      // Lưu hoặc xóa email dựa trên checkbox
+                      await ref
                           .read(loginProvider)
-                          .login(
-                            emailController.text.trim(),
-                            passwordController.text.trim(),
-                          );
+                          .handleRememberMe(email, rememberMe);
+
+                      await ref.read(loginProvider).login(email, password);
                     },
                     child: loginState.isLoading
                         ? const CircularProgressIndicator(color: Colors.white)

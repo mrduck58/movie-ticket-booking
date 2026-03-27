@@ -2,8 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_ticket_booking/core/network/dio_client.dart';
+import 'package:movie_ticket_booking/features/home/data/models/user_model.dart';
+import 'package:movie_ticket_booking/features/home/presentation/providers/home_providers.dart';
 import 'package:movie_ticket_booking/features/login/data/repositories/login_repository_impl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/repositories/login_repository.dart';
 import '../../data/datasources/login_api_datasources.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -83,15 +87,15 @@ class LoginProvider extends ChangeNotifier {
       final String? tokenToSend = googleAuth.accessToken;
 
       // Log để bạn kiểm tra ở Console F12
-     print("TOKEN GỬI LÊN SERVER: $tokenToSend");
+      print("TOKEN GỬI LÊN SERVER: $tokenToSend");
 
-     if (tokenToSend == null) {
-    _error = "Không thể lấy Token từ Google";
-    _isLoading = false;
-    notifyListeners();
-    return false;
-  }
-     final serverToken = await repository.loginWithGoogle(tokenToSend);
+      if (tokenToSend == null) {
+        _error = "Không thể lấy Token từ Google";
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+      final serverToken = await repository.loginWithGoogle(tokenToSend);
 
       if (serverToken != null) {
         _token = serverToken;
@@ -113,6 +117,44 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
+ Future<void> checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedToken = prefs.getString("token");
+
+    // Fix lỗi chuỗi 'null' quái đản trên Flutter Web
+    if (savedToken == null || savedToken == 'null' || savedToken.trim().isEmpty) {
+      _token = null;
+    } else {
+      _token = savedToken;
+    }
+    notifyListeners();
+  }
+
+  bool ensureAuthenticated(BuildContext context) {
+    if (_token == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please sign in to continue"),
+          backgroundColor: Color(0xFFFF4D67),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      context.push('/intro');
+      return false;
+    }
+    return true;
+  }
+
+  // Hàm lưu/xóa email khi dùng Remember Me
+  Future<void> handleRememberMe(String email, bool isRemember) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (isRemember) {
+      await prefs.setString("remembered_email", email);
+    } else {
+      await prefs.remove("remembered_email");
+    }
+  }
+
   Future<void> logout() async {
     await repository.logout();
     _token = null;
@@ -121,6 +163,18 @@ class LoginProvider extends ChangeNotifier {
 }
 
 final loginProvider = ChangeNotifierProvider<LoginProvider>((ref) {
-  final repository = ref.read(loginRepositoryProvider);
-  return LoginProvider(repository);
+  final repo = ref.read(loginRepositoryProvider);
+  return LoginProvider(repo);
+});
+
+final currentUserProvider = FutureProvider<UserModel>((ref) async {
+  final auth = ref.watch(loginProvider);
+  if (auth.token == null) return UserModel.guest();
+
+  try {
+    final repo = ref.read(userRepositoryProvider);
+    return await repo.getCurrentUser();
+  } catch (e) {
+    return UserModel.guest();
+  }
 });

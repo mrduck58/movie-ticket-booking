@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../provider/login_provider.dart'; // Đảm bảo đúng đường dẫn file provider của bạn
 
-class Intro2 extends ConsumerWidget { // 1. Chuyển sang ConsumerWidget
+class Intro2 extends ConsumerWidget {
+  // 1. Chuyển sang ConsumerWidget
   const Intro2({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) { // 2. Thêm WidgetRef
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 2. Thêm WidgetRef
     // Theo dõi trạng thái của loginProvider
     final loginState = ref.watch(loginProvider);
 
@@ -33,6 +35,13 @@ class Intro2 extends ConsumerWidget { // 1. Chuyển sang ConsumerWidget
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
+              Image.asset(
+                "assets/images/avatars/VPHAN.jpg", // Thay bằng đường dẫn ảnh logo của ông
+                height: 100, // Chỉnh độ cao ảnh cho phù hợp
+                fit: BoxFit.contain,
+              ),
+
+              const SizedBox(height: 20),
 
               /// Title
               const Text(
@@ -50,18 +59,18 @@ class Intro2 extends ConsumerWidget { // 1. Chuyển sang ConsumerWidget
               const SizedBox(height: 40),
 
               /// Google Button
-              loginState.isLoading 
-                ? const CircularProgressIndicator(color: Color(0xFFFF5A5F))
-                : GestureDetector(
-                    onTap: () {
-                      // 3. Gọi hàm loginWithGoogle từ provider
-                      ref.read(loginProvider.notifier).loginWithGoogle();
-                    },
-                    child: socialButton(
-                      imagePath: "assets/images/icons/google.png",
-                      text: "Continue with Google",
+              loginState.isLoading
+                  ? const CircularProgressIndicator(color: Color(0xFFFF5A5F))
+                  : GestureDetector(
+                      onTap: () {
+                        // 3. Gọi hàm loginWithGoogle từ provider
+                        ref.read(loginProvider.notifier).loginWithGoogle();
+                      },
+                      child: socialButton(
+                        imagePath: "assets/images/icons/google.png",
+                        text: "Continue with Google",
+                      ),
                     ),
-                  ),
 
               const SizedBox(height: 16),
 
@@ -136,10 +145,7 @@ class Intro2 extends ConsumerWidget { // 1. Chuyển sang ConsumerWidget
   }
 
   /// Social Button Widget
-  Widget socialButton({
-    required String imagePath,
-    required String text,
-  }) {
+  Widget socialButton({required String imagePath, required String text}) {
     return Container(
       width: double.infinity,
       height: 55,

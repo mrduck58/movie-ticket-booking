@@ -169,15 +169,15 @@ class AccountScreen extends ConsumerWidget {
                       context: context,
                       builder: (context) => AlertDialog(
                         title: const Text("Confirm"),
-                        content: const Text("Bạn có muốn đăng xuất không?"),
+                        content: const Text("Do you want to sign out"),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: const Text("Hủy"),
+                            child: const Text("No"),
                           ),
                           TextButton(
                             onPressed: () => Navigator.pop(context, true),
-                            child: const Text("Đăng xuất"),
+                            child: const Text("Sign out"),
                           ),
                         ],
                       ),

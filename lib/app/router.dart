@@ -24,7 +24,6 @@ import '../features/showtimes/presentation/pages/choose_showtime_page.dart';
 import '../features/review/presentation/pages/review_summary_page.dart';
 import '../features/payment/presentation/pages/choose_payment_page.dart';
 import '../features/seat_selection/presentation/pages/seat_selection_page.dart';
-import '../features/review/presentation/pages/booking_detail_page.dart';
 import '../features/register/presentation/pages/complete_profile.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/now_playing.dart';
 import 'package:movie_ticket_booking/features/home/presentation/pages/coming_soon.dart';
@@ -32,7 +31,7 @@ import '../features/register/presentation/pages/verify_otp_screen.dart';
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/intro',
+    initialLocation: '/',
     routes: [
       /// MAIN LAYOUT (BottomNavigationBar)
       ShellRoute(
@@ -64,7 +63,7 @@ class AppRouter {
           /// ACCOUNT TAB
           GoRoute(
             path: '/account',
-            builder: (context, state) => const AccountScreen(),
+            builder: (context, state) =>  AccountScreen(),
           ),
         ],
       ),
