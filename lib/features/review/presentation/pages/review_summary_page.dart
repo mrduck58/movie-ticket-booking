@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_ticket_booking/core/theme/app_colors.dart';
 import 'package:movie_ticket_booking/core/utils/formatters/money_formatter.dart';
+import 'package:movie_ticket_booking/features/review/presentation/providers/booking_expiry_provider.dart';
+import 'package:movie_ticket_booking/features/review/presentation/widgets/booking_countdown_app_badge.dart';
 import 'package:movie_ticket_booking/features/review/presentation/widgets/voucher_selector_tile.dart';
 
 import '../../../checkout/providers/booking_draft_provider.dart';
@@ -16,11 +18,27 @@ import '../widgets/price_details_section.dart';
 import '../widgets/combo_section.dart';
 import '../widgets/voucher_bottomsheet.dart';
 
-class ReviewSummaryPage extends ConsumerWidget {
+class ReviewSummaryPage extends ConsumerStatefulWidget {
   const ReviewSummaryPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ReviewSummaryPage> createState() => _ReviewSummaryPageState();
+}
+
+class _ReviewSummaryPageState extends ConsumerState<ReviewSummaryPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    ref.listenManual(bookingExpiryProvider, (previous, next) {
+      if (next.isExpired && mounted) {
+        context.go('/booking-expired');
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final draft = ref.watch(bookingDraftProvider);
 
     final seats = draft.seats;
@@ -68,97 +86,110 @@ class ReviewSummaryPage extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
               onPressed: () => context.pop(),
             ),
-            title: const Text(
-              "Review Summary",
-              style: TextStyle(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w700,
-                fontSize: 26,
-              ),
+            title: const Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "Review Summary",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 26,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                BookingCountdownAppbarBadge(),
+              ],
             ),
           ),
         ),
       ),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: ListView(
+              children: [
+                MovieInfoSection(
+                  title: draft.movie?.title ?? "-",
+                  duration: draft.movie?.durationMin.toString() ?? "-",
+                  director: draft.movie?.director ?? "-",
+                  rating: draft.movie?.rating?.toString() ?? "-",
+                  genre:
+                      draft.movie?.genres?.map((g) => g.name).join(", ") ?? "-",
+                  poster: draft.movie?.posterUrl ?? "assets/mock/movie.jpg",
+                ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+                const SizedBox(height: 16),
 
-        child: ListView(
-          children: [
-            MovieInfoSection(
-              title: draft.movie?.title ?? "-",
-              duration: draft.movie?.durationMin.toString() ?? "-",
-              director: draft.movie?.director ?? "-",
-              rating: draft.movie?.rating?.toString() ?? "-",
-              genre: draft.movie?.genres?.map((g) => g.name).join(", ") ?? "-",
-              poster: draft.movie?.posterUrl ?? "assets/mock/movie.jpg",
-            ),
+                BookingDetailsSection(
+                  durationMin: draft.movie?.durationMin.toDouble() ?? 0.0,
+                  cinema: draft.cinema?.name ?? "-",
+                  roomName: draft.auditorium ?? "-",
+                  seats: draft.seats
+                      .map((s) => s.row + s.number.toString())
+                      .toList(),
+                  date: draft.date ?? "-",
+                  startTime:
+                      draft.showtime?.startTime ?? DateTime(0, 1, 1, 0, 0),
+                  package: draft.package ?? "-",
+                ),
 
-            const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-            BookingDetailsSection(
-              durationMin: draft.movie?.durationMin.toDouble() ?? 0.0,
-              cinema: draft.cinema?.name ?? "-",
-              roomName: draft.auditorium ?? "-",
-              seats: draft.seats
-                  .map((s) => s.row + s.number.toString())
-                  .toList(),
-              date: draft.date ?? "-",
-              startTime: draft.showtime?.startTime ?? DateTime(0, 1, 1, 0, 0),
-              package: draft.package ?? "-",
-            ),
+                const ComboSection(),
 
-            const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-            const ComboSection(),
+                VoucherSelectorTile(),
 
-            const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
-            VoucherSelectorTile(),
+                PriceDetailsSection(
+                  ticketPrice: ticketPrice.toInt(),
+                  ticketCount: ticketCount,
+                  comboPrice: comboTotal,
+                  voucher: voucherDiscount.toInt(),
+                  total: total.toInt(),
+                  voucherType: selectedVoucher?.type,
+                ),
 
-            const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-            PriceDetailsSection(
-              ticketPrice: ticketPrice.toInt(),
-              ticketCount: ticketCount,
-              comboPrice: comboTotal,
-              voucher: voucherDiscount.toInt(),
-              total: total.toInt(),
-              voucherType: selectedVoucher?.type,
-            ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 54,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    onPressed: () {
+                      final draft = ref.read(bookingDraftProvider);
 
-            const SizedBox(height: 20),
+                      ref.read(bookingDraftProvider.notifier).state = draft
+                          .copyWith(totalPrice: total);
 
-            SizedBox(
-              width: double.infinity,
-              height: 54,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                      context.push('/payment-method');
+                    },
+                    child: const Text(
+                      "Continue to Payment",
+                      style: TextStyle(
+                        color: AppColors.onPrimary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
-                onPressed: () {
-                  final draft = ref.read(bookingDraftProvider);
-
-                  ref.read(bookingDraftProvider.notifier).state = draft
-                      .copyWith(totalPrice: total);
-
-                  context.go('/payment-method');
-                },
-                child: const Text(
-                  "Continue to Payment",
-                  style: TextStyle(
-                    color: AppColors.onPrimary,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

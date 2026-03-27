@@ -62,7 +62,7 @@ class MovieInfoSection extends StatelessWidget {
                 children: [
                   _row("Duration", ": $duration"),
 
-                  _row("Director", ": $director"),
+                  //_row("Director", ": $director"),
 
                   TableRow(
                     children: [
@@ -104,7 +104,7 @@ class MovieInfoSection extends StatelessWidget {
                     ],
                   ),
 
-                  _row("Genre", ": $genre"),
+                  //_row("Genre", ": $genre"),
                 ],
               ),
             ],
