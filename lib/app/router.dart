@@ -6,6 +6,7 @@ import 'package:movie_ticket_booking/features/food_combo/presentation/pages/choo
 import 'package:movie_ticket_booking/features/account/presentation/pages/screens/account_screen.dart';
 import 'package:movie_ticket_booking/features/post/presentation/pages/post_list.dart';
 import 'package:movie_ticket_booking/features/profile/presentation/pages/my_profile.dart';
+import 'package:movie_ticket_booking/features/review/presentation/pages/booking_detail_page.dart';
 import 'package:movie_ticket_booking/features/review/presentation/widgets/booking_expired_page.dart';
 import 'package:movie_ticket_booking/features/search/presentation/pages/screens/search_page.dart';
 import 'package:movie_ticket_booking/features/ticket/presentation/pages/my_ticket.dart';
@@ -67,7 +68,7 @@ class AppRouter {
           /// ACCOUNT TAB
           GoRoute(
             path: '/account',
-            builder: (context, state) =>  AccountScreen(),
+            builder: (context, state) => AccountScreen(),
           ),
         ],
       ),

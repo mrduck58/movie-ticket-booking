@@ -19,10 +19,7 @@ class SeatLegend extends StatelessWidget {
 
         const SizedBox(width: 5),
 
-        Text(
-          text,
-          style: const TextStyle(fontSize: 14),
-        ),
+        Text(text, style: const TextStyle(fontSize: 14)),
       ],
     );
   }
@@ -33,6 +30,10 @@ class SeatLegend extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         legendItem(Colors.white, "Available"),
+
+        const SizedBox(width: 30),
+
+        legendItem(AppColors.seatSold, "Locked"),
 
         const SizedBox(width: 30),
 

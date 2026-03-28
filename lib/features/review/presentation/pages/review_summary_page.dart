@@ -94,10 +94,7 @@ class _ReviewSummaryPageState extends ConsumerState<ReviewSummaryPage> {
                 fontSize: 26,
               ),
             ),
-            actions: const [
-              BookingCountdownAppbarBadge(),
-              SizedBox(width: 16),
-            ],
+            actions: const [BookingCountdownAppbarBadge(), SizedBox(width: 16)],
           ),
         ),
       ),

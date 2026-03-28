@@ -26,7 +26,6 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
   @override
   void initState() {
     super.initState();
-    // Lắng nghe đếm ngược hết hạn → chuyển sang expired
     ref.listenManual(bookingExpiryProvider, (previous, next) {
       if (next.isExpired && mounted) {
         context.go('/booking-expired');
@@ -42,7 +41,9 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
     });
 
     try {
-      final paid = await ref.read(paymentFlowProvider.notifier).checkPaymentStatus();
+      final paid = await ref
+          .read(paymentFlowProvider.notifier)
+          .checkPaymentStatus();
 
       if (!mounted) return;
 
@@ -51,7 +52,8 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
       } else {
         setState(() {
           _isChecking = false;
-          _statusMessage = 'Payment not received yet. Please try again in a moment.';
+          _statusMessage =
+              'Payment not received yet. Please try again in a moment.';
         });
       }
     } catch (e) {
@@ -64,12 +66,10 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
   }
 
   void _navigateToSuccess() {
-    final orderId = ref.read(paymentFlowProvider).orderCode?.toString() ?? 'SUCCESS';
+    final orderId =
+        ref.read(paymentFlowProvider).orderCode?.toString() ?? 'SUCCESS';
 
-    // Dừng timer
     ref.read(bookingExpiryProvider.notifier).stop();
-    // KHÔNG reset draft ở đây để BookingDetailPage vẫn đọc được thông tin
-    // Draft sẽ được reset khi user rời khỏi BookingDetailPage
 
     if (mounted) {
       context.go('/booking-detail/$orderId');
@@ -103,10 +103,7 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
             fontSize: 18,
           ),
         ),
-        actions: const [
-          BookingCountdownAppbarBadge(),
-          SizedBox(width: 16),
-        ],
+        actions: const [BookingCountdownAppbarBadge(), SizedBox(width: 16)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -170,7 +167,10 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
             // Thông báo trạng thái (nếu có)
             if (_statusMessage != null)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.orange.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -185,7 +185,6 @@ class _PaymentWaitingPageState extends ConsumerState<PaymentWaitingPage> {
 
             if (_statusMessage != null) const SizedBox(height: 16),
 
-            // Nút "Tôi đã thanh toán"
             SizedBox(
               width: double.infinity,
               height: 56,

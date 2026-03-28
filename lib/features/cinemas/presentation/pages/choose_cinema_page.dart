@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -73,9 +74,6 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
         error: (e, _) => Center(child: Text("Error: ${e.toString()}")),
 
         data: (cinemas) {
-          // init favorite 1 lần
-          //ref.read(favoriteCinemasProvider.notifier).initFrom(cinemas);
-
           final list = _filter(cinemas, favoriteIds);
 
           if (list.isEmpty) {
@@ -89,14 +87,6 @@ class _ChooseCinemaPageState extends ConsumerState<ChooseCinemaPage> {
 
           return Column(
             children: [
-              // const LocationRow(),
-
-              // const Divider(
-              //   height: 2,
-              //   indent: AppSpacing.pagePadding,
-              //   endIndent: AppSpacing.pagePadding,
-              // ),
-
               const SizedBox(height: 16),
 
               CinemaTabs(tab: tab, onChanged: (t) => setState(() => tab = t)),

@@ -21,7 +21,7 @@ class DatePickerBar extends ConsumerWidget {
     // Data tĩnh để test
     final dates = [
       DateTime(2026, 3, 21),
-      DateTime(2026, 6, 10),
+      DateTime(2026, 6, 22),
       DateTime(2026, 6, 23),
       DateTime(2026, 6, 24),
       DateTime(2026, 6, 25),

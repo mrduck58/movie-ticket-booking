@@ -47,7 +47,7 @@ class PaymentItem extends StatelessWidget {
               ),
             ),
 
-            if (selected) const Icon(Icons.check, color: Colors.red),
+            if (selected) const Icon(Icons.check, color: AppColors.primary),
           ],
         ),
       ),
