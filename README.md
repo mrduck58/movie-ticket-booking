@@ -9,7 +9,7 @@ Tra cứu lịch chiếu · Chọn ghế tương tác · Combo bắp nước · 
 [![Flutter](https://img.shields.io/badge/Flutter-3.22+-02569B?logo=flutter&logoColor=white)](https://flutter.dev/)
 [![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC292B?logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![State Management](https://img.shields.io/badge/State-Riverpod_3.2-00599C)](https://riverpod.dev/)
 [![Router](https://img.shields.io/badge/Router-GoRouter_17-teal)](https://pub.dev/packages/go_router)
 [![Networking](https://img.shields.io/badge/Network-Dio_5.7-blue)](https://pub.dev/packages/dio)
@@ -85,11 +85,11 @@ Dự án được tổ chức dạng **Monorepo** tích hợp trọn vẹn cả 
 
 ```
 movie-ticket-booking/
-├── backend/                    # Backend REST API (.NET 9, EF Core, SQL Server)
+├── backend/                    # Backend REST API (.NET 9, EF Core, PostgreSQL / Supabase)
 │   ├── Controllers/            # API Endpoints (Movies, Cinemas, Showtimes, Booking, PayOS...)
 │   ├── Data/                   # AppDbContext, Entity Configurations & Seed Data
 │   ├── Domain/                 # Domain Entities (Movie, Cinema, Seat, Ticket, User...)
-│   ├── Migrations/             # EF Core Database Migrations
+│   ├── Migrations/             # EF Core PostgreSQL Database Migrations
 │   ├── Repositories/           # Data Access Layer (Repository Pattern)
 │   ├── Services/               # Business Logic Layer (PayOS, Email OTP, Background Jobs...)
 │   └── Dockerfile              # Dockerfile tối ưu cho .NET 9 API
@@ -98,7 +98,7 @@ movie-ticket-booking/
 │   ├── core/                   # Shared Modules (DioClient, Constants, Base Widgets)
 │   ├── domain/                 # Entities, Repository Interfaces, UseCases
 │   └── features/               # 15+ Feature Modules độc lập (Riverpod State)
-├── docker-compose.yml          # Điều phối SQL Server + Backend .NET + Frontend Web
+├── docker-compose.yml          # Điều phối PostgreSQL Container + Backend .NET + Frontend Web
 ├── Dockerfile.frontend         # Multi-stage build: Flutter Web Release -> Nginx
 └── nginx.conf                  # Nginx SPA config cho Flutter Web
 ```
@@ -107,18 +107,18 @@ movie-ticket-booking/
 
 ## 🚀 Khởi chạy hệ thống
 
-### Cách 1: Khởi chạy nhanh toàn bộ bằng Docker (Khuyên dùng ⭐️)
-Chỉ cần máy cài [Docker Desktop](https://www.docker.com/products/docker-desktop/), bạn không cần cài đặt .NET SDK, SQL Server hay Flutter SDK:
+### Cách 1: Khởi chạy nhanh bằng Docker (Khuyên dùng ⭐️)
+Chỉ cần máy cài [Docker Desktop](https://www.docker.com/products/docker-desktop/), bạn không cần cài đặt .NET SDK hay Flutter SDK:
 
 ```bash
-# Khởi chạy trọn gói Database SQL Server, Backend API và Web Frontend
+# Khởi chạy trọn gói Database PostgreSQL, Backend API và Web Frontend
 docker compose up -d --build
 ```
 
 Sau khi khởi chạy hoàn tất:
 * 🌐 **Frontend (Flutter Web):** [http://localhost:3000](http://localhost:3000)
 * ⚙️ **Backend REST API:** [http://localhost:7132](http://localhost:7132) hoặc [http://localhost:5000](http://localhost:5000)
-* 🗄️ **Database (SQL Server 2022):** `localhost:1433` (User: `sa` / Pass: `YourStrong@Password123`)
+* 🗄️ **Database:** Tự động kết nối tới **Supabase Cloud** (nếu cấu hình `.env`) hoặc container **PostgreSQL** cục bộ.
 * *Hệ thống tự động thực thi EF Core Migrations và nạp sẵn dữ liệu mẫu khi khởi động.*
 
 ```bash
@@ -128,7 +128,15 @@ docker compose down
 
 ---
 
-### Cách 2: Chạy Flutter Client cục bộ (Mobile / Desktop)
+### Cách 2: Kết nối trực tiếp với Supabase Cloud
+Chỉ cần điền Connection String của Supabase vào `backend/appsettings.json` hoặc file `.env`:
+```env
+SUPABASE_CONNECTION_STRING="Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Username=postgres.YOUR_PROJECT_REF;Password=YOUR_PASSWORD;SSL Mode=Require;Trust Server Certificate=true;"
+```
+
+---
+
+### Cách 3: Chạy Flutter Client cục bộ (Mobile / Desktop)
 
 ```bash
 # 1. Cài đặt thư viện phụ thuộc

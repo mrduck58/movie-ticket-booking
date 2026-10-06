@@ -1,5 +1,4 @@
-﻿using Movie_Ticket_Booking_Backend.Domain.Foods;
-using static Azure.Core.HttpHeader;
+using Movie_Ticket_Booking_Backend.Domain.Foods;
 
 namespace Movie_Ticket_Booking_Backend.Repositories.Interfaces.Foods
 {

@@ -45,7 +45,6 @@ using Movie_Ticket_Booking_Backend.Services.Interfaces.Profile;
 using Movie_Ticket_Booking_Backend.Services.Interfaces.Search;
 using Movie_Ticket_Booking_Backend.Services.Interfaces.Ticket;
 using Movie_Ticket_Booking_Backend.Services.Interfaces.Vouchers;
-using System.Text;
 
 namespace Movie_Ticket_Booking_Backend
 {
@@ -57,7 +56,7 @@ namespace Movie_Ticket_Booking_Backend
 
             // DB
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Services
             builder.Services.AddScoped<AuthService>();
