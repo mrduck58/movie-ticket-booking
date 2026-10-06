@@ -7,12 +7,13 @@
 Tra cứu lịch chiếu · Chọn ghế tương tác · Combo bắp nước · Thanh toán đa kênh · Vé điện tử QR Code
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.22+-02569B?logo=flutter&logoColor=white)](https://flutter.dev/)
-[![Dart](https://img.shields.io/badge/Dart-3.10+-0175C2?logo=dart&logoColor=white)](https://dart.dev/)
+[![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC292B?logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
 [![State Management](https://img.shields.io/badge/State-Riverpod_3.2-00599C)](https://riverpod.dev/)
 [![Router](https://img.shields.io/badge/Router-GoRouter_17-teal)](https://pub.dev/packages/go_router)
 [![Networking](https://img.shields.io/badge/Network-Dio_5.7-blue)](https://pub.dev/packages/dio)
-[![Architecture](https://img.shields.io/badge/Architecture-Clean_Architecture-brightgreen)](#-kiến-trúc-dự-án)
-[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-orange)](#)
+[![Architecture](https://img.shields.io/badge/Architecture-Clean_Architecture-brightgreen)](#-cấu-trúc-hệ-thống--kiến-trúc-dự-án)
 
 <br/>
 
@@ -78,89 +79,68 @@ flowchart LR
 
 ---
 
-## 🏛️ Kiến trúc dự án
+## 🏛️ Cấu trúc hệ thống & Kiến trúc dự án
 
-Dự án áp dụng mô hình **Clean Architecture kết hợp Feature-First Presentation**:
+Dự án được tổ chức dạng **Monorepo** tích hợp trọn vẹn cả **Backend API (.NET 9)** và **Client (Flutter)**:
 
 ```
-lib/
-├── app/                        # Cấu hình toàn cục, App Router (GoRouter), Theme
-│   ├── router.dart             # Định tuyến tập trung toàn bộ màn hình
-│   └── ...
-├── core/                       # Shared modules dùng chung toàn app
-│   ├── constants/              # Colors, TextStyles, Assets, API Endpoints
-│   ├── network/                # Cấu hình Dio Client, Interceptors
-│   ├── utils/                  # Format tiền tệ (VND), ngày giờ, validators
-│   └── widgets/                # Common UI Components (Button, Input, Layout, AppBar)
-├── domain/                     # Core Business Logic (Thuần túy, không phụ thuộc framework)
-│   ├── entities/               # Movie, Cinema, Showtime, Seat, Combo, Ticket...
-│   ├── repositories/           # Interface định nghĩa các hợp đồng dữ liệu
-│   └── usecases/               # Use cases xử lý nghiệp vụ cụ thể
-├── features/                   # Từng tính năng độc lập theo domain (Feature-First)
-│   ├── home/                   # Trang chủ, danh sách phim
-│   ├── movie_detail/           # Chi tiết phim, xem trailer
-│   ├── cinemas/                # Danh sách cụm rạp
-│   ├── showtimes/              # Lịch chiếu & khung giờ
-│   ├── seat_selection/         # Sơ đồ chọn ghế ngồi
-│   ├── food_combo/             # Đặt bắp nước đi kèm
-│   ├── review/                 # Tóm tắt đơn hàng & đánh giá
-│   ├── payment/                # Thanh toán (PayOS, Card, E-Wallet)
-│   ├── ticket/                 # Quản lý vé điện tử & mã QR Code
-│   ├── watchlist/              # Danh sách phim yêu thích
-│   ├── search/                 # Tìm kiếm phim & rạp
-│   ├── post/                   # Tin tức & bài viết cộng đồng
-│   ├── account/ & profile/     # Quản lý hồ sơ cá nhân
-│   └── login/ & register/      # Xác thực người dùng (Auth, OTP, Google)
-└── main.dart                   # Điểm khởi chạy ứng dụng
+movie-ticket-booking/
+├── backend/                    # Backend REST API (.NET 9, EF Core, SQL Server)
+│   ├── Controllers/            # API Endpoints (Movies, Cinemas, Showtimes, Booking, PayOS...)
+│   ├── Data/                   # AppDbContext, Entity Configurations & Seed Data
+│   ├── Domain/                 # Domain Entities (Movie, Cinema, Seat, Ticket, User...)
+│   ├── Migrations/             # EF Core Database Migrations
+│   ├── Repositories/           # Data Access Layer (Repository Pattern)
+│   ├── Services/               # Business Logic Layer (PayOS, Email OTP, Background Jobs...)
+│   └── Dockerfile              # Dockerfile tối ưu cho .NET 9 API
+├── lib/                        # Flutter Client (Clean Architecture + Feature-First)
+│   ├── app/                    # Cấu hình toàn cục, App Router (GoRouter), Theme
+│   ├── core/                   # Shared Modules (DioClient, Constants, Base Widgets)
+│   ├── domain/                 # Entities, Repository Interfaces, UseCases
+│   └── features/               # 15+ Feature Modules độc lập (Riverpod State)
+├── docker-compose.yml          # Điều phối SQL Server + Backend .NET + Frontend Web
+├── Dockerfile.frontend         # Multi-stage build: Flutter Web Release -> Nginx
+└── nginx.conf                  # Nginx SPA config cho Flutter Web
 ```
 
 ---
 
-## 🛠️ Công nghệ & Thư viện sử dụng
+## 🚀 Khởi chạy hệ thống
 
-| Công nghệ / Thư viện | Phiên bản | Mục đích sử dụng |
-| :--- | :---: | :--- |
-| **Flutter SDK** | `^3.22` | Framework phát triển ứng dụng di động đa nền tảng |
-| **Dart** | `^3.10` | Ngôn ngữ lập trình chính |
-| **flutter_riverpod** | `^3.2.1` | Quản lý trạng thái (State Management) an toàn, linh hoạt |
-| **go_router** | `^17.1.0` | Định tuyến điều hướng URL & Deep Linking |
-| **dio** | `^5.7.0` | HTTP Client xử lý gọi RESTful API |
-| **qr_flutter** | `^4.1.0` | Tạo mã QR Code cho vé điện tử phục vụ check-in |
-| **youtube_player_iframe**| `^5.1.2` | Tích hợp trình phát Trailer YouTube mượt mà |
-| **cached_network_image** | `^3.4.1` | Tối ưu tải và cache poster/hình ảnh phim |
-| **google_sign_in** | `^6.1.6` | Đăng nhập nhanh bằng tài khoản Google |
-| **shared_preferences** | `^2.2.2` | Lưu trữ cấu hình và token người dùng cục bộ |
-| **intl** | `^0.20.2` | Định dạng tiền tệ VND, thời gian suất chiếu |
-
----
-
-## 🚀 Khởi chạy ứng dụng
-
-### Yêu cầu môi trường
-* **Flutter SDK:** 3.22 trở lên ([Hướng dẫn cài đặt Flutter](https://docs.flutter.dev/get-started/install))
-* **Dart SDK:** 3.10+
-* **IDE:** Android Studio hoặc VS Code (đã cài Flutter & Dart extension)
-* Thiết bị giả lập (Android Emulator / iOS Simulator) hoặc thiết bị thật.
-
-### Các bước cài đặt
+### Cách 1: Khởi chạy nhanh toàn bộ bằng Docker (Khuyên dùng ⭐️)
+Chỉ cần máy cài [Docker Desktop](https://www.docker.com/products/docker-desktop/), bạn không cần cài đặt .NET SDK, SQL Server hay Flutter SDK:
 
 ```bash
-# 1. Clone repository về máy
-git clone https://github.com/mrduck58/movie-ticket-booking.git
-cd movie-ticket-booking
+# Khởi chạy trọn gói Database SQL Server, Backend API và Web Frontend
+docker compose up -d --build
+```
 
-# 2. Chuyển sang nhánh phát triển chính (develop)
-git checkout develop
+Sau khi khởi chạy hoàn tất:
+* 🌐 **Frontend (Flutter Web):** [http://localhost:3000](http://localhost:3000)
+* ⚙️ **Backend REST API:** [http://localhost:7132](http://localhost:7132) hoặc [http://localhost:5000](http://localhost:5000)
+* 🗄️ **Database (SQL Server 2022):** `localhost:1433` (User: `sa` / Pass: `YourStrong@Password123`)
+* *Hệ thống tự động thực thi EF Core Migrations và nạp sẵn dữ liệu mẫu khi khởi động.*
 
-# 3. Tải các gói thư viện phụ thuộc
+```bash
+# Dừng toàn bộ hệ thống
+docker compose down
+```
+
+---
+
+### Cách 2: Chạy Flutter Client cục bộ (Mobile / Desktop)
+
+```bash
+# 1. Cài đặt thư viện phụ thuộc
 flutter pub get
 
-# 4. Kiểm tra thiết bị đã kết nối
+# 2. Kiểm tra thiết bị kết nối
 flutter devices
 
-# 5. Khởi chạy ứng dụng
+# 3. Khởi chạy trên thiết bị đã chọn
 flutter run
 ```
+
 
 ---
 

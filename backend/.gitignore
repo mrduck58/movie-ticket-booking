@@ -1,0 +1,22 @@
+﻿bin/
+obj/
+.vs/
+*.user
+*.suo
+*.dbmdl
+*.jfm
+*.pdb
+*.cache
+*.log
+
+node_modules/
+
+.env
+
+appsettings.Development.json
+
+# Rider
+.idea/
+
+# VSCode
+.vscode/
