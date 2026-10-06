@@ -35,8 +35,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Location = table.Column<string>(type: "text", nullable: false),
                     Rating = table.Column<string>(type: "text", nullable: false),
                     Hotline = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,8 +53,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Status = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,8 +67,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                 {
                     GenreId = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,8 +88,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Rating = table.Column<double>(type: "double precision", nullable: false),
                     Director = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,8 +104,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,8 +148,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Type = table.Column<string>(type: "text", nullable: false),
                     Value = table.Column<double>(type: "double precision", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ExpiredDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ExpiredDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -256,9 +256,9 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     FullName = table.Column<string>(type: "text", nullable: false),
                     AvatarUrl = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     RoleId = table.Column<string>(type: "text", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: true),
                     CCCD = table.Column<string>(type: "text", nullable: true),
@@ -300,13 +300,13 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                 columns: table => new
                 {
                     ShowtimeId = table.Column<string>(type: "text", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
                     MovieId = table.Column<string>(type: "text", nullable: false),
                     RoomId = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -335,7 +335,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Content = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
                     Likes = table.Column<int>(type: "integer", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -355,7 +355,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     FavoriteCinemaId = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CinemaId = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -432,7 +432,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     VoucherId = table.Column<string>(type: "text", nullable: false),
                     UserVoucherId = table.Column<string>(type: "text", nullable: true),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    UsedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UsedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -459,7 +459,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     MovieId = table.Column<string>(type: "text", nullable: false),
                     type = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -488,7 +488,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     TotalAmount = table.Column<double>(type: "double precision", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
                     OrderCode = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -515,8 +515,8 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     ShowtimeId = table.Column<string>(type: "text", nullable: false),
                     SeatId = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    LockedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ExpiredAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    LockedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ExpiredAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -575,7 +575,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     BlogPostId = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -601,7 +601,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     PostLikeId = table.Column<string>(type: "text", nullable: false),
                     BlogPostId = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -679,7 +679,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     PaymentMethodId = table.Column<string>(type: "text", nullable: false),
                     Amount = table.Column<double>(type: "double precision", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -709,7 +709,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     QrCode = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CheckinTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CheckinTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -748,7 +748,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     Type = table.Column<string>(type: "text", nullable: false),
                     Message = table.Column<string>(type: "text", nullable: false),
                     IsRead = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -884,9 +884,9 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                 columns: new[] { "PaymentMethodId", "CreatedDate", "ImageUrl", "Name", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { "PM001", new DateTime(2026, 10, 6, 16, 33, 33, 460, DateTimeKind.Local).AddTicks(9787), "https://example.com/creditcard.png", "Credit Card", "ACTIVE", new DateTime(2026, 10, 6, 16, 33, 33, 460, DateTimeKind.Local).AddTicks(9943) },
-                    { "PM002", new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(75), "https://example.com/momo.png", "Momo", "ACTIVE", new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(76) },
-                    { "PM003", new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(77), "https://example.com/zalopay.png", "ZaloPay", "ACTIVE", new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(78) }
+                    { "PM001", new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(4767), "https://example.com/creditcard.png", "Credit Card", "ACTIVE", new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5022) },
+                    { "PM002", new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5172), "https://example.com/momo.png", "Momo", "ACTIVE", new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5173) },
+                    { "PM003", new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5175), "https://example.com/zalopay.png", "ZaloPay", "ACTIVE", new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5176) }
                 });
 
             migrationBuilder.InsertData(
@@ -1045,15 +1045,6 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     { "BLOG003", "Science fiction movies explore the future and technology...", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://images.unsplash.com/photo-3", 95, "Best Sci-Fi Movies of the Decade", "USR003" },
                     { "BLOG004", "These romantic films will make your evening unforgettable...", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://images.unsplash.com/photo-4", 60, "Romantic Movies Perfect for Date Night", "USR004" },
                     { "BLOG005", "Many exciting movies are coming to theaters next year...", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://images.unsplash.com/photo-5", 150, "Upcoming Blockbusters in 2026", "USR005" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Bookings",
-                columns: new[] { "BookingId", "CreatedAt", "OrderCode", "ShowtimeId", "Status", "TotalAmount", "UserId" },
-                values: new object[,]
-                {
-                    { "BK405", new DateTime(2026, 3, 26, 10, 0, 0, 0, DateTimeKind.Unspecified), 405001L, "ST015", "BOOKED", 120000.0, "USR002" },
-                    { "BK406", new DateTime(2026, 3, 27, 15, 30, 0, 0, DateTimeKind.Unspecified), 406001L, "ST017", "BOOKED", 240000.0, "USR002" }
                 });
 
             migrationBuilder.InsertData(
@@ -3823,18 +3814,18 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     { "ST108", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2026, 6, 23, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV008", "R002", new DateTime(2026, 6, 23, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { "ST109", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2026, 6, 23, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV009", "R003", new DateTime(2026, 6, 23, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { "ST110", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2026, 6, 23, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV010", "R001", new DateTime(2026, 6, 23, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { "ST201", new DateTime(2026, 10, 6, 16, 33, 33, 456, DateTimeKind.Local).AddTicks(1870), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV001", "R001", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4747) },
-                    { "ST202", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4780), new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV001", "R006", new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4780) },
-                    { "ST203", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4782), new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV001", "R011", new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4782) },
-                    { "ST204", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4784), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV002", "R001", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4785) },
-                    { "ST205", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4788), new DateTime(2026, 6, 25, 14, 30, 0, 0, DateTimeKind.Unspecified), "MOV003", "R006", new DateTime(2026, 6, 25, 12, 30, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4788) },
-                    { "ST206", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4790), new DateTime(2026, 6, 25, 17, 0, 0, 0, DateTimeKind.Unspecified), "MOV004", "R011", new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4790) },
-                    { "ST207", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4823), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV005", "R002", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4823) },
-                    { "ST208", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4825), new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV006", "R007", new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4825) },
-                    { "ST209", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4826), new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV007", "R012", new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4827) },
-                    { "ST210", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4828), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV008", "R003", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4828) },
-                    { "ST211", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4830), new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV009", "R008", new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4830) },
-                    { "ST212", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4833), new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV010", "R013", new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4833) }
+                    { "ST201", new DateTime(2026, 10, 6, 17, 48, 39, 615, DateTimeKind.Local).AddTicks(8932), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV001", "R001", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9237) },
+                    { "ST202", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9261), new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV001", "R006", new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9261) },
+                    { "ST203", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9263), new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV001", "R011", new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9264) },
+                    { "ST204", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9272), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV002", "R001", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9272) },
+                    { "ST205", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9274), new DateTime(2026, 6, 25, 14, 30, 0, 0, DateTimeKind.Unspecified), "MOV003", "R006", new DateTime(2026, 6, 25, 12, 30, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9274) },
+                    { "ST206", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9277), new DateTime(2026, 6, 25, 17, 0, 0, 0, DateTimeKind.Unspecified), "MOV004", "R011", new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9277) },
+                    { "ST207", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9303), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV005", "R002", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9303) },
+                    { "ST208", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9312), new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV006", "R007", new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9312) },
+                    { "ST209", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9314), new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV007", "R012", new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9314) },
+                    { "ST210", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9315), new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified), "MOV008", "R003", new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9316) },
+                    { "ST211", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9317), new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified), "MOV009", "R008", new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9318) },
+                    { "ST212", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9320), new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified), "MOV010", "R013", new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified), "AVAILABLE", new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9321) }
                 });
 
             migrationBuilder.InsertData(
@@ -3863,7 +3854,9 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                     { "BK401", new DateTime(2026, 3, 25, 18, 59, 3, 0, DateTimeKind.Unspecified), 0L, "ST002", "CONFIRMED", 300000.0, "USR002" },
                     { "BK402", new DateTime(2026, 3, 25, 18, 59, 3, 0, DateTimeKind.Unspecified), 0L, "ST003", "CONFIRMED", 150000.0, "USR002" },
                     { "BK403", new DateTime(2026, 3, 25, 18, 59, 3, 0, DateTimeKind.Unspecified), 0L, "ST004", "CONFIRMED", 400000.0, "USR002" },
-                    { "BK404", new DateTime(2026, 3, 25, 18, 59, 3, 0, DateTimeKind.Unspecified), 0L, "ST005", "CONFIRMED", 250000.0, "USR002" }
+                    { "BK404", new DateTime(2026, 3, 25, 18, 59, 3, 0, DateTimeKind.Unspecified), 0L, "ST005", "CONFIRMED", 250000.0, "USR002" },
+                    { "BK405", new DateTime(2026, 3, 26, 10, 0, 0, 0, DateTimeKind.Unspecified), 405001L, "ST005", "BOOKED", 120000.0, "USR002" },
+                    { "BK406", new DateTime(2026, 3, 27, 15, 30, 0, 0, DateTimeKind.Unspecified), 406001L, "ST006", "BOOKED", 240000.0, "USR002" }
                 });
 
             migrationBuilder.InsertData(

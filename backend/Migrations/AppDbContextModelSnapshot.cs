@@ -87,7 +87,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -177,7 +177,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -324,7 +324,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -417,7 +417,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<long>("OrderCode")
                         .HasColumnType("bigint");
@@ -501,7 +501,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                             BookingId = "BK405",
                             CreatedAt = new DateTime(2026, 3, 26, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderCode = 405001L,
-                            ShowtimeId = "ST015",
+                            ShowtimeId = "ST005",
                             Status = "BOOKED",
                             TotalAmount = 120000.0,
                             UserId = "USR002"
@@ -511,7 +511,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                             BookingId = "BK406",
                             CreatedAt = new DateTime(2026, 3, 27, 15, 30, 0, 0, DateTimeKind.Unspecified),
                             OrderCode = 406001L,
-                            ShowtimeId = "ST017",
+                            ShowtimeId = "ST006",
                             Status = "BOOKED",
                             TotalAmount = 240000.0,
                             UserId = "USR002"
@@ -553,7 +553,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CheckinTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
@@ -718,7 +718,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Hotline")
                         .IsRequired()
@@ -737,7 +737,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("CinemaId");
 
@@ -856,7 +856,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -17445,10 +17445,10 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("ExpiredAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("LockedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("SeatId")
                         .IsRequired()
@@ -17479,7 +17479,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -17501,7 +17501,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("FoodComboId");
 
@@ -17640,14 +17640,14 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("GenreId");
 
@@ -17837,7 +17837,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -17870,7 +17870,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("MovieId");
 
@@ -18353,7 +18353,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("MovieId")
                         .IsRequired()
@@ -18476,7 +18476,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("boolean");
@@ -18524,7 +18524,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("PaymentMethodId")
                         .IsRequired()
@@ -18550,7 +18550,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -18565,7 +18565,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("PaymentMethodId");
 
@@ -18575,29 +18575,29 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         new
                         {
                             PaymentMethodId = "PM001",
-                            CreatedDate = new DateTime(2026, 10, 6, 16, 33, 33, 460, DateTimeKind.Local).AddTicks(9787),
+                            CreatedDate = new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(4767),
                             ImageUrl = "https://example.com/creditcard.png",
                             Name = "Credit Card",
                             Status = "ACTIVE",
-                            UpdatedDate = new DateTime(2026, 10, 6, 16, 33, 33, 460, DateTimeKind.Local).AddTicks(9943)
+                            UpdatedDate = new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5022)
                         },
                         new
                         {
                             PaymentMethodId = "PM002",
-                            CreatedDate = new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(75),
+                            CreatedDate = new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5172),
                             ImageUrl = "https://example.com/momo.png",
                             Name = "Momo",
                             Status = "ACTIVE",
-                            UpdatedDate = new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(76)
+                            UpdatedDate = new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5173)
                         },
                         new
                         {
                             PaymentMethodId = "PM003",
-                            CreatedDate = new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(77),
+                            CreatedDate = new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5175),
                             ImageUrl = "https://example.com/zalopay.png",
                             Name = "ZaloPay",
                             Status = "ACTIVE",
-                            UpdatedDate = new DateTime(2026, 10, 6, 16, 33, 33, 461, DateTimeKind.Local).AddTicks(78)
+                            UpdatedDate = new DateTime(2026, 10, 6, 17, 48, 39, 620, DateTimeKind.Local).AddTicks(5176)
                         });
                 });
 
@@ -18607,10 +18607,10 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("MovieId")
                         .IsRequired()
@@ -18621,14 +18621,14 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("ShowtimeId");
 
@@ -18906,134 +18906,134 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         new
                         {
                             ShowtimeId = "ST201",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 456, DateTimeKind.Local).AddTicks(1870),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 615, DateTimeKind.Local).AddTicks(8932),
                             EndTime = new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV001",
                             RoomId = "R001",
                             StartTime = new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4747)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9237)
                         },
                         new
                         {
                             ShowtimeId = "ST202",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4780),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9261),
                             EndTime = new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV001",
                             RoomId = "R006",
                             StartTime = new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4780)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9261)
                         },
                         new
                         {
                             ShowtimeId = "ST203",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4782),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9263),
                             EndTime = new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV001",
                             RoomId = "R011",
                             StartTime = new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4782)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9264)
                         },
                         new
                         {
                             ShowtimeId = "ST204",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4784),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9272),
                             EndTime = new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV002",
                             RoomId = "R001",
                             StartTime = new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4785)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9272)
                         },
                         new
                         {
                             ShowtimeId = "ST205",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4788),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9274),
                             EndTime = new DateTime(2026, 6, 25, 14, 30, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV003",
                             RoomId = "R006",
                             StartTime = new DateTime(2026, 6, 25, 12, 30, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4788)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9274)
                         },
                         new
                         {
                             ShowtimeId = "ST206",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4790),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9277),
                             EndTime = new DateTime(2026, 6, 25, 17, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV004",
                             RoomId = "R011",
                             StartTime = new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4790)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9277)
                         },
                         new
                         {
                             ShowtimeId = "ST207",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4823),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9303),
                             EndTime = new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV005",
                             RoomId = "R002",
                             StartTime = new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4823)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9303)
                         },
                         new
                         {
                             ShowtimeId = "ST208",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4825),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9312),
                             EndTime = new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV006",
                             RoomId = "R007",
                             StartTime = new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4825)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9312)
                         },
                         new
                         {
                             ShowtimeId = "ST209",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4826),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9314),
                             EndTime = new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV007",
                             RoomId = "R012",
                             StartTime = new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4827)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9314)
                         },
                         new
                         {
                             ShowtimeId = "ST210",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4828),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9315),
                             EndTime = new DateTime(2026, 6, 25, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV008",
                             RoomId = "R003",
                             StartTime = new DateTime(2026, 6, 25, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4828)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9316)
                         },
                         new
                         {
                             ShowtimeId = "ST211",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4830),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9317),
                             EndTime = new DateTime(2026, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV009",
                             RoomId = "R008",
                             StartTime = new DateTime(2026, 6, 25, 13, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4830)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9318)
                         },
                         new
                         {
                             ShowtimeId = "ST212",
-                            CreatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4833),
+                            CreatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9320),
                             EndTime = new DateTime(2026, 6, 25, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             MovieId = "MOV010",
                             RoomId = "R013",
                             StartTime = new DateTime(2026, 6, 25, 16, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "AVAILABLE",
-                            UpdatedAt = new DateTime(2026, 10, 6, 16, 33, 33, 457, DateTimeKind.Local).AddTicks(4833)
+                            UpdatedAt = new DateTime(2026, 10, 6, 17, 48, 39, 616, DateTimeKind.Local).AddTicks(9321)
                         });
                 });
 
@@ -19396,10 +19396,10 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -19432,7 +19432,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("UserId");
 
@@ -19526,7 +19526,7 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UsedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserVoucherId")
                         .HasColumnType("text");
@@ -19548,14 +19548,14 @@ namespace Movie_Ticket_Booking_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("ExpiredDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Status")
                         .IsRequired()

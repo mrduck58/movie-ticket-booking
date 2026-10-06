@@ -14,6 +14,11 @@ namespace Movie_Ticket_Booking_Backend.Data
 {
     public class AppDbContext : DbContext
     {
+        static AppDbContext()
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -1745,7 +1750,7 @@ new Booking
 {
     BookingId = "BK405",
     UserId = "USR002",
-    ShowtimeId = "ST015",
+    ShowtimeId = "ST005",
     TotalAmount = 120000,
     Status = "BOOKED",
     CreatedAt = new DateTime(2026, 3, 26, 10, 0, 0),
@@ -1755,7 +1760,7 @@ new Booking
 {
     BookingId = "BK406",
     UserId = "USR002",
-    ShowtimeId = "ST017",
+    ShowtimeId = "ST006",
     TotalAmount = 240000,
     Status = "BOOKED",
     CreatedAt = new DateTime(2026, 3, 27, 15, 30, 0),

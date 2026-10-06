@@ -52,11 +52,38 @@ namespace Movie_Ticket_Booking_Backend
     {
         public static void Main(string[] args)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            // Tự động nạp .env nếu có
+            var envPath = File.Exists(".env") ? ".env" : (File.Exists("../.env") ? "../.env" : null);
+            if (envPath != null)
+            {
+                foreach (var line in File.ReadAllLines(envPath))
+                {
+                    var trimmed = line.Trim();
+                    if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith("#")) continue;
+                    var parts = trimmed.Split('=', 2);
+                    if (parts.Length == 2)
+                    {
+                        var key = parts[0].Trim();
+                        var val = parts[1].Trim().Trim('"', '\'');
+                        Environment.SetEnvironmentVariable(key, val);
+                    }
+                }
+            }
+
             var builder = WebApplication.CreateBuilder(args);
 
             // DB
+            var connectionString = Environment.GetEnvironmentVariable("SUPABASE_CONNECTION_STRING")
+                ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+                ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseNpgsql(connectionString);
+                options.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+            });
 
             // Services
             builder.Services.AddScoped<AuthService>();
