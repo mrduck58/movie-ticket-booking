@@ -35,12 +35,14 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       # Mặc định kết nối tới Supabase nếu có trong .env, nếu không thì kết nối tới container db cục bộ
       - ConnectionStrings__DefaultConnection=${SUPABASE_CONNECTION_STRING:-Host=db;Port=5432;Database=MovieTicketBookingDB;Username=postgres;Password=YourStrong@Password123;SSL Mode=Disable;}
-      - Jwt__Key=THIS_IS_SUPER_SECRET_KEY_FOR_MOVIE_BOOKING_SYSTEM_123456
+      - Jwt__Key=${JWT_KEY}
       - Jwt__Issuer=MovieBookingAPI
       - Jwt__Audience=MovieBookingClient
-      - PayOS__ClientId=6a6fd598-7384-4485-a362-3b50322596c8
-      - PayOS__ApiKey=dcd06e77-58a0-489e-ba0d-e91ea1e03603
-      - PayOS__ChecksumKey=eabf512e5dd7cb709bf18878e0e526ad9993c4674ae491dffd63df5b3737961c
+      - PayOS__ClientId=${PAYOS_CLIENT_ID}
+      - PayOS__ApiKey=${PAYOS_API_KEY}
+      - PayOS__ChecksumKey=${PAYOS_CHECKSUM_KEY}
+      - EmailSettings__Sender=${EMAIL_SENDER}
+      - EmailSettings__Password=${EMAIL_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
